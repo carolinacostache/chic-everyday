@@ -1,0 +1,11 @@
+.galleryItem{
+    display: flex;
+
+}
+
+.galleryItem img {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    object-fit: cover;
+}
