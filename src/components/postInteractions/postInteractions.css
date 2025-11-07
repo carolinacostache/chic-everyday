@@ -12,6 +12,11 @@
     font-weight: 500;
 }
 
+.interactionIcons img, .interactionIcons svg{
+  cursor: pointer;
+}
+
+
 .postInteractions button{
     background-color: red;
     color: white;

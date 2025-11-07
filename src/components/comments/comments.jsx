@@ -1,37 +1,34 @@
-import NImage from '../image/image';
-import EmojiPicker from 'emoji-picker-react';
 import './comments.css';
-import { useState } from 'react';
+import { useQuery } from "@tanstack/react-query";
+import apiRequest from "../../utils/apiRequest";
+import CommentForm from "./commentForm";
+import Comment from "./comment";
 
-const Comments = () => {
+const Comments = ({ id }) => {
 
-    const[open, setOpen] = useState(false);
+  const { isPending, error, data } = useQuery({
+    queryKey: ["comments", id],
+    queryFn: () => apiRequest.get(`/comments/${id}`).then((res) => res.data),
+    enabled: !!id, 
+  });
 
-    return (
-        <div className="comments">
-            <div className="commentList">
-                <span className= 'commentCount'>Comments</span>
-                <div className = "comment">
-                    <NImage src="/general/noAvatar.png" alt="" />
-                    <div className="commentContent">
-                        <span className="commentUser">username</span>
-                        <p className="commentText"> Hi</p>
-                        <span className="commentTime"> 1 h</span>
-                    </div>
-                </div>
-            </div>
-            <form className="commentForm">
-                <input type="text" placeholder="Add a comment..." />
-                <div className="emoji">
-                    <div onClick={() => setOpen((prev) => !prev)}>☺️</div>
-                    {open && (<div className="emojiPicker">
-                        <EmojiPicker/>
-                    </div>
-                    )}
-                </div>
-            </form>
-        </div>
-    )
+  if (isPending) return "Loading comments...";
+
+  if (error) return "An error has occurred: " + error.message;
+
+  return (
+    <div className="comments">
+      <div className="commentList">
+        <span className='commentCount'>
+          {data.length === 0 ? "No comments" : data.length + " Comments"}
+        </span>
+        {data.map((comment) => (
+          <Comment key={comment._id} comment={comment} />
+        ))}
+      </div>
+      <CommentForm id={id} />
+    </div>
+  )
 }
 
 export default Comments;

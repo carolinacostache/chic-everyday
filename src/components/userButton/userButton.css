@@ -47,6 +47,16 @@
     font-size: 18px;
     padding: 16px;
     border-radius: 32px;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+.loginLink img {
+    width: 24px;
+    height: 24px;
 }
 
 .loginLink:hover{
@@ -54,7 +64,19 @@
 }
 
 @media(max-width: 475px){
-    .userButton {
+    .userButton .arrow {
         display: none;
+    }
+    .userButton {
+        gap: 0;
+    }
+
+    .loginLink span {
+        display: none;
+    }
+    
+    .loginLink {
+        padding: 12px;
+        gap: 0;
     }
 }

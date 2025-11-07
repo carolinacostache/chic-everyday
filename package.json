@@ -11,10 +11,18 @@
   },
   "dependencies": {
     "@imagekit/react": "^5.0.1",
+    "@tanstack/react-query": "^5.90.5",
+    "axios": "^1.13.1",
+    "emoji-picker-react": "^4.15.0",
     "react": "^19.0.0",
+    "react-colorful": "^5.6.1",
     "react-dom": "^19.0.0",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-router": "^7.9.4",
-    "react-router-dom": "^7.9.4"
+    "react-router-dom": "^7.9.4",
+    "skeleton": "^4.2.2",
+    "timeago.js": "^4.0.2",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",

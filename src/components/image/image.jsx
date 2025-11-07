@@ -6,14 +6,13 @@ const NImage = ({src, alt, className, w, h}) => {
                 urlEndpoint={import.meta.env.VITE_URL_IK_ENDPOINT}
                 src={src}
                 transformation={[{ 
-                    height: h,
-                    width: w,
-                    }]}
+                    width: w, 
+                    aspectRatio: "auto" 
+                }]}
                 lqip={{ active: true, quality: 20 }}
                 alt={alt}
                 loading="lazy"
                 className={className}
-
             />
     );
 }

@@ -73,3 +73,12 @@
 .active{
     border-bottom: 3px solid black;
 }
+
+.followCount .followLink {
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.followCount .followLink:hover {
+  text-decoration: underline;
+}

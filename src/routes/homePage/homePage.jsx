@@ -1,4 +1,3 @@
-import './homePage.css';
 import Gallery from '../../components/gallery/gallery';
 
 

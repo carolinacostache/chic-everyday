@@ -1,28 +1,42 @@
-import { StrictMode } from 'react'
+import React, { StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './index.css'
 import MainLayout from './routes/layouts/mainLayout';
-import Homepage from './routes/homepage/homepage';
-import Authpage from './routes/authpage/authpage';
-import Createpage from './routes/createpage/createpage';
-import Postpage from './routes/postpage/postpage';
-import Profilepage from './routes/profilePage/profilePage';
-import Searchpage from './routes/searchpage/searchPage';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+
+const Homepage = React.lazy(() => import("./routes/homePage/homePage"));
+const CreatePage = React.lazy(() => import("./routes/createPage/createPage"));
+const PostPage = React.lazy(() => import("./routes/postPage/postPage"));
+const ProfilePage = React.lazy(() =>
+  import("./routes/profilePage/profilePage")
+);
+const SearchPage = React.lazy(() => import("./routes/searchpage/searchPage"));
+const AuthPage = React.lazy(() => import("./routes/authPage/authPage"));
+
+
+const queryClient = new QueryClient()
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <QueryClientProvider client={queryClient}>
     <BrowserRouter>
-      <Routes>
-        <Route element={<MainLayout />}>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/create" element={<Createpage />} />
-        <Route path="/pin/:id" element={<Postpage />} />
-        <Route path="/:username" element={<Profilepage />} />
-        <Route path="/search" element={<Searchpage />} />
-        </Route>
-        <Route path="/authentication" element={<Authpage />} />
-      </Routes>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/create" element={<CreatePage />} />
+            <Route path="/pin/:id" element={<PostPage />} />
+            <Route path="/profile/:username" element={<ProfilePage />} />
+            <Route path="/search" element={<SearchPage />} />
+          </Route>
+          <Route path="/auth" element={<AuthPage />} />
+        </Routes>
+      </Suspense>
     </BrowserRouter>
-  </StrictMode>,
+    </QueryClientProvider>
+  </StrictMode>
 )

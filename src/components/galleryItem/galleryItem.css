@@ -45,7 +45,6 @@
 }
 
 .galleryItem:hover .overlayIcons{
-    display: block;
     position: absolute;
     bottom: 16px;
     right: 16px;
