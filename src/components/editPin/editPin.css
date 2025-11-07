@@ -1,0 +1,129 @@
+.editModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.editModalContent {
+  background-color: white;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.editModalHeader {
+  padding: 16px 24px;
+  border-bottom: 1px solid #efefef;
+  position: relative;
+  text-align: center;
+}
+
+.editModalHeader h1 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.editModalHeader .closeButton {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: #efefef;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.editForm {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  flex: 1; /* Îi spune formularului să umple spațiul rămas */
+  min-height: 0;
+}
+
+.editForm .formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.editForm label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.editForm input[type="text"],
+.editForm textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: inherit;
+}
+
+.editForm textarea {
+  resize: vertical;
+}
+
+/* Stilurile pentru tag-uri (le refolosim din createPage) */
+.tagContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tagItem {
+  padding: 8px 16px;
+  border-radius: 24px;
+  background-color: #efefef;
+  color: #333;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s, color 0.2s;
+  border: 1px solid transparent;
+}
+.tagItem:hover {
+  background-color: #ddd;
+}
+.tagItem.selected {
+  background-color: #e50829;
+  color: white;
+  border-color: #e50829;
+}
+/* --- */
+
+.editForm .saveButton {
+  background-color: #e50829;
+  color: white;
+  border: none;
+  border-radius: 24px;
+  padding: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 16px;
+}
+
+.editForm .saveButton:disabled {
+  background-color: #efefef;
+  color: #aaa;
+  cursor: not-allowed;
+}

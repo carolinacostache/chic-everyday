@@ -107,6 +107,9 @@ const CreatePage = () => {
       formData.append("canvasOptions", JSON.stringify(canvasOptions));
       formData.append("tags", allTags.join(',')); 
       formData.delete("customTags"); 
+
+      formData.append("width", previewImg.width);
+      formData.append("height", previewImg.height);
       
       if (selectedBoard) {
         formData.append("board", selectedBoard); 

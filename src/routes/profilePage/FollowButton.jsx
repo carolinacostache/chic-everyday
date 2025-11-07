@@ -12,7 +12,12 @@ const FollowButton = ({ username }) => {
   const [isLoading, setIsLoading] = useState(false); 
   const queryKey = ["profile", username];
 
-  const { data } = useQuery({ queryKey: queryKey });
+  const { data, isPending } = useQuery({ 
+    queryKey: queryKey,
+    queryFn: () => 
+      apiRequest.get(`/users/${username}`).then((res) => res.data),
+      refetchOnWindowFocus: false
+  });
   
   const isFollowing = data?.isFollowing;
 
@@ -47,6 +52,10 @@ const FollowButton = ({ username }) => {
       setIsLoading(false); 
     },
   });
+
+  if (isPending) {
+    return <button disabled>Loading...</button>;
+  }
 
   return (
     <button

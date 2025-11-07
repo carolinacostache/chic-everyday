@@ -17,12 +17,12 @@
 .postImg{
     flex: 1;
     background-color: #f6f6f6;
+    
 }
 
 .postImg img{
     width: 100%;
-    height: 100%;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .postDetails{
@@ -64,3 +64,8 @@
     }
 }
 
+.commentsWrapper {
+  flex: 1; /* Permite containerului să umple spațiul rămas */
+  overflow-y: auto; /* Adaugă scrollbar vertical doar când e nevoie */
+  min-height: 0; /* O "chichiță" necesară pentru ca flexbox și overflow să meargă bine */
+}

@@ -4,6 +4,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroll-component";
 import axios from "axios";
 import Skeleton from "../skeleton/skeleton";
+import Masonry from 'react-masonry-css';
 
 
 const fetchPins = async ({ pageParam, search, userId, boardId }) => {
@@ -25,6 +26,16 @@ const Gallery = ({ search, userId, boardId }) => {
     getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
   });
 
+  const breakpointColumnsObj = {
+    default: 7,
+    1746: 6,
+    1509: 5,
+    1272: 4,
+    1035: 3,
+    798: 2,
+    480: 1
+  };
+
   if (status === "pending") return <Skeleton/>;
   if (status === "error") return "Something went wrong...";
 
@@ -38,11 +49,15 @@ const Gallery = ({ search, userId, boardId }) => {
       loader={<h4>Loading more pins</h4>}
       endMessage={<h3>All Posts Loaded!</h3>}
     >
-      <div className="gallery">
-        {allPins?.map((item) => (
-          <GalleryItem key={item._id} item={item} />
-        ))}
-      </div>
+      <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className="my-masonry-grid" // Clasa containerului
+          columnClassName="my-masonry-grid_column" // Clasa coloanei
+        >
+          {allPins?.map((item) => (
+            <GalleryItem key={item._id} item={item} />
+          ))}
+      </Masonry>
     </InfiniteScroll>
   );
 };

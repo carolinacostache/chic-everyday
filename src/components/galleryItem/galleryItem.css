@@ -1,13 +1,17 @@
 .galleryItem{
     display: flex;
     position: relative;
+  
+  /* Spațiu sub fiecare card */
+  margin-bottom: 16px;
 
 }
 
 .galleryItem img{
     width: 100%;
+    height: auto;
     border-radius: 16px;
-    object-fit: cover;
+    display: block;
 }
 
 .overlay,

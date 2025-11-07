@@ -1,7 +1,7 @@
 import NImage from '../image/image';
 import './postInteractions.css';
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState } from 'react'; 
+import { useState, useRef, useEffect} from 'react'; 
 import { useNavigate } from 'react-router-dom'; 
 import apiRequest from "../../utils/apiRequest";
 import useAuthStore from "../../utils/authStore";
@@ -12,15 +12,36 @@ const interact = async (id, type) => {
   return res.data;
 };
 
-const PostInteractions = ({ postId }) => {
+const PostInteractions = ({ postId, isOwner, onEdit, onDelete, isDeleting }) => {
   const queryClient = useQueryClient();
   const queryKey = ["interactionCheck", postId];
   
   const [isLikeLoading, setIsLikeLoading] = useState(false);
   const [isSaveModalOpen, setIsSaveModalOpen] = useState(false); 
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef(null);
   
   const { currentUser } = useAuthStore();
   const navigate = useNavigate(); 
+
+  // LIPEȘTE ACEST BLOC CORECTAT
+useEffect(() => {
+  const handleClickOutside = (event) => {
+    // Verificăm dacă ref-ul există și dacă click-ul a fost ÎN AFARA lui
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setIsMenuOpen(false); // Închide meniul
+    }
+  };
+
+  // Adaugă listener-ul
+  document.addEventListener("mousedown", handleClickOutside);
+  
+  // Curăță listener-ul la unmount
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, [menuRef]); // <-- Rulează o singură dată, când ref-ul e gata
 
   const { isPending, error, data } = useQuery({
     queryKey: queryKey,
@@ -80,6 +101,16 @@ const PostInteractions = ({ postId }) => {
     setIsSaveModalOpen(true); 
   };
 
+ const handleEdit = () => {
+    onEdit();
+    setIsMenuOpen(false);
+  };
+
+  const handleDelete = () => {
+    onDelete();
+    setIsMenuOpen(false);
+  }; 
+
   return (
     <>
       <div className="postInteractions">
@@ -102,7 +133,27 @@ const PostInteractions = ({ postId }) => {
           </svg>
           {data.likeCount}
           <NImage src="/general/share.svg" alt="Distribuie" />
-          <NImage src="/general/more.svg" alt="Mai multe opțiuni" />
+          {isOwner && (
+            <div 
+              className="moreOptionsButton" 
+              onClick={() => {
+                console.log("Meniul se deschide!");
+                setIsMenuOpen(prev => !prev)}}
+              ref={menuRef}
+            >
+              <NImage src="/general/more.svg" alt="Opțiuni" />
+              
+              {/* Meniul dropdown */}
+              {isMenuOpen && (
+                <div className="optionsMenu">
+                  <button onClick={handleEdit}>Editează</button>
+                  <button onClick={handleDelete} className="deleteOption">
+                    {isDeleting ? "Se șterge..." : "Șterge"}
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
         
         <button

@@ -26,3 +26,70 @@
     cursor: pointer;
     font-weight: bold;
 }
+
+/* --- STILURI NOI ADAUGATE AICI --- */
+
+.postHeader {
+  /* Acest container ține butonul '...' la dreapta */
+  display: flex;
+  justify-content: flex-end;
+  height: 32px; /* Dă-i o înălțime fixă */
+  position: relative; /* Necesar pentru meniul dropdown */
+}
+
+.moreOptionsButton {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative
+}
+
+.moreOptionsButton:hover {
+  background-color: #f1f1f1;
+}
+
+.moreOptionsButton img {
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+
+.optionsMenu {
+  position: absolute;
+  top: 100%; /* Se afișează sub buton */
+  right: 0;
+  background-color: pink;
+  border-radius: 16px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  width: 200px; /* Lățime fixă */
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.optionsMenu button {
+  background: none;
+  border: none;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.optionsMenu button:hover {
+  background-color: #f1f1f1;
+}
+
+.optionsMenu button.deleteOption {
+  color: #e50829; /* Culoarea roșie */
+}
+
+/* --- SFÂRȘITUL STILURILOR NOI --- */
