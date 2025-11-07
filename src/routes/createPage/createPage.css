@@ -170,7 +170,7 @@ textarea{
 .boardForm {
   height: 100vh;
   width: 100vw;
-  position: absolute;
+  position: fixed; /* <-- AM SCHIMBAT ÎN 'FIXED' */
   top: 0;
   left: 0;
   display: flex;
@@ -179,7 +179,6 @@ textarea{
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9999;
 }
-
 .boardFormContainer {
   background-color: white;
   padding: 32px;
@@ -259,3 +258,84 @@ small {
 }
 
 
+/* ... (toate stilurile tale existente) ... */
+
+/* NOU: Stiluri pentru containerul de tag-uri */
+.tagContainer {
+  display: flex;
+  flex-wrap: wrap; /* Tag-urile vor trece pe rândul următor dacă nu încap */
+  gap: 8px; /* Spațiu între tag-uri */
+}
+
+/* NOU: Stil pentru fiecare tag */
+.tagItem {
+  padding: 8px 16px;
+  border-radius: 24px;
+  background-color: #efefef; /* Culoare de fundal neutră */
+  color: #333;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s, color 0.2s;
+  border: 1px solid transparent;
+}
+
+.tagItem:hover {
+  background-color: #ddd;
+}
+
+/* NOU: Stil pentru tag-urile selectate */
+.tagItem.selected {
+  background-color: #e50829; /* Culoarea ta roșie principală */
+  color: white;
+  border-color: #e50829;
+}
+
+/* ... (toate stilurile tale existente) ... */
+
+/* NOU: Adaugă 'position: relative' la containerul principal */
+.createPage {
+  position: relative;
+}
+
+/* NOU: Estompează conținutul și blochează click-urile când se încarcă */
+.createPage.isLoading .createTop,
+.createPage.isLoading .createBottom {
+  filter: blur(4px);
+  pointer-events: none; /* Previne click-urile în fundal */
+  user-select: none; /* Previne selectarea textului */
+}
+
+/* NOU: Overlay-ul care apare deasupra */
+.loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.6); /* Fundal alb semi-transparent */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  gap: 16px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* NOU: Un spinner CSS simplu */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3; /* Gri deschis */
+  border-top: 5px solid #e50829; /* Culoarea ta roșie */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

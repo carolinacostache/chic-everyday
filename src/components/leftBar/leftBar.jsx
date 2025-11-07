@@ -12,6 +12,9 @@ const LeftBar = () => {
         <Link to="/" className="menuIcon">
         <NImage src="/general/home.svg" alt="a" />
         </Link>
+        <Link to="/weather" className="menuIcon"> 
+        <NImage src="/general/sun-behind-rain-cloud.svg"  alt="Ținute Vreme" />
+        </Link>
         <Link to="/create" className="menuIcon"> 
         <NImage src="/general/create.svg" alt="a" />
         </Link>      

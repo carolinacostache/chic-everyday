@@ -9,6 +9,10 @@ import apiRequest from "../../utils/apiRequest";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import BoardForm from "./BoardForm";
 
+// Lista ta de tag-uri obligatorii de vreme
+const weatherTags = [
+  "rainy", "sunny", "winter", "summer", "cloudy", "foggy"
+];
 
 const addPost = async (post) => {
   const res = await apiRequest.post("/pins", post);
@@ -28,8 +32,13 @@ const CreatePage = () => {
     height: 0,
   });
   const [isEditing, setIsEditing] = useState(false);
-  const [selectedBoard, setSelectedBoard] = useState("");
+  
+  // Stări separate pentru dropdown și pentru noul titlu de board
+  const [selectedBoard, setSelectedBoard] = useState(""); // Stochează ID-ul
+  const [newBoardTitle, setNewBoardTitle] = useState(""); // Stochează noul titlu
+
   const [isNewBoardOpen, setIsNewBoardOpen] = useState(false);
+  const [selectedWeatherTags, setSelectedWeatherTags] = useState([]);
 
   useEffect(() => {
     if (!currentUser) {
@@ -51,61 +60,99 @@ const CreatePage = () => {
     }
   }, [file]);
 
-  
-
-  const mutation = useMutation({
+  const { mutate, isPending: isPublishing } = useMutation({
     mutationFn: addPost,
     onSuccess: (data) => {
       resetStore();
       navigate(`/pin/${data._id}`);
     },
+    onError: (err) => {
+      alert("Publicarea a eșuat: " + err.response?.data?.message);
+    }
   });
 
   const handleSubmit = async () => {
+    if (isPublishing) return; 
+
     if (!file) {
       alert("Please upload a file before publishing.");
       return;
     }
-
+    
     const formData = new FormData(formRef.current);
     const title = formData.get("title");
     const description = formData.get("description");
+    const customTagsString = formData.get("customTags"); 
 
     if (!title || !description) {
       alert("Please fill out the Title and Description fields.");
       return;
     }
 
+    if (selectedWeatherTags.length === 0) {
+      alert("Vă rugăm selectați cel puțin un tag de vreme.");
+      return;
+    }
+
     if (isEditing) {
       setIsEditing(false);
     } else {
-      const formData = new FormData(formRef.current);
+      const customTagsArray = customTagsString 
+        ? customTagsString.split(",").map(t => t.trim()) 
+        : [];
+      const allTags = [...selectedWeatherTags, ...customTagsArray];
+
       formData.append("media", file);
       formData.append("textOptions", JSON.stringify(textOptions));
       formData.append("canvasOptions", JSON.stringify(canvasOptions));
+      formData.append("tags", allTags.join(',')); 
+      formData.delete("customTags"); 
       
-      formData.append("newBoard", selectedBoard); 
-      mutation.mutate(formData);
+      if (selectedBoard) {
+        formData.append("board", selectedBoard); 
+      } else if (newBoardTitle) {
+        formData.append("newBoard", newBoardTitle);
+      }
+      
+      mutate(formData);
     }
   };
 
-const { data, isPending, error, refetch } = useQuery({
+  const { data, isPending, error, refetch } = useQuery({
     queryKey: ["formBoards", currentUser?._id],
     queryFn: () => apiRequest.get(`/boards/${currentUser._id}`).then((res) => res.data),
     enabled: !!currentUser?._id, 
   });
 
-
   const handleNewBoard = () => {
     setIsNewBoardOpen((prev) => !prev);
   };
 
+  const handleWeatherTagChange = (tag) => {
+    setSelectedWeatherTags((prevTags) => {
+      if (prevTags.includes(tag)) {
+        return prevTags.filter((t) => t !== tag);
+      } else {
+        return [...prevTags, tag];
+      }
+    });
+  };
 
   return (
-    <div className="createPage">
+    <div className={`createPage ${isPublishing ? 'isLoading' : ''}`}>
+      
+      {isPublishing && (
+        <div className="loadingOverlay">
+          <div className="spinner"></div>
+          <span>Se publică pin-ul...</span>
+        </div>
+      )}
+
       <div className="createTop">
         <h1>{isEditing ? "Design your Pin" : "Create Pin"}</h1>
-        <button onClick={handleSubmit}>{isEditing ? "Done" : "Publish"}</button>
+        <button onClick={handleSubmit} disabled={isPublishing}>
+          {isEditing ? "Done" : "Publish"}
+        </button>
       </div>
       {isEditing ? (
         <Editor previewImg={previewImg} />
@@ -126,8 +173,7 @@ const { data, isPending, error, refetch } = useQuery({
                   <span>Choose a file</span>
                 </div>
                 <div className="uploadInfo">
-                  We recommend using high quality .jpg files less than 20 MB or
-                  .mp4 files less than 200 MB.
+                  We recommend using high quality .jpg files...
                 </div>
               </label>
               <input
@@ -138,33 +184,41 @@ const { data, isPending, error, refetch } = useQuery({
               />
             </>
           )}
+          
+          {/* --- FORMLARUL COMPLET REINTEGRAT --- */}
           <form className="createForm" ref={formRef}>
+            
             <div className="createFormItem">
               <label htmlFor="title">Title</label>
               <input type="text" placeholder="Add a title" name="title" id="title" />
             </div>
+            
             <div className="createFormItem">
               <label htmlFor="description">Description</label>
               <textarea rows={6} type="text" placeholder="Add a detailed description" name="description" id="description" />
             </div>
+            
             <div className="createFormItem">
               <label htmlFor="link">Link</label>
               <input type="text" placeholder="Add a link" name="link" id="link" />
             </div>
             
             <div className="createFormItem">
-              <label htmlFor="board">Board</label>
+              <label htmlFor="board">Board (Opțional)</label>
               {isPending && <p>Loading boards...</p>}
               {error && <p>Could not load boards.</p>}
               {data && (
                 <>
                   <select 
-                    name="board" 
                     id="board" 
                     value={selectedBoard} 
-                    onChange={(e) => setSelectedBoard(e.target.value)}
+                    onChange={(e) => {
+                      setSelectedBoard(e.target.value);
+                      setNewBoardTitle(""); // Golește noul titlu
+                    }}
+                    disabled={!!newBoardTitle} // Dezactivează dacă se creează un board nou
                   >
-                    <option value="">Choose a board</option>
+                    <option value="">Alege un board existent...</option>
                     {data.map((board) => (
                       <option value={board._id} key={board._id}>
                         {board.title}
@@ -172,8 +226,13 @@ const { data, isPending, error, refetch } = useQuery({
                     ))}
                   </select>
                   <div className="newBoard">
+                    {newBoardTitle && (
+                      <div className="newBoardContainer">
+                        <div className="newBoardItem">{newBoardTitle}</div>
+                      </div>
+                    )}
                     <div className="createBoardButton" onClick={handleNewBoard}>
-                      Create new board
+                      {newBoardTitle ? "Anulează" : "Creează board nou"}
                     </div>
                   </div>
                 </>
@@ -181,16 +240,38 @@ const { data, isPending, error, refetch } = useQuery({
             </div>
             
             <div className="createFormItem">
-              <label htmlFor="tags">Tagged topics</label>
-              <input type="text" placeholder="Add tags" name="tags" id="tags" />
-              <small>Don&apos;t worry, people won&apos;t see your tags</small>
+              <label htmlFor="weatherTags">Tag-uri de Vreme (Obligatoriu)</label>
+              <div className="tagContainer">
+                {weatherTags.map((tag) => (
+                  <div 
+                    key={tag} 
+                    className={`tagItem ${selectedWeatherTags.includes(tag) ? "selected" : ""}`}
+                    onClick={() => handleWeatherTagChange(tag)}
+                  >
+                    {tag}
+                  </div>
+                ))}
+              </div>
+              <small>Selectați cel puțin un tag de vreme.</small>
+            </div>
+            
+            <div className="createFormItem">
+              <label htmlFor="customTags">Tag-uri personalizate (Opțional)</label>
+              <input 
+                type="text" 
+                placeholder="Adaugă tag-uri separate prin virgulă (ex: design, art)" 
+                name="customTags" 
+                id="customTags" 
+              />
+              <small>Oamenii nu vor vedea tag-urile tale personalizate.</small>
             </div>
           </form>
+
           {isNewBoardOpen && (
             <BoardForm
               setIsNewBoardOpen={setIsNewBoardOpen}
-              setNewBoard={setSelectedBoard} 
-              refetchBoards={refetch}
+              setNewBoard={setNewBoardTitle} 
+              setSelectedBoard={setSelectedBoard} // Trimitem setter-ul
             />
           )}
         </div>

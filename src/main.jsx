@@ -14,6 +14,7 @@ const PostPage = React.lazy(() => import("./routes/postPage/postPage"));
 const ProfilePage = React.lazy(() =>
   import("./routes/profilePage/profilePage")
 );
+const WeatherPage = React.lazy(() => import("./routes/weatherPage/weatherPage"));
 const SearchPage = React.lazy(() => import("./routes/searchpage/searchPage"));
 const AuthPage = React.lazy(() => import("./routes/authPage/authPage"));
 
@@ -32,6 +33,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="/pin/:id" element={<PostPage />} />
             <Route path="/profile/:username" element={<ProfilePage />} />
             <Route path="/search" element={<SearchPage />} />
+            <Route path="/weather" element={<WeatherPage />} />
           </Route>
           <Route path="/auth" element={<AuthPage />} />
         </Routes>

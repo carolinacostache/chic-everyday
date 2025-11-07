@@ -1,7 +1,9 @@
 import NImage from "../../components/image/image";
-import apiRequest from "../../utils/apiRequest";
+// Am scos 'apiRequest' de aici, nu mai este necesar
 
-const BoardForm = ({ setIsNewBoardOpen, setNewBoard, refetchBoards }) => {
+// MODIFICAT: Acum acceptă 'setSelectedBoard' pentru a goli dropdown-ul
+const BoardForm = ({ setIsNewBoardOpen, setNewBoard, setSelectedBoard }) => {
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const title = e.target[0].value.trim();
@@ -9,18 +11,12 @@ const BoardForm = ({ setIsNewBoardOpen, setNewBoard, refetchBoards }) => {
       alert("Please enter a board title");
       return;
     }
-    try {
-      const res = await apiRequest.post("/boards", { title });
-      
-      setNewBoard(res.data._id); 
-      
-      if (refetchBoards) await refetchBoards();
-
-      
-      setIsNewBoardOpen(false);
-    } catch (err) {
-      console.error(err);
-    }
+    
+    // MODIFICAT: Doar setăm stările în părinte, nu mai facem apel API
+    setNewBoard(title); // Setează titlul noului board (ex: "Idei de vară")
+    setSelectedBoard(""); // Golește dropdown-ul (pentru a nu avea 2 selecții)
+    
+    setIsNewBoardOpen(false);
   };
 
   return (
@@ -30,7 +26,7 @@ const BoardForm = ({ setIsNewBoardOpen, setNewBoard, refetchBoards }) => {
           className="boardFormClose"
           onClick={() => setIsNewBoardOpen(false)}
         >
-          <NImage src="/general/cancel.svg" alt="Închide" w={20} h={20} />
+          <NImage src="/general/exit.svg" alt="Închide" w={20} h={20} />
         </div>
         <form onSubmit={handleSubmit}>
           <h1>Create a new board</h1>
