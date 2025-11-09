@@ -1,0 +1,38 @@
+.adminPage {
+  padding: 20px;
+}
+.adminPage h1 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.adminUserList table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.adminUserList th,
+.adminUserList td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+.adminUserList th {
+  background-color: #f2f2f2;
+}
+.adminUserList img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.deleteButton {
+  background-color: #e50829;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.deleteButton:disabled {
+  background-color: #ccc;
+}

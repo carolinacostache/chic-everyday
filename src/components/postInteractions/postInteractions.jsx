@@ -25,23 +25,19 @@ const PostInteractions = ({ postId, isOwner, onEdit, onDelete, isDeleting }) => 
   const { currentUser } = useAuthStore();
   const navigate = useNavigate(); 
 
-  // LIPEȘTE ACEST BLOC CORECTAT
 useEffect(() => {
   const handleClickOutside = (event) => {
-    // Verificăm dacă ref-ul există și dacă click-ul a fost ÎN AFARA lui
     if (menuRef.current && !menuRef.current.contains(event.target)) {
-      setIsMenuOpen(false); // Închide meniul
+      setIsMenuOpen(false);
     }
   };
 
-  // Adaugă listener-ul
   document.addEventListener("mousedown", handleClickOutside);
   
-  // Curăță listener-ul la unmount
   return () => {
     document.removeEventListener("mousedown", handleClickOutside);
   };
-}, [menuRef]); // <-- Rulează o singură dată, când ref-ul e gata
+}, [menuRef]);
 
   const { isPending, error, data } = useQuery({
     queryKey: queryKey,
@@ -111,6 +107,11 @@ useEffect(() => {
     setIsMenuOpen(false);
   }; 
 
+  const handleReport = () => {
+    alert("Pin-ul a fost raportat (funcționalitate de implementat).");
+    setIsMenuOpen(false);
+  };
+
   return (
     <>
       <div className="postInteractions">
@@ -133,8 +134,7 @@ useEffect(() => {
           </svg>
           {data.likeCount}
           <NImage src="/general/share.svg" alt="Distribuie" />
-          {isOwner && (
-            <div 
+          <div 
               className="moreOptionsButton" 
               onClick={() => {
                 console.log("Meniul se deschide!");
@@ -143,17 +143,24 @@ useEffect(() => {
             >
               <NImage src="/general/more.svg" alt="Opțiuni" />
               
-              {/* Meniul dropdown */}
               {isMenuOpen && (
                 <div className="optionsMenu">
+                  {isOwner ? (
+                    <>
                   <button onClick={handleEdit}>Editează</button>
                   <button onClick={handleDelete} className="deleteOption">
                     {isDeleting ? "Se șterge..." : "Șterge"}
                   </button>
+                  </>
+                  ) : (
+                    <>
+                    <button onClick={handleReport}>Raportează</button>
+                    </>
+                  )
+                }
                 </div>
               )}
             </div>
-          )}
         </div>
         
         <button

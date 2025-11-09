@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './index.css'
 import MainLayout from './routes/layouts/mainLayout';
+import AdminLayout from './routes/layouts/adminLayout';
 import {
   QueryClient,
   QueryClientProvider,
@@ -17,7 +18,7 @@ const ProfilePage = React.lazy(() =>
 const WeatherPage = React.lazy(() => import("./routes/weatherPage/weatherPage"));
 const SearchPage = React.lazy(() => import("./routes/searchPage/searchPage"));
 const AuthPage = React.lazy(() => import("./routes/authPage/authPage"));
-
+const AdminPage = React.lazy(() => import("./routes/adminPage/adminPage"));
 
 const queryClient = new QueryClient()
 
@@ -36,6 +37,9 @@ createRoot(document.getElementById('root')).render(
             <Route path="/weather" element={<WeatherPage />} />
           </Route>
           <Route path="/auth" element={<AuthPage />} />
+          <Route element={<AdminLayout />}>
+            <Route path="/admin" element={<AdminPage />} />
+          </Route>
         </Routes>
       </Suspense>
     </BrowserRouter>
