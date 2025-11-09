@@ -68,14 +68,4 @@
 .emoji{
     cursor:pointer;
     font-size: 20px;
-    position: relative;
-}
-
-.emojiPicker{
-    position: absolute;
-    right: 0;
-    bottom: 100px;
-    width: 350px;
-    height: 400px;
-    z-index: 999;
 }

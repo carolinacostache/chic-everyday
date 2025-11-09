@@ -3,7 +3,6 @@ import NImage from '../../components/image/image';
 import PostInteractions from '../../components/postInteractions/postInteractions';
 import { Link } from 'react-router-dom';
 import Comments from '../../components/comments/comments';
-// MODIFICAT: Adăugăm 'useMutation'
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"; 
 import apiRequest from "../../utils/apiRequest";
 import { useParams, useNavigate } from "react-router-dom"; 
@@ -24,11 +23,9 @@ const Postpage = () => {
     queryFn: () => apiRequest.get(`/pins/${id}`).then((res) => res.data),
   });
 
-  // MODIFICAT: Mutație nouă pentru ștergere
   const deleteMutation = useMutation({
     mutationFn: (pinId) => apiRequest.delete(`/pins/${pinId}`),
     onSuccess: () => {
-      // După ștergere, invalidăm datele și trimitem utilizatorul la homepage
       queryClient.invalidateQueries({ queryKey: ["pins"] }); 
       navigate("/");
     },
@@ -41,9 +38,10 @@ const Postpage = () => {
   if (error) return "An error has occurred: " + error.message;
   if (!data) return "Pin not found!";
 
+  const displayTags = data?.tags;
+
   const isOwner = currentUser?._id === data?.user?._id;
 
-  // MODIFICAT: Funcție nouă pentru a gestiona ștergerea
   const handleDelete = () => {
     if (window.confirm("Ești sigur că vrei să ștergi acest pin? Acțiunea este ireversibilă.")) {
       deleteMutation.mutate(data._id);
@@ -51,7 +49,7 @@ const Postpage = () => {
   };
 
   const handleOpenEdit = () => {
-    setIsEditModalOpen(true); // Deschide modalul de editare
+    setIsEditModalOpen(true);
   };
 
   return (
@@ -79,7 +77,15 @@ const Postpage = () => {
             onDelete={handleDelete}
             isDeleting={deleteMutation.isPending}
             />
-            
+            <div className="postTags">
+              {displayTags && displayTags.length > 0 && (
+                displayTags.map((tag, index) => (
+                  <Link to={`/search?tag=${tag}`} key={index} className="tagItem">
+                    {tag}
+                  </Link>
+                ))
+              )}
+            </div>
             <Link to={`/profile/${data.user.username}`} className="postUser">
               <NImage 
                 src={data.user.img || "/general/noAvatar.jpg"}

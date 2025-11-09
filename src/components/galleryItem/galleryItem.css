@@ -1,38 +1,56 @@
-.galleryItem{
+.galleryItem {
     display: flex;
+    flex-direction: column;
     position: relative;
-  
-  /* Spațiu sub fiecare card */
-  margin-bottom: 16px;
-
+    break-inside: avoid;
+    margin-bottom: 16px;
 }
 
-.galleryItem img{
+.galleryImageContainer {
+    position: relative; 
+    width: 100%;
+    line-height: 0;
+}
+
+.galleryImageContainer img {
     width: 100%;
     height: auto;
     border-radius: 16px;
     display: block;
 }
 
+.galleryTitleContainer {
+    padding: 10px 4px 4px 4px;
+}
+
+.galleryTitleContainer h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: gray;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .overlay,
 .saveButton,
-.overlayIcons{
+.overlayIcons {
     display: none;
 }
 
-
-.galleryItem:hover .overlay{
-    display:block;
+.galleryImageContainer:hover .overlay {
+    display: block;
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
     background-color: rgba(0, 0, 0, 0.081);
     border-radius: 16px;
-
+    cursor: pointer;
 }
 
-.galleryItem:hover .saveButton{
+.galleryImageContainer:hover .saveButton {
     display: block;
     background-color: red;
     color: white;
@@ -46,19 +64,21 @@
     top: 16px;
     right: 16px;
     border: none;
+    z-index: 1;
 }
 
-.galleryItem:hover .overlayIcons{
+
+.galleryImageContainer:hover .overlayIcons {
     position: absolute;
     bottom: 16px;
     right: 16px;
     display: flex;
     align-items: center;
     gap: 8px;
-    
+    z-index: 1;
 }
 
-.overlayIcons button{
+.overlayIcons button {
     background-color: white;
     border-radius: 100%;
     width: 32px;
@@ -71,11 +91,11 @@
     padding: 0;
 }
 
-.overlayIcons button img{
+.overlayIcons button img {
     width: 20px;
     height: 20px;
 }
 
-.overlayIcons button:hover{
+.overlayIcons button:hover {
     background-color: #f1f1f1;
 }

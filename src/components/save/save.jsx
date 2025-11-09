@@ -29,9 +29,9 @@ const Save = ({ pinId, onClose }) => {
   const [newBoardTitle, setNewBoardTitle] = useState("");
 
   const { isPending, error, data: boards, refetch: refetchBoards } = useQuery({
-    queryKey: ['userBoards', currentUser._id],
+    queryKey: ['userBoards', currentUser._id, pinId],
     queryFn: () =>
-      apiRequest.get(`/boards/${currentUser._id}`).then((res) => res.data),
+      apiRequest.get(`/boards/${currentUser._id}?pinId=${pinId}`).then((res) => res.data),
     enabled: !!currentUser._id,
   });
 
@@ -44,7 +44,7 @@ const Save = ({ pinId, onClose }) => {
     },
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({ queryKey: ['interactionCheck', pinId] });
-      queryClient.invalidateQueries({ queryKey: ['userBoards', currentUser._id] });
+      queryClient.invalidateQueries({ queryKey: ['userBoards', currentUser._id, pinId] });
       return { savedBoardId: variables.boardId }; 
     },
     onError: (err) => {
@@ -57,9 +57,6 @@ const Save = ({ pinId, onClose }) => {
     },
     onSettled: (data) => {
       setSavingBoardId(null);
-      if (data?.savedBoardId) {
-        onClose();
-      }
     },
   });
 
@@ -116,7 +113,7 @@ const Save = ({ pinId, onClose }) => {
                 <div
                   key={board._id}
                   className="boardItem"
-                  onClick={() => handleSave(board._id)}
+                  onClick={() => board.isSaved ? null : handleSave(board._id)}
                 >
                   <img
                     src={board.firstPin?.media || '/general/placeholder.png'}
@@ -124,16 +121,18 @@ const Save = ({ pinId, onClose }) => {
                   />
                   <span>{board.title}</span>
                   <button
-                    className="saveButtonModal"
+                    className={`saveButtonModal ${board.isSaved ? 'saved' : ''}`}
 
-                    disabled={savingBoardId !== null} 
+                    disabled={savingBoardId !== null|| board.isSaved}
                     onClick={(e) => {
                       e.stopPropagation();
                       handleSave(board._id);
                     }}
                   >
-
-                    {savingBoardId === board._id ? "Se salvează..." : "Salvează"}
+                    {board.isSaved 
+                      ? "Salvat" 
+                      : (savingBoardId === board._id ? "Se salvează..." : "Salvează")
+                    }
                   </button>
                 </div>
               ))}

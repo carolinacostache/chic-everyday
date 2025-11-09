@@ -15,7 +15,7 @@ const ProfilePage = React.lazy(() =>
   import("./routes/profilePage/profilePage")
 );
 const WeatherPage = React.lazy(() => import("./routes/weatherPage/weatherPage"));
-const SearchPage = React.lazy(() => import("./routes/searchpage/searchPage"));
+const SearchPage = React.lazy(() => import("./routes/searchPage/searchPage"));
 const AuthPage = React.lazy(() => import("./routes/authPage/authPage"));
 
 

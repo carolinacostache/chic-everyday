@@ -65,7 +65,28 @@
 }
 
 .commentsWrapper {
-  flex: 1; /* Permite containerului să umple spațiul rămas */
-  overflow-y: auto; /* Adaugă scrollbar vertical doar când e nevoie */
-  min-height: 0; /* O "chichiță" necesară pentru ca flexbox și overflow să meargă bine */
+  flex: 1; 
+  overflow-y: auto; 
+  min-height: 0;
+}
+
+.postTags {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 8px;
+}
+
+.tagItem {
+  padding: 8px 16px;
+  border-radius: 24px;
+  background-color: #efefef;
+  color: #333;
+  font-size: 10px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.tagItem:hover {
+  background-color: #ddd;
 }
