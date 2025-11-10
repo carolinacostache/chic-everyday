@@ -99,3 +99,44 @@
 .overlayIcons button:hover {
     background-color: #f1f1f1;
 }
+
+.galleryMenuContainer {
+  position: relative;
+}
+
+.galleryOverlayMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 200px;
+  z-index: 101;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+
+.galleryOverlayMenu button {
+
+  width: 100%;       
+  height: auto;     
+  border-radius: 8px;  
+  padding: 12px 16px; 
+  display: block;    
+  background: none;
+  border: none;
+  color: #000;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.galleryOverlayMenu button:hover {
+  background-color: #f1f1f1;
+}
+

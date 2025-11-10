@@ -1,7 +1,5 @@
 import NImage from "../../components/image/image";
-// Am scos 'apiRequest' de aici, nu mai este necesar
 
-// MODIFICAT: Acum acceptă 'setSelectedBoard' pentru a goli dropdown-ul
 const BoardForm = ({ setIsNewBoardOpen, setNewBoard, setSelectedBoard }) => {
   
   const handleSubmit = async (e) => {
@@ -12,9 +10,8 @@ const BoardForm = ({ setIsNewBoardOpen, setNewBoard, setSelectedBoard }) => {
       return;
     }
     
-    // MODIFICAT: Doar setăm stările în părinte, nu mai facem apel API
-    setNewBoard(title); // Setează titlul noului board (ex: "Idei de vară")
-    setSelectedBoard(""); // Golește dropdown-ul (pentru a nu avea 2 selecții)
+    setNewBoard(title); 
+    setSelectedBoard(""); 
     
     setIsNewBoardOpen(false);
   };

@@ -163,10 +163,8 @@
 }
 
 
-
-/* În save.css */
 .saveButtonModal.saved {
-  background-color: #000; /* Fundal negru */
+  background-color: #000; 
   color: white;
-  cursor: default; /* Arată că nu se poate da click */
+  cursor: default;
 }

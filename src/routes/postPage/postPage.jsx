@@ -86,6 +86,10 @@ const Postpage = () => {
                 ))
               )}
             </div>
+            <div className="postInfo">
+              <p className="postTitle">{data.title}</p>
+              <p className="postDescription">{data.description}</p>
+
             <Link to={`/profile/${data.user.username}`} className="postUser">
               <NImage 
                 src={data.user.img || "/general/noAvatar.jpg"}
@@ -93,6 +97,7 @@ const Postpage = () => {
               />
               <span> {data.user.displayName}</span>
             </Link> 
+            </div>
             <div className="commentsWrapper">
             <Comments id={data._id}/>
             </div>

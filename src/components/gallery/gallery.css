@@ -1,22 +1,12 @@
-/* În gallery.css - ÎNLOCUIEȘTE TOT CONȚINUTUL VECHI CU ACESTA */
-
-/* Acesta este containerul principal (stil Flexbox) */
 .my-masonry-grid {
   display: flex;
   width: auto;
   
-  /* Setează marginile laterale ale galeriei */
-  margin-left: -16px; /* Ajustează dacă ai gap-ul setat */
+  margin-left: -16px;
 }
 
-/* Aceasta este coloana individuală */
 .my-masonry-grid_column {
-  /* Setează padding-ul stânga (egal cu gap-ul) */
   padding-left: 16px; 
   background-clip: padding-box;
 }
 
-/* Notă: Componenta .galleryItem din galleryItem.css 
-  va trebui să aibă 'margin-bottom: 16px' 
-  pentru a crea spațiul vertical.
-*/

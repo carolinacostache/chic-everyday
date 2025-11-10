@@ -1,21 +1,18 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import apiRequest from "../../utils/apiRequest";
-import "./adminPage.css"; // Vom crea acest fișier
+import "./adminPage.css";
 
 const AdminPage = () => {
   const queryClient = useQueryClient();
 
-  // 1. Interogare pentru a prelua toți utilizatorii (de la ruta de admin)
   const { isPending, error, data: users } = useQuery({
     queryKey: ["adminUsers"],
     queryFn: () => apiRequest.get("/admin/users").then((res) => res.data),
   });
 
-  // 2. Mutație pentru a șterge un utilizator
   const deleteUserMutation = useMutation({
     mutationFn: (userId) => apiRequest.delete(`/admin/users/${userId}`),
     onSuccess: () => {
-      // Reîmprospătează lista de useri după ștergere
       queryClient.invalidateQueries({ queryKey: ["adminUsers"] });
     },
   });

@@ -1,28 +1,23 @@
 import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import apiRequest from '../../utils/apiRequest';
-import './editPin.css'; // Asigură-te că numele fișierului CSS este corect
+import './editPin.css';
 
-// Tag-urile obligatorii (trebuie să fie aceleași ca în createPage)
 const weatherTags = [
   "rainy", "sunny", "winter", "summer", "cloudy", "foggy"
 ];
 
-// Funcția de API
 const updatePinRequest = async ({ pinId, data }) => {
   const res = await apiRequest.patch(`/pins/${pinId}`, data);
   return res.data;
 };
 
-// Numele componentei este 'EditPin'
 const EditPin = ({ pin, onClose }) => {
   const queryClient = useQueryClient();
 
-  // Inițializăm starea cu datele existente ale pin-ului
   const [title, setTitle] = useState(pin.title);
   const [description, setDescription] = useState(pin.description);
   
-  // Separăm tag-urile de vreme de cele personalizate
   const [selectedWeatherTags, setSelectedWeatherTags] = useState(
     pin.tags.filter(tag => weatherTags.includes(tag))
   );
@@ -33,9 +28,8 @@ const EditPin = ({ pin, onClose }) => {
   const mutation = useMutation({
     mutationFn: updatePinRequest,
     onSuccess: (updatedPin) => {
-      // Invalidăm datele pin-ului pentru a reîmprospăta pagina
       queryClient.invalidateQueries({ queryKey: ["pin", pin._id] });
-      onClose(); // Închidem modalul
+      onClose();
     },
     onError: (err) => {
       alert("Actualizarea a eșuat: " + err.response?.data?.message);
@@ -45,11 +39,9 @@ const EditPin = ({ pin, onClose }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Combinăm tag-urile
     const customTagsArray = customTags.split(",").map(t => t.trim()).filter(Boolean);
     const allTags = [...selectedWeatherTags, ...customTagsArray];
 
-    // Validare
     if (selectedWeatherTags.length === 0) {
       alert("Vă rugăm selectați cel puțin un tag de vreme.");
       return;
@@ -60,7 +52,7 @@ const EditPin = ({ pin, onClose }) => {
       data: {
         title,
         description,
-        tags: allTags.join(','), // Trimitem ca string
+        tags: allTags.join(','),
       }
     });
   };

@@ -9,7 +9,6 @@ import apiRequest from "../../utils/apiRequest";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import BoardForm from "./BoardForm";
 
-// Lista ta de tag-uri obligatorii de vreme
 const weatherTags = [
   "rainy", "sunny", "winter", "summer", "cloudy", "foggy"
 ];
@@ -33,9 +32,8 @@ const CreatePage = () => {
   });
   const [isEditing, setIsEditing] = useState(false);
   
-  // Stări separate pentru dropdown și pentru noul titlu de board
-  const [selectedBoard, setSelectedBoard] = useState(""); // Stochează ID-ul
-  const [newBoardTitle, setNewBoardTitle] = useState(""); // Stochează noul titlu
+  const [selectedBoard, setSelectedBoard] = useState("");
+  const [newBoardTitle, setNewBoardTitle] = useState("");
 
   const [isNewBoardOpen, setIsNewBoardOpen] = useState(false);
   const [selectedWeatherTags, setSelectedWeatherTags] = useState([]);
@@ -188,7 +186,6 @@ const CreatePage = () => {
             </>
           )}
           
-          {/* --- FORMLARUL COMPLET REINTEGRAT --- */}
           <form className="createForm" ref={formRef}>
             
             <div className="createFormItem">
@@ -217,9 +214,9 @@ const CreatePage = () => {
                     value={selectedBoard} 
                     onChange={(e) => {
                       setSelectedBoard(e.target.value);
-                      setNewBoardTitle(""); // Golește noul titlu
+                      setNewBoardTitle(""); 
                     }}
-                    disabled={!!newBoardTitle} // Dezactivează dacă se creează un board nou
+                    disabled={!!newBoardTitle} 
                   >
                     <option value="">Alege un board existent...</option>
                     {data.map((board) => (
@@ -274,7 +271,7 @@ const CreatePage = () => {
             <BoardForm
               setIsNewBoardOpen={setIsNewBoardOpen}
               setNewBoard={setNewBoardTitle} 
-              setSelectedBoard={setSelectedBoard} // Trimitem setter-ul
+              setSelectedBoard={setSelectedBoard}
             />
           )}
         </div>

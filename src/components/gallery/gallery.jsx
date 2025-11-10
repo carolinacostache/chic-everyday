@@ -51,8 +51,8 @@ const Gallery = ({ search, userId, boardId, tag }) => {
     >
       <Masonry
           breakpointCols={breakpointColumnsObj}
-          className="my-masonry-grid" // Clasa containerului
-          columnClassName="my-masonry-grid_column" // Clasa coloanei
+          className="my-masonry-grid" 
+          columnClassName="my-masonry-grid_column" 
         >
           {allPins?.map((item) => (
             <GalleryItem key={item._id} item={item} />
