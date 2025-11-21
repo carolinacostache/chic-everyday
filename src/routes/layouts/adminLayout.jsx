@@ -1,4 +1,5 @@
 import useAuthStore from "../../utils/authStore";
+import AdminBar from "../../components/adminBar/adminBar";
 import { Navigate, Outlet } from "react-router-dom";
 
 const AdminLayout = () => {
@@ -12,7 +13,15 @@ const AdminLayout = () => {
     return <Navigate to="/" />;
   }
 
-  return <Outlet />;
+  return (
+    <div className="adminLayout">
+      <AdminBar />
+      
+      <div className="adminContent">
+        <Outlet />
+      </div>
+    </div>
+  );
 };
 
 export default AdminLayout;

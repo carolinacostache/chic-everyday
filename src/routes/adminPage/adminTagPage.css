@@ -1,0 +1,123 @@
+.adminTagsContainer {
+  max-width: 1200px;
+}
+
+.tagsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 20px;
+}
+
+.tagsColumn {
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  height: fit-content;
+}
+
+.tagsColumn h2 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.infoText {
+  font-size: 13px;
+  color: gray;
+  margin-bottom: 16px;
+}
+
+.addTagForm {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.addTagForm input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.addTagForm button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 0 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.tagsList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tagsList.scrollable {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.tagRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.tagBadge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.tagBadge.weather {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+
+.tagBadge.user {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.tagCount {
+  font-size: 12px;
+  color: gray;
+  margin-left: 8px;
+}
+
+.deleteIconBtn {
+  background: none;
+  border: none;
+  color: #e50829;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.deleteTextBtn {
+  background-color: #ffebee;
+  color: #c62828;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.deleteTextBtn:hover {
+  background-color: #ffcdd2;
+}
+
+@media (max-width: 768px) {
+  .tagsGrid {
+    grid-template-columns: 1fr;
+  }
+}

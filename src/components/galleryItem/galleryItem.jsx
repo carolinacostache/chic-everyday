@@ -5,12 +5,34 @@ import { useState, useRef, useEffect } from 'react';
 import Save from '../save/save';
 import useAuthStore from '../../utils/authStore';
 import PostInteractions from '../postInteractions/postInteractions';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import apiRequest from "../../utils/apiRequest";
 
 
 const GalleryItem = ({item}) => {
     const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
     const { currentUser } = useAuthStore();
     const navigate = useNavigate();
+    const queryClient = useQueryClient();
+
+
+    const deleteMutation = useMutation({
+    mutationFn: (pinId) => apiRequest.delete(`/pins/${pinId}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["pins"] });
+    },
+    onError: (err) => {
+      alert("Ștergerea a eșuat: " + err.response?.data?.message);
+    }
+  });
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (window.confirm("Admin: Sigur vrei să ștergi acest pin?")) {
+      deleteMutation.mutate(item._id);
+    }
+  };
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuRef = useRef(null);

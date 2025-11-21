@@ -9,9 +9,12 @@ import apiRequest from "../../utils/apiRequest";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import BoardForm from "./BoardForm";
 
+
+/* nu mai e nevoie de ele aici, sunt preluate din backend
 const weatherTags = [
   "rainy", "sunny", "winter", "summer", "cloudy", "foggy"
 ];
+*/
 
 const addPost = async (post) => {
   const res = await apiRequest.post("/pins", post);
@@ -57,6 +60,19 @@ const CreatePage = () => {
       };
     }
   }, [file]);
+
+  const { data: tagsData, isLoading: loadingTags } = useQuery({
+    queryKey: ["weatherTags"],
+    queryFn: () => apiRequest.get("/pins/tags").then((res) => res.data),
+  });
+
+  const weatherTags = tagsData?.weatherTags || [];
+
+  const { data, isPending, error, refetch } = useQuery({
+    queryKey: ["formBoards", currentUser?._id],
+    queryFn: () => apiRequest.get(`/boards/${currentUser._id}`).then((res) => res.data),
+    enabled: !!currentUser?._id, 
+  });
 
   const { mutate, isPending: isPublishing } = useMutation({
     mutationFn: addPost,
@@ -119,22 +135,18 @@ const CreatePage = () => {
     }
   };
 
-  const { data, isPending, error, refetch } = useQuery({
-    queryKey: ["formBoards", currentUser?._id],
-    queryFn: () => apiRequest.get(`/boards/${currentUser._id}`).then((res) => res.data),
-    enabled: !!currentUser?._id, 
-  });
+
 
   const handleNewBoard = () => {
     setIsNewBoardOpen((prev) => !prev);
   };
 
-  const handleWeatherTagChange = (tag) => {
+  const handleWeatherTagChange = (tagName) => {
     setSelectedWeatherTags((prevTags) => {
-      if (prevTags.includes(tag)) {
-        return prevTags.filter((t) => t !== tag);
+      if (prevTags.includes(tagName)) {
+        return prevTags.filter((t) => t !== tagName);
       } else {
-        return [...prevTags, tag];
+        return [...prevTags, tagName];
       }
     });
   };
@@ -242,15 +254,19 @@ const CreatePage = () => {
             <div className="createFormItem">
               <label htmlFor="weatherTags">Tag-uri de Vreme (Obligatoriu)</label>
               <div className="tagContainer">
-                {weatherTags.map((tag) => (
-                  <div 
-                    key={tag} 
-                    className={`tagItem ${selectedWeatherTags.includes(tag) ? "selected" : ""}`}
-                    onClick={() => handleWeatherTagChange(tag)}
-                  >
-                    {tag}
-                  </div>
-                ))}
+                {loadingTags ? (
+                  <p style={{fontSize: "14px", color: "gray"}}>Se încarcă tag-urile...</p>
+                ) : (
+                  weatherTags.map((tagObj) => (
+                    <div 
+                      key={tagObj._id} 
+                      className={`tagItem ${selectedWeatherTags.includes(tagObj.name) ? "selected" : ""}`}
+                      onClick={() => handleWeatherTagChange(tagObj.name)}
+                    >
+                      {tagObj.name}
+                    </div>
+                  ))
+                )}
               </div>
               <small>Selectați cel puțin un tag de vreme.</small>
             </div>

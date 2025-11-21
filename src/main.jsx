@@ -1,6 +1,6 @@
 import React, { StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 import './index.css'
 import MainLayout from './routes/layouts/mainLayout';
 import AdminLayout from './routes/layouts/adminLayout';
@@ -18,7 +18,12 @@ const ProfilePage = React.lazy(() =>
 const WeatherPage = React.lazy(() => import("./routes/weatherPage/weatherPage"));
 const SearchPage = React.lazy(() => import("./routes/searchPage/searchPage"));
 const AuthPage = React.lazy(() => import("./routes/authPage/authPage"));
-const AdminPage = React.lazy(() => import("./routes/adminPage/adminPage"));
+
+const AdminUserPage = React.lazy(() => import("./routes/adminPage/adminUserPage"));
+const AdminPinPage = React.lazy(() => import("./routes/adminPage/adminPinPage"));
+const AdminTagsPage = React.lazy(() => import("./routes/adminPage/adminTagPage"));
+
+const AdminBoardsPage = React.lazy(() => import("./routes/adminPage/adminBoardPage"));
 
 const queryClient = new QueryClient()
 
@@ -38,7 +43,12 @@ createRoot(document.getElementById('root')).render(
           </Route>
           <Route path="/auth" element={<AuthPage />} />
           <Route element={<AdminLayout />}>
-            <Route path="/admin" element={<AdminPage />} />
+            <Route path="/admin" element={<div>Pagina de intrare in lucru</div>} />
+            <Route path="/admin/users" element={<AdminUserPage />} /> 
+            <Route path="/admin/pins" element={<AdminPinPage/>}/>
+            <Route path="/admin/tags" element={<AdminTagsPage/>} />
+            <Route path="/admin/boards" element={<AdminBoardsPage/>} />
+            <Route path="/admin/stats" element={<div>Pagina de Statistici (În lucru)</div>} />
           </Route>
         </Routes>
       </Suspense>

@@ -1,0 +1,118 @@
+.adminPage.boardsPage {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.boardsPage h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 8px;
+}
+
+.boardsPage .subtitle {
+  color: #666;
+  margin-bottom: 30px;
+  font-size: 15px;
+}
+.adminBoardsContainer {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eaeaea;
+  overflow: hidden; 
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+thead {
+  background-color: #f9fafb;
+}
+
+th {
+  text-align: left;
+  padding: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+td {
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+  color: #333;
+  vertical-align: middle;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:hover {
+  background-color: #fafafa;
+}
+
+.boardTitleCell strong {
+  font-size: 15px;
+  color: #000;
+}
+
+.ownerInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ownerInfo img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #eee;
+}
+
+.idCell {
+  font-family: monospace;
+  color: #888;
+  font-size: 12px;
+}
+
+.deleteBoardBtn {
+  background-color: white;
+  border: 1px solid #ffcccc;
+  color: #e50829;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.deleteBoardBtn:hover {
+  background-color: #e50829;
+  color: white;
+  border-color: #e50829;
+}
+
+.deleteBoardBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.loadingMsg, .errorMsg {
+  padding: 40px;
+  text-align: center;
+  font-size: 16px;
+  color: #666;
+}

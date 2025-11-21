@@ -1,8 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import apiRequest from "../../utils/apiRequest";
-import "./adminPage.css";
+import "./adminUserPage.css";
 
-const AdminPage = () => {
+const AdminUserPage = () => {
   const queryClient = useQueryClient();
 
   const { isPending, error, data: users } = useQuery({
@@ -70,4 +70,4 @@ const AdminPage = () => {
   );
 };
 
-export default AdminPage;
+export default AdminUserPage;

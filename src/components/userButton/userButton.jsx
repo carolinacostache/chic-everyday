@@ -65,6 +65,15 @@ const UserButton = () => {
                 <Link to={`/profile/${currentUser.username}`} className="userOption" onClick={() => setOpen(false)}> 
             Profile
           </Link>
+          {currentUser.isAdmin && (
+                      <Link 
+                        to="/admin" 
+                        className="userOption adminLink" 
+                        onClick={() => setOpen(false)}
+                      >
+                        Panou Admin
+                      </Link>
+                    )}
           <div className="userOption">Setting</div>
           <div className="userOption" onClick={handleLogout}>
             Logout

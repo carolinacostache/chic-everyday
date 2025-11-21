@@ -80,3 +80,8 @@
         gap: 0;
     }
 }
+
+.userOption.adminLink {
+  color: #e50829;
+  font-weight: bold;
+}

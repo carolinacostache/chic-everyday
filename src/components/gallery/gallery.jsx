@@ -7,7 +7,7 @@ import Skeleton from "../skeleton/skeleton";
 import Masonry from 'react-masonry-css';
 
 
-const fetchPins = async ({ pageParam, search, userId, boardId, tag }) => {
+const fetchPins = async ({ pageParam, search, userId, boardId, tag}) => {
   const res = await axios.get(
     `${import.meta.env.VITE_API_ENDPOINT}/pins?cursor=${pageParam}&search=${
       search || ""
@@ -17,7 +17,7 @@ const fetchPins = async ({ pageParam, search, userId, boardId, tag }) => {
 };
 
 
-const Gallery = ({ search, userId, boardId, tag }) => {
+const Gallery = ({ search, userId, boardId, tag , renderItem }) => {
   const { data, fetchNextPage, hasNextPage, status } = useInfiniteQuery({
     queryKey: ["pins", search, userId, boardId, tag],
     queryFn: ({ pageParam = 0 }) =>
@@ -47,7 +47,6 @@ const Gallery = ({ search, userId, boardId, tag }) => {
       next={fetchNextPage}
       hasMore={!!hasNextPage}
       loader={<h4>Loading more pins</h4>}
-      endMessage={<h3>All Posts Loaded!</h3>}
     >
       <Masonry
           breakpointCols={breakpointColumnsObj}
@@ -55,7 +54,10 @@ const Gallery = ({ search, userId, boardId, tag }) => {
           columnClassName="my-masonry-grid_column" 
         >
           {allPins?.map((item) => (
-            <GalleryItem key={item._id} item={item} />
+            /*<GalleryItem key={item._id} item={item} />*/
+            <div key={item._id}>
+             {renderItem ? renderItem(item) : <GalleryItem item={item} />}
+          </div>
           ))}
       </Masonry>
     </InfiniteScroll>

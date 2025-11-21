@@ -1,0 +1,18 @@
+.adminPage {
+  padding: 20px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.adminPage h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.adminPage p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 32px;
+}
