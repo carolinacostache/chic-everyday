@@ -86,7 +86,12 @@ const CreatePage = () => {
   });
 
   const handleSubmit = async () => {
-    if (isPublishing) return; 
+    if (isPublishing) return;
+
+    if (isEditing) {
+      setIsEditing(false); 
+      return; 
+    }
 
     if (!file) {
       alert("Please upload a file before publishing.");
@@ -172,12 +177,41 @@ const CreatePage = () => {
       ) : (
         <div className="createBottom">
           {previewImg.url ? (
-            <div className="preview">
-              <img src={previewImg.url} alt="" />
-              <div className="editIcon" onClick={() => setIsEditing(true)}>
-                <NImage src="/general/edit.svg" alt="Editează imaginea" />
-              </div>
-            </div>
+// Înlocuiește div-ul .preview existent cu acesta:
+
+<div 
+      className="preview" 
+      style={{ 
+        position: 'relative', 
+        width: '375px', // Fixăm lățimea pentru a se potrivi cu coordonatele editorului
+        margin: '0 auto' // Centrăm imaginea
+      }}
+    >
+      <img src={previewImg.url} alt="" style={{ width: '100%' }} />
+      
+      {/* Afișăm textul suprapus, citind din textOptions */}
+      {textOptions && textOptions.text && (
+        <div
+          style={{
+            position: "absolute",
+            left: textOptions.left,
+            top: textOptions.top,
+            fontSize: `${textOptions.fontSize}px`,
+            color: textOptions.color,
+            pointerEvents: "none", // Să nu blocheze click-urile
+            userSelect: "none",
+            whiteSpace: "nowrap"
+          }}
+        >
+          {textOptions.text}
+        </div>
+      )}
+
+      <div className="editIcon" onClick={() => setIsEditing(true)}>
+        <NImage src="/general/edit.svg" alt="Editează imaginea" />
+      </div>
+    </div>
+      
           ) : (
             <>
               <label htmlFor="file" className="upload">

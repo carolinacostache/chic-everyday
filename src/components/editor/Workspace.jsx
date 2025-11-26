@@ -12,7 +12,7 @@ const Workspace = ({ previewImg }) => {
   } = useEditorStore();
 
   useEffect(() => {
-    if (canvasOptions.height === 0) {
+    if (canvasOptions.height === 0 && previewImg.width) {
       const canvasHeight = (375 * previewImg.height) / previewImg.width;
       setCanvasOptions({
         ...canvasOptions,
@@ -27,11 +27,10 @@ const Workspace = ({ previewImg }) => {
   const dragging = useRef(false);
   const offset = useRef({ x: 0, y: 0 });
 
-  
   const handleMouseMove = (e) => {
     if (!dragging.current) return;
 
-    e.preventDefault(); 
+    e.preventDefault();
 
     const canvasRect = containerRef.current.getBoundingClientRect();
     let newLeft = e.clientX - canvasRect.left - offset.current.x;
@@ -40,11 +39,11 @@ const Workspace = ({ previewImg }) => {
     const itemWidth = itemRef.current.offsetWidth;
     const itemHeight = itemRef.current.offsetHeight;
 
+    // Limitează mișcarea în interiorul canvas-ului
     if (newLeft < 0) newLeft = 0;
     if (newTop < 0) newTop = 0;
     if (newLeft + itemWidth > canvasRect.width) newLeft = canvasRect.width - itemWidth;
     if (newTop + itemHeight > canvasRect.height) newTop = canvasRect.height - itemHeight;
-
 
     itemRef.current.style.left = `${newLeft}px`;
     itemRef.current.style.top = `${newTop}px`;
@@ -54,13 +53,13 @@ const Workspace = ({ previewImg }) => {
     if (!dragging.current) return;
     dragging.current = false;
 
-    if(itemRef.current) {
-        itemRef.current.style.cursor = "grab";
+    if (itemRef.current) {
+      itemRef.current.style.cursor = "grab";
     }
 
     const finalLeft = parseFloat(itemRef.current.style.left);
     const finalTop = parseFloat(itemRef.current.style.top);
-    
+
     setTextOptions({
       ...textOptions,
       left: finalLeft,
@@ -79,16 +78,18 @@ const Workspace = ({ previewImg }) => {
     dragging.current = true;
 
     const canvasRect = containerRef.current.getBoundingClientRect();
-    const mouseXInCanvas = e.clientX - canvasRect.left;
-    const mouseYInCanvas = e.clientY - canvasRect.top;
-
+    
+    // Calculează offset-ul corect față de colțul elementului
+    // (Folosim getBoundingClientRect pentru elementul curent pentru precizie)
+    const itemRect = itemRef.current.getBoundingClientRect();
+    
     offset.current = {
-      x: mouseXInCanvas - textOptions.left,
-      y: mouseYInCanvas - textOptions.top,
+      x: e.clientX - itemRect.left,
+      y: e.clientY - itemRect.top,
     };
 
-    if(itemRef.current) {
-        itemRef.current.style.cursor = "grabbing";
+    if (itemRef.current) {
+      itemRef.current.style.cursor = "grabbing";
     }
   };
 
@@ -99,20 +100,28 @@ const Workspace = ({ previewImg }) => {
         style={{
           height: canvasOptions.height,
           backgroundColor: canvasOptions.backgroundColor,
+          position: "relative", // Asigură-te că e relativ
+          overflow: "hidden" // Ascunde ce iese din cadru
         }}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseLeave}
         ref={containerRef}
       >
-        <img src={previewImg.url} alt="Preview" />
+        <img src={previewImg.url} alt="Preview" style={{width: '100%', height: '100%', objectFit: 'contain'}} />
+        
         {textOptions.text && (
           <div
             className="text"
             style={{
+              position: "absolute", // Esențial pentru drag
               left: textOptions.left,
               top: textOptions.top,
               fontSize: `${textOptions.fontSize}px`,
+              cursor: "grab", // Arată mânuța
+              userSelect: "none", // Previne selectarea textului în timp ce tragi
+              padding: "4px", // Un pic de spațiu să fie mai ușor de prins
+              border: "1px dashed transparent" // Opțional: vizual
             }}
             ref={itemRef}
             onMouseDown={handleMouseDown}
@@ -125,14 +134,29 @@ const Workspace = ({ previewImg }) => {
               }
               style={{
                 color: textOptions.color,
+                background: "transparent",
+                border: "none",
+                outline: "none",
+                fontSize: "inherit",
+                fontFamily: "inherit",
+                width: `${textOptions.text.length + 1}ch`, // Auto-resize aproximativ
+                minWidth: "50px",
+                cursor: "text"
               }}
-              onMouseDown={(e) => e.stopPropagation()}
+              // --- AM ȘTERS onMouseDown AICI ---
+              // Acum evenimentul se duce la părinte și începe drag-ul
             />
             <div
               className="deleteTextButton"
               onClick={() => setTextOptions({ ...textOptions, text: "" })}
-
-              onMouseDown={(e) => e.stopPropagation()}
+              // Aici păstrăm stopPropagation ca să nu începem drag-ul când ștergem
+              onMouseDown={(e) => e.stopPropagation()} 
+              style={{
+                  position: 'absolute', 
+                  top: '-10px', 
+                  right: '-10px',
+                  cursor: 'pointer'
+              }}
             >
               <NImage src="/general/delete.svg" alt="Delete text" />
             </div>
