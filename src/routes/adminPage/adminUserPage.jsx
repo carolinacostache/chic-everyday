@@ -36,7 +36,7 @@ const AdminUserPage = () => {
               <th>Imagine</th>
               <th>Username</th>
               <th>Email</th>
-              <th>Admin?</th>
+              <th>Rol</th>
               <th>Acțiuni</th>
             </tr>
           </thead>
@@ -51,7 +51,7 @@ const AdminUserPage = () => {
                 </td>
                 <td>{user.username}</td>
                 <td>{user.email}</td>
-                <td>{user.isAdmin ? "Da" : "Nu"}</td>
+                <td>{user.role}</td>
                 <td>
                   <button 
                     className="deleteButton"
