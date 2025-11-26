@@ -87,6 +87,26 @@ const Postpage = () => {
               )}
             </div>
             <div className="postInfo">
+              {data.link && (
+                <a 
+                  href={data.link} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  style={{
+                    backgroundColor: "#000",
+                    color: "white",
+                    padding: "12px 20px",
+                    borderRadius: "24px",
+                    textAlign: "center",
+                    textDecoration: "none",
+                    fontWeight: "bold",
+                    marginTop: "10px",
+                    display: "inline-block"
+                  }}
+                >
+                  🛒 Vezi Produsul pe Site
+                </a>
+              )}
               <p className="postTitle">{data.title}</p>
               <p className="postDescription">{data.description}</p>
 

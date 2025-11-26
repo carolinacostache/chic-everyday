@@ -244,10 +244,12 @@ const CreatePage = () => {
               <textarea rows={6} type="text" placeholder="Add a detailed description" name="description" id="description" />
             </div>
             
+            {currentUser?.role == "SHOP" && (
             <div className="createFormItem">
               <label htmlFor="link">Link</label>
               <input type="text" placeholder="Add a link" name="link" id="link" />
             </div>
+            )}
             
             <div className="createFormItem">
               <label htmlFor="board">Board (Opțional)</label>
