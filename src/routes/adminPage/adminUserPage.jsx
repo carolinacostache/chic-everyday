@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import apiRequest from "../../utils/apiRequest";
 import "./adminUserPage.css";
+import { Link } from "react-router-dom";
 
 const AdminUserPage = () => {
   const queryClient = useQueryClient();
@@ -17,6 +18,8 @@ const AdminUserPage = () => {
     },
   });
 
+  const pendingCount = users?.filter(u => u.shopDetails?.status === "PENDING").length || 0;
+
   const handleDeleteUser = (userId) => {
     if (window.confirm("Ești sigur că vrei să ștergi acest utilizator?")) {
       deleteUserMutation.mutate(userId);
@@ -29,6 +32,29 @@ const AdminUserPage = () => {
   return (
     <div className="adminPage">
       <h1>Admin Panel - User Management</h1>
+
+      {pendingCount > 0 && (
+        <div style={{
+          backgroundColor: "#fff3cd",
+          border: "1px solid #ffeeba",
+          color: "#856404",
+          padding: "15px",
+          borderRadius: "8px",
+          marginBottom: "20px",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center"
+        }}>
+          <span>⚠️ Aveți <strong>{pendingCount}</strong> cereri de magazin în așteptare.</span>
+          <Link 
+            to="/admin/requests" 
+            style={{ fontWeight: "bold", color: "#856404", textDecoration: "underline" }}
+          >
+            Vezi Cererile &rarr;
+          </Link>
+        </div>
+      )}
+
       <div className="adminUserList">
         <table>
           <thead>

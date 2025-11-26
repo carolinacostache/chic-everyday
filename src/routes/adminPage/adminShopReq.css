@@ -1,0 +1,27 @@
+.requestCard {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.requestHeader h3 { margin: 0 0 5px 0; }
+.username { color: #666; font-weight: normal; font-size: 14px; }
+.email { color: #888; font-size: 14px; }
+
+.requestDetails { margin: 15px 0; }
+.docPreview { margin-top: 10px; }
+.docPreview a { color: #0074e8; font-weight: bold; }
+.docImg { 
+  display: block; 
+  margin-top: 10px; 
+  max-width: 200px; 
+  border: 1px solid #eee; 
+  border-radius: 8px; 
+}
+
+.requestActions { display: flex; gap: 10px; margin-top: 20px; }
+.approveBtn { background-color: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+.rejectBtn { background-color: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; }

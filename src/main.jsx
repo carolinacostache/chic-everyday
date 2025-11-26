@@ -25,6 +25,7 @@ const AdminPinPage = React.lazy(() => import("./routes/adminPage/adminPinPage"))
 const AdminTagsPage = React.lazy(() => import("./routes/adminPage/adminTagPage"));
 
 const AdminBoardsPage = React.lazy(() => import("./routes/adminPage/adminBoardPage"));
+const AdminShopReq = React.lazy(() => import("./routes/adminPage/adminShopReq"));
 
 const queryClient = new QueryClient()
 
@@ -46,7 +47,8 @@ createRoot(document.getElementById('root')).render(
           <Route path="/auth" element={<AuthPage />} />
           <Route element={<AdminLayout />}>
             <Route path="/admin" element={<div>Pagina de intrare in lucru</div>} />
-            <Route path="/admin/users" element={<AdminUserPage />} /> 
+            <Route path="/admin/users" element={<AdminUserPage />} />
+            <Route path="/admin/requests" element={<AdminShopReq />} />
             <Route path="/admin/pins" element={<AdminPinPage/>}/>
             <Route path="/admin/tags" element={<AdminTagsPage/>} />
             <Route path="/admin/boards" element={<AdminBoardsPage/>} />
