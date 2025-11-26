@@ -1,0 +1,113 @@
+.settingsPage {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.settingsPage h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.settingsContainer {
+  background: white;
+  border: 1px solid #e1e1e1;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.settingsSection {
+  margin-bottom: 32px;
+}
+
+.settingsSection h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.settingsForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.formGroup label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+}
+
+.formGroup input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.disabledInput {
+  background-color: #f9f9f9;
+  color: #888;
+  cursor: not-allowed;
+}
+
+.saveBtn {
+  background-color: #e60023;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 24px;
+  font-weight: 600;
+  cursor: pointer;
+  width: fit-content;
+  margin-top: 8px;
+}
+
+.saveBtn:hover {
+  background-color: #ad081b;
+}
+
+.successMessage {
+  color: green;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 32px 0;
+}
+
+/* Shop Section */
+.shopSection ul {
+  margin: 10px 0 20px 20px;
+  color: #555;
+}
+
+.shopSection li {
+  margin-bottom: 6px;
+}
+
+.upgradeBtn {
+  background-color: #0074e8;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 24px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.upgradeBtn:hover {
+  background-color: #005bb5;
+}

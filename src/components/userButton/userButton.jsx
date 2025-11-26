@@ -74,7 +74,7 @@ const UserButton = () => {
                         Panou Admin
                       </Link>
                     )}
-          <div className="userOption">Setting</div>
+          <Link to="/settings" className="userOption" onClick={() => setOpen(false)}>Setări</Link>
           <div className="userOption" onClick={handleLogout}>
             Logout
           </div>

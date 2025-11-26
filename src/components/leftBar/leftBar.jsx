@@ -25,7 +25,7 @@ const LeftBar = () => {
         <NImage src="/general/messages.svg" alt="a" />
         </Link>                          
       </div>
-        <Link to="/" className="menuIcon"> 
+        <Link to="/settings" className="menuIcon"> 
         <NImage src="/general/settings.svg" alt="a" />
         </Link>       
     </div>

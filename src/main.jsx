@@ -16,6 +16,7 @@ const ProfilePage = React.lazy(() =>
   import("./routes/profilePage/profilePage")
 );
 const WeatherPage = React.lazy(() => import("./routes/weatherPage/weatherPage"));
+const SettingsPage = React.lazy(() => import("./routes/settingsPage/settingsPage"));
 const SearchPage = React.lazy(() => import("./routes/searchPage/searchPage"));
 const AuthPage = React.lazy(() => import("./routes/authPage/authPage"));
 
@@ -40,6 +41,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="/profile/:username" element={<ProfilePage />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/weather" element={<WeatherPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
           </Route>
           <Route path="/auth" element={<AuthPage />} />
           <Route element={<AdminLayout />}>
