@@ -76,10 +76,14 @@ const GalleryItem = ({item}) => {
 
 
     return (
-        <div className="galleryItem">
-            
+        <div className={`galleryItem ${item.type === 'contest' ? 'contestItem' : ''}`}>
             <div className="galleryImageContainer">
                 <NImage src={item.media} alt={item.title || ""} w="100%" h="auto" />
+                {item.type === 'contest' && (
+                  <div className="contestBadge">
+                    <span>🏆 CONCURS</span>
+                  </div>
+                )}
                 <Link to={`/pin/${item._id}`} className = "overlay"/>
                 <button className="saveButton" onClick={handleSaveClick} >Save</button>
                 <div className="overlayIcons">
@@ -100,7 +104,13 @@ const GalleryItem = ({item}) => {
                 </div>
             </div>
 
-
+            <div className="galleryTitleContainer">
+              <h4>{item.title}</h4>
+              {item.type === 'contest' && item.prize && (
+                <p className="contestPrize">Premiu: {item.prize}</p>
+              )}
+            </div>
+            
             {item.title && (
                 <div className="galleryTitleContainer">
                     <h4>{item.title}</h4>

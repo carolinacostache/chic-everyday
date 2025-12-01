@@ -83,11 +83,18 @@ const Profilepage = () => {
           >
             Saved
           </span>
+          {data.role === "SHOP" && (
+            <span onClick={() => setType("contests")} className={type === "contests" ? "active" : ""}>
+              Concursuri 🏆
+            </span>
+  )}
         </div>
         {type === "created" ? (
           <Gallery userId={data._id} />
-        ) : (
+        ) : type === "saved" ? (
           <Collections userId={data._id} />
+        ) : (
+          <Gallery userId={data._id} type="contest" />
         )}
       </div>
 

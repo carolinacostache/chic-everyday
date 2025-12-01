@@ -7,21 +7,21 @@ import Skeleton from "../skeleton/skeleton";
 import Masonry from 'react-masonry-css';
 
 
-const fetchPins = async ({ pageParam, search, userId, boardId, tag}) => {
+const fetchPins = async ({ pageParam, search, userId, boardId, tag, type}) => {
   const res = await axios.get(
     `${import.meta.env.VITE_API_ENDPOINT}/pins?cursor=${pageParam}&search=${
       search || ""
-    }&userId=${userId || ""}&boardId=${boardId || ""}&tag=${tag||""}`
+    }&userId=${userId || ""}&boardId=${boardId || ""}&tag=${tag||""}&type=${type || ""}`
   );
   return res.data;
 };
 
 
-const Gallery = ({ search, userId, boardId, tag , renderItem }) => {
+const Gallery = ({ search, userId, boardId, tag , renderItem, type }) => {
   const { data, fetchNextPage, hasNextPage, status } = useInfiniteQuery({
-    queryKey: ["pins", search, userId, boardId, tag],
+    queryKey: ["pins", search, userId, boardId, tag, type],
     queryFn: ({ pageParam = 0 }) =>
-      fetchPins({ pageParam, search, userId, boardId, tag }),
+      fetchPins({ pageParam, search, userId, boardId, tag, type }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
   });

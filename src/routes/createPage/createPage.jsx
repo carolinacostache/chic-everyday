@@ -41,6 +41,10 @@ const CreatePage = () => {
   const [isNewBoardOpen, setIsNewBoardOpen] = useState(false);
   const [selectedWeatherTags, setSelectedWeatherTags] = useState([]);
 
+  const [isContest, setIsContest] = useState(false);
+  const [prize, setPrize] = useState("");
+  const [deadline, setDeadline] = useState("");
+
   useEffect(() => {
     if (!currentUser) {
       navigate("/auth");
@@ -129,6 +133,12 @@ const CreatePage = () => {
 
       formData.append("width", previewImg.width);
       formData.append("height", previewImg.height);
+
+      formData.append("isContest", isContest);
+      if (isContest) {
+        formData.append("prize", prize);
+        formData.append("deadline", deadline);
+      }
       
       if (selectedBoard) {
         formData.append("board", selectedBoard); 
@@ -139,8 +149,6 @@ const CreatePage = () => {
       mutate(formData);
     }
   };
-
-
 
   const handleNewBoard = () => {
     setIsNewBoardOpen((prev) => !prev);
@@ -177,19 +185,17 @@ const CreatePage = () => {
       ) : (
         <div className="createBottom">
           {previewImg.url ? (
-// Înlocuiește div-ul .preview existent cu acesta:
 
-<div 
+    <div 
       className="preview" 
       style={{ 
         position: 'relative', 
-        width: '375px', // Fixăm lățimea pentru a se potrivi cu coordonatele editorului
-        margin: '0 auto' // Centrăm imaginea
+        width: '375px',
+        margin: '0 auto' 
       }}
     >
       <img src={previewImg.url} alt="" style={{ width: '100%' }} />
       
-      {/* Afișăm textul suprapus, citind din textOptions */}
       {textOptions && textOptions.text && (
         <div
           style={{
@@ -198,7 +204,7 @@ const CreatePage = () => {
             top: textOptions.top,
             fontSize: `${textOptions.fontSize}px`,
             color: textOptions.color,
-            pointerEvents: "none", // Să nu blocheze click-urile
+            pointerEvents: "none",
             userSelect: "none",
             whiteSpace: "nowrap"
           }}
@@ -325,6 +331,42 @@ const CreatePage = () => {
               setNewBoard={setNewBoardTitle} 
               setSelectedBoard={setSelectedBoard}
             />
+          )}
+          
+          {currentUser?.role === "SHOP" && (
+            <div className="contestSection">
+              <label className="contestCheckboxLabel">
+                <input 
+                  type="checkbox" 
+                  checked={isContest} 
+                  onChange={(e) => setIsContest(e.target.checked)} 
+                />
+                🏆 Creează ca un Concurs
+              </label>
+
+              {isContest && (
+                <div className="contestFields">
+                  <div>
+                    <input 
+                      type="text" 
+                      placeholder="Ce premiu oferi? (ex: Voucher 500 RON)" 
+                      value={prize}
+                      onChange={(e) => setPrize(e.target.value)}
+                      className="contestInput"
+                    />
+                  </div>
+                  <div>
+                    <label className="dateLabel">Data Limită:</label>
+                    <input 
+                      type="date" 
+                      value={deadline}
+                      onChange={(e) => setDeadline(e.target.value)}
+                      className="contestInput"
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
           )}
         </div>
       )}
