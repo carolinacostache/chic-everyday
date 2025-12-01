@@ -16,3 +16,78 @@
   color: #666;
   margin-bottom: 32px;
 }
+
+.adminGalleryItem {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  break-inside: avoid; 
+  margin-bottom: 16px;
+  background: #fff;
+  border-radius: 16px;
+}
+
+.adminImageContainer {
+  position: relative;
+  width: 100%;
+  line-height: 0; 
+}
+
+.adminImageContainer img {
+  width: 100%;
+  height: auto; 
+  border-radius: 16px;
+  display: block;
+}
+
+.adminOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 16px;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.adminImageContainer:hover .adminOverlay {
+  display: flex; 
+}
+
+.adminDeleteBtn {
+  background-color: #e50829;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.adminViewLink {
+  color: white;
+  text-decoration: underline;
+  font-size: 14px;
+}
+
+.adminItemInfo {
+  padding: 8px 4px;
+}
+
+.adminItemInfo h4 {
+  margin: 0;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.adminItemInfo small {
+  color: #666;
+  font-size: 12px;
+}

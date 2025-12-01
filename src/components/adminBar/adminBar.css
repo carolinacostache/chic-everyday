@@ -43,3 +43,24 @@
   background-color: #333;
   color: white;
 }
+
+.adminSearchContainer {
+  flex: 1; /* Ocupă spațiul din mijloc */
+  display: flex;
+  justify-content: center;
+}
+
+.adminNavSearch {
+  padding: 8px 16px;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  background-color: #f1f1f1;
+  font-size: 14px;
+}
+.adminNavSearch:focus {
+  background-color: white;
+  border-color: #aaa;
+  outline: none;
+}

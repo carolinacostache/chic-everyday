@@ -1,11 +1,39 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Link, useSearchParams, useLocation } from "react-router-dom";
 import "./adminBar.css";
 
 const AdminBar = () => {
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
+
+  /* in cazul in care o sa mai fie adaugate pagini pe viitor unde o sa implementam cautare*/
+  const showSearch = ["/admin/users", "/admin/pins", "/admin/boards"].includes(location.pathname);
+
+  const handleSearch = (e) => {
+    const text = e.target.value;
+    if (text) {
+      setSearchParams({ search: text });
+    } else {
+      setSearchParams({});
+    }
+  };
   return (
     <nav className="adminBar">
       <div className="adminContainer">
-        <span className="adminTitle">Panou Admin</span>
+        <Link to="/admin" className="adminTitle">
+        <h1>Panou Admin</h1>
+        </Link>
+        {showSearch && (
+          <div className="adminSearchContainer">
+            <input
+              type="text"
+              placeholder="Caută..."
+              value={searchParams.get("search") || ""}
+              onChange={handleSearch}
+              className="adminNavSearch"
+            />
+          </div>
+        )}
         <div className="adminLinks">
           <NavLink to="/admin/users" className={({ isActive }) => (isActive ? "active" : "")}>
             Useri

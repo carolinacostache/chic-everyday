@@ -1,13 +1,17 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import apiRequest from "../../utils/apiRequest";
 import "./adminBoardPage.css";
+import { useSearchParams } from "react-router-dom";
 
 const AdminBoardsPage = () => {
   const queryClient = useQueryClient();
 
+  const [searchParams] = useSearchParams();
+  const search = searchParams.get("search") || "";
+
   const { isPending, error, data: boards } = useQuery({
-    queryKey: ["adminBoards"],
-    queryFn: () => apiRequest.get("/admin/boards").then((res) => res.data),
+    queryKey: ["adminBoards",search],
+    queryFn: () => apiRequest.get(`/admin/boards?search=${search}`).then((res) => res.data),
   });
 
   const deleteMutation = useMutation({

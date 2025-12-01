@@ -20,6 +20,8 @@ const SettingsPage = React.lazy(() => import("./routes/settingsPage/settingsPage
 const SearchPage = React.lazy(() => import("./routes/searchPage/searchPage"));
 const AuthPage = React.lazy(() => import("./routes/authPage/authPage"));
 
+const AdminPage = React.lazy(() => import("./routes/adminPage/adminPage"));
+
 const AdminUserPage = React.lazy(() => import("./routes/adminPage/adminUserPage"));
 const AdminPinPage = React.lazy(() => import("./routes/adminPage/adminPinPage"));
 const AdminTagsPage = React.lazy(() => import("./routes/adminPage/adminTagPage"));
@@ -46,7 +48,7 @@ createRoot(document.getElementById('root')).render(
           </Route>
           <Route path="/auth" element={<AuthPage />} />
           <Route element={<AdminLayout />}>
-            <Route path="/admin" element={<div>Pagina de intrare in lucru</div>} />
+            <Route path="/admin" element={<AdminPage/>} />
             <Route path="/admin/users" element={<AdminUserPage />} />
             <Route path="/admin/requests" element={<AdminShopReq />} />
             <Route path="/admin/pins" element={<AdminPinPage/>}/>
