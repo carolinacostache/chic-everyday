@@ -1,66 +1,81 @@
-.userButton{
+.userButton {
     display: flex;
     align-items: center;
     gap: 16px;
     position: relative;
     z-index: 100;
+    color: #670626;
 }
 
-.userButton img{
+.userButton img {
     width: 36px;
     height: 36px;
     border-radius: 100%;
+    object-fit: cover;
+    border: 2px solid #f8bbd0;
 }
 
-.userButton .arrow{
+.userButton .arrow {
     cursor: pointer;
     width: 16px;
     height: 16px;
+    transition: transform 0.2s;
 }
 
-.userOptions{
+.userButton:hover .arrow {
+    transform: translateY(2px);
+}
+
+.userOptions {
     position: absolute;
     right: 0;
     top: 120%;
-    padding: 16px;
-    border-radius: 8px;
-    background-color: white;
+    padding: 8px;
+    border-radius: 16px;
+    background-color: #fff8f0;
     z-index: 9999;
     display: flex;
     flex-direction: column;
     font-size: 14px;
-    box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.202)
+    box-shadow: 0px 4px 15px rgba(103, 6, 38, 0.15);
+    border: 1px solid #f8bbd0;
+    min-width: 150px;
 }
 
-.userOption{
+.userOption {
     cursor: pointer;
-    padding: 8px;
+    padding: 10px 12px;
     border-radius: 8px;
+    color: #670626;
+    text-decoration: none;
+    transition: background-color 0.2s;
 }
 
-.userOption:hover{
-    background-color: #f1f1f1;
-    color: gray
+.userOption:hover {
+    background-color: #f8bbd0;
+    color: #670626;
 }
 
-.loginLink{
+.loginLink {
     font-size: 18px;
-    padding: 16px;
+    padding: 10px 16px;
     border-radius: 32px;
-
     display: flex;
     align-items: center;
     gap: 8px;
+    color: #670626;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s;
 }
-
 
 .loginLink img {
     width: 24px;
     height: 24px;
 }
 
-.loginLink:hover{
-    background-color: #f1f1f1;
+.loginLink:hover {
+    background-color: #f8bbd0;
 }
 
 @media(max-width: 475px){
@@ -82,6 +97,12 @@
 }
 
 .userOption.adminLink {
-  color: #e50829;
-  font-weight: bold;
+  color: #670626;
+  font-weight: 800;
+  border-top: 1px solid #f8bbd0;
+  margin-top: 4px;
+}
+
+.userOption.adminLink:hover {
+  background-color: #fff185;
 }

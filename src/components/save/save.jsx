@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import apiRequest from '../../utils/apiRequest';
+import BoardForm from '../../routes/createPage/BoardForm';
 import useAuthStore from '../../utils/authStore';
 import './save.css';
 
@@ -13,12 +14,6 @@ const saveToBoard = async ({ pinId, boardId }) => {
   return res.data;
 };
 
-
-const createBoard = async (title) => {
-  const res = await apiRequest.post("/boards", { title });
-  return res.data;
-};
-
 const Save = ({ pinId, onClose }) => {
   const { currentUser } = useAuthStore();
   const queryClient = useQueryClient();
@@ -26,9 +21,8 @@ const Save = ({ pinId, onClose }) => {
 
   const [savingBoardId, setSavingBoardId] = useState(null); 
   const [showCreateForm, setShowCreateForm] = useState(false);
-  const [newBoardTitle, setNewBoardTitle] = useState("");
 
-  const { isPending, error, data: boards, refetch: refetchBoards } = useQuery({
+  const { isPending, error, data: boards} = useQuery({
     queryKey: ['userBoards', currentUser._id, pinId],
     queryFn: () =>
       apiRequest.get(`/boards/${currentUser._id}?pinId=${pinId}`).then((res) => res.data),
@@ -60,39 +54,14 @@ const Save = ({ pinId, onClose }) => {
     },
   });
 
-
-  const createBoardMutation = useMutation({
-    mutationFn: createBoard,
-    onMutate: () => {
-      setSavingBoardId("__CREATING__"); 
-    },
-    onSuccess: (newBoard) => {
-      saveMutation.mutate({ pinId, boardId: newBoard._id });
-      refetchBoards();
-      setShowCreateForm(false);
-      setNewBoardTitle(""); 
-    },
-    onError: (err) => {
-      alert("Eroare la crearea board-ului: " + err.response?.data?.message);
-    },
-
-    onSettled: () => {
-        if (savingBoardId === "__CREATING__") {
-            setSavingBoardId(null);
-        }
-    }
-  });
-
   const handleSave = (boardId) => {
 
     if (savingBoardId) return; 
     saveMutation.mutate({ pinId, boardId });
   };
 
-  const handleCreateBoard = (e) => {
-    e.preventDefault();
-    if (newBoardTitle.trim() === "" || savingBoardId) return;
-    createBoardMutation.mutate(newBoardTitle);
+  const handleCreateBoard = (newBoard) => {
+    handleSave(newBoard._id);
   };
 
   if (isPending) return <div className="saveModalOverlay">Loading boards...</div>;
@@ -102,8 +71,6 @@ const Save = ({ pinId, onClose }) => {
     <div className="saveModalOverlay" onClick={onClose}>
       <div className="saveModalContent" onClick={(e) => e.stopPropagation()}>
         
-        {!showCreateForm && (
-          <>
             <div className="saveModalHeader">
               <h1>Salvează pe un board</h1>
               <button className="closeButton" onClick={onClose}>X</button>
@@ -115,10 +82,10 @@ const Save = ({ pinId, onClose }) => {
                   className="boardItem"
                   onClick={() => board.isSaved ? null : handleSave(board._id)}
                 >
-                  <img
-                    src={board.firstPin?.media || '/general/placeholder.png'}
-                    alt={board.title}
-                  />
+                  <div className="boardThumb">
+                    <img src={board.firstPin?.media || '/general/placeholder.png'} alt="" />
+                    {board.isSecret && <span className="lockIcon">🔒</span>}
+                  </div>
                   <span>{board.title}</span>
                   <button
                     className={`saveButtonModal ${board.isSaved ? 'saved' : ''}`}
@@ -137,39 +104,19 @@ const Save = ({ pinId, onClose }) => {
                 </div>
               ))}
             </div>
-            <div className="createBoardToggle" onClick={() => savingBoardId ? null : setShowCreateForm(true)}>
+            <div className="createBoardToggle" onClick={() => setShowCreateForm(true)}>
               <div className="createBoardPlus">+</div>
               <span>Creează un board nou</span>
             </div>
-          </>
-        )}
 
-        {showCreateForm && (
-          <div className="createBoardForm">
-            <div className="saveModalHeader">
-              <h1>Creează board</h1>
-              <button className="backButton" onClick={() => setShowCreateForm(false)}>&lt;</button>
-            </div>
-            <form onSubmit={handleCreateBoard}>
-              <label htmlFor="boardTitle">Nume</label>
-              <input 
-                type="text" 
-                id="boardTitle"
-                placeholder="Ex: 'Idei de călătorie'"
-                value={newBoardTitle}
-                onChange={(e) => setNewBoardTitle(e.target.value)}
+            {showCreateForm && (
+              <BoardForm 
+                setIsNewBoardOpen={setShowCreateForm}
+                onBoardCreated={handleCreateBoard}   
               />
-              <button 
-                type="submit" 
-                className="createButton"
+            )}
 
-                disabled={savingBoardId !== null} 
-              >
-                {savingBoardId === "__CREATING__" ? "Se creează..." : "Creează"}
-              </button>
-            </form>
-          </div>
-        )}
+      
       </div>
     </div>
   );

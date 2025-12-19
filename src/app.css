@@ -1,11 +1,13 @@
-.app{
+.app {
     display: flex;
     gap: 16px;
     width: 100%;
-
+    min-height: 100vh;
+    background-color: #fff8f0;
+    color: #670626;
 }
 
-.content{
-    flex : 1;
+.content {
+    flex: 1;
     margin-right: 16px;
 }

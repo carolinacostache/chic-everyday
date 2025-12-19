@@ -1,27 +1,90 @@
 .requestCard {
-  background: white;
-  border: 1px solid #ddd;
+  background: #ffffff;
+  border: 1px solid #f8bbd0;
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px rgba(103, 6, 38, 0.05);
 }
 
-.requestHeader h3 { margin: 0 0 5px 0; }
-.username { color: #666; font-weight: normal; font-size: 14px; }
-.email { color: #888; font-size: 14px; }
+.requestHeader h3 { 
+  margin: 0 0 5px 0; 
+  color: #670626;
+}
 
-.requestDetails { margin: 15px 0; }
-.docPreview { margin-top: 10px; }
-.docPreview a { color: #0074e8; font-weight: bold; }
+.username { 
+  color: #670626; 
+  font-weight: 500; 
+  font-size: 14px; 
+}
+
+.email { 
+  color: #8c6b74; 
+  font-size: 14px; 
+}
+
+.requestDetails { 
+  margin: 15px 0; 
+  color: #670626;
+}
+
+.docPreview { 
+  margin-top: 10px; 
+}
+
+.docPreview a { 
+  color: #670626; 
+  font-weight: bold; 
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.docPreview a:hover {
+  color: #f89cbc;
+}
+
 .docImg { 
   display: block; 
   margin-top: 10px; 
   max-width: 200px; 
-  border: 1px solid #eee; 
+  border: 1px solid #f8bbd0; 
   border-radius: 8px; 
 }
 
-.requestActions { display: flex; gap: 10px; margin-top: 20px; }
-.approveBtn { background-color: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-.rejectBtn { background-color: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; }
+.requestActions { 
+  display: flex; 
+  gap: 10px; 
+  margin-top: 20px; 
+}
+
+.approveBtn { 
+  background-color: #670626; 
+  color: #fff8f0; 
+  border: none; 
+  padding: 10px 20px; 
+  border-radius: 24px; 
+  cursor: pointer; 
+  font-weight: bold; 
+  transition: background-color 0.2s;
+}
+
+.approveBtn:hover {
+  background-color: #f89cbc;
+  color: #670626;
+}
+
+.rejectBtn { 
+  background-color: #fff8f0; 
+  color: #670626; 
+  border: 1px solid #f8bbd0; 
+  padding: 10px 20px; 
+  border-radius: 24px; 
+  cursor: pointer; 
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.rejectBtn:hover {
+  background-color: #fff185;
+  border-color: #670626;
+}

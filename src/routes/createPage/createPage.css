@@ -1,6 +1,6 @@
 .createTop {
-  border-top: 1px solid #e9e9e9;
-  border-bottom: 1px solid #e9e9e9;
+  border-top: 1px solid #f8bbd0;
+  border-bottom: 1px solid #f8bbd0;
   padding: 16px 0px;
   display: flex;
   align-items: center;
@@ -9,23 +9,26 @@
 
 .createTop h1 {
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 600;
+  color: #670626;
 }
 
 .createTop button {
-  background-color: #e50829;
-  color: white;
-  font-weight: 500;
+  background-color: #670626;
+  color: #fff8f0;
+  font-weight: 600;
   border: none;
   outline: none;
   padding: 16px;
   border-radius: 32px;
   cursor: pointer;
   font-size: 15px;
+  transition: background-color 0.2s;
 }
 
 .createTop button:hover {
-  background-color: #c1011e;
+  background-color: #f89cbc;
+  color: #670626;
 }
 
 .createBottom {
@@ -36,18 +39,25 @@
 }
 
 .upload {
-  background-color: #e9e9e9;
+  background-color: #fff0f9;
   cursor: pointer;
   font-size: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 32px;
-  border: 2px dashed #dddddd;
+  border: 2px dashed #f8bbd0;
   width: 375px;
   height: 574px;
   padding: 16px;
   position: relative;
+  color: #670626;
+  transition: background-color 0.2s;
+}
+
+.upload:hover {
+  background-color: #f5b8cd;
+  border-color: #670626;
 }
 
 .uploadTitle {
@@ -62,7 +72,7 @@
   bottom: 32px;
   font-size: 13px;
   text-align: center;
-  color: gray;
+  color: #8c6b74;
 }
 
 .preview {
@@ -73,13 +83,14 @@
 .preview img{
   border-radius: 32px;
   width: 100%;
+  border: 1px solid #f8bbd0;
 }
 
 .editIcon{
   position: absolute;
   top: 16px;
   right: 16px;
-  background-color: white;
+  background-color: #fff8f0;
   width: 40px;
   height: 40px;
   display: flex;
@@ -88,6 +99,8 @@
   padding: 6px;
   border-radius: 50%;
   cursor: pointer;
+  border: 1px solid #f8bbd0;
+  color: #670626;
 }
 
 .createForm {
@@ -105,31 +118,47 @@
 
 .createFormItem label {
   font-size: 13px;
-  color: gray;
+  color: #670626;
+  font-weight: 600;
 }
 
 .createFormItem input,
 textarea{
   font-size: 15px;
-  border: 2px solid #e9e9e9;
+  border: 2px solid #f89cbc;
   padding: 16px;
   border-radius: 16px;
+  background-color: #ffffff;
+  color: #670626;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.createFormItem input:focus,
+textarea:focus {
+  border-color: #670626;
+  background-color: #fff185;
 }
 
 .createFormItem select#board{
   width: 100%;
   padding: 16px;
   border-radius: 16px;
-  border: 2px solid #e9e9e9;
+  border: 2px solid #f89cbc;
   font-size: 15px;
-  background-color: white;
+  background-color: #ffffff;
+  color: #670626;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   cursor: pointer;
-
+  outline: none;
 }
 
+.createFormItem select#board:focus {
+  border-color: #670626;
+  background-color: #fff185;
+}
 
 .createFormItem textarea {
   resize: none;
@@ -150,14 +179,17 @@ textarea{
 .newBoardItem {
   padding: 8px;
   border-radius: 12px;
-  background-color: #e9e9e9;
+  background-color: #fff8f0;
+  border: 1px solid #f8bbd0;
   font-size: 13px;
   cursor: pointer;
+  color: #670626;
+  font-weight: 500;
 }
 
 .createBoardButton {
-  background-color: #e50829;
-  color: white;
+  background-color: #670626;
+  color: #fff8f0;
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -165,76 +197,17 @@ textarea{
   font-size: 13px;
   width: max-content;
   align-self: flex-end;
+  font-weight: 600;
+  transition: background-color 0.2s;
 }
 
-.boardForm {
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
+.createBoardButton:hover {
+  background-color: #f89cbc;
+  color: #670626;
 }
-.boardFormContainer {
-  background-color: white;
-  padding: 32px;
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
-.boardFormClose {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  cursor: pointer;
-}
-
-.boardFormContainer form {
-  padding-top: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.boardFormContainer h1 {
-  font-size: 20px;
-  font-weight: 500;
-  color: #333;
-  margin-bottom: 16px;
-}
-
-
-.boardFormContainer input {
-  border: 2px solid #e9e9e9;
-  border-radius: 16px;
-  background-color: white;
-  color: #333;
-  padding: 16px;
-  font-size: 15px;
-}
-
-.boardFormContainer button {
-  background-color: #e50829;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  padding: 8px;
-}
-
-.boardFormContainer button:hover {
-  background-color: #c1011e;
-}
-
 
 small {
-  color: #a6a6a6;
+  color: #8c6b74;
   font-size: 13px;
 }
 
@@ -266,8 +239,8 @@ small {
 .tagItem {
   padding: 8px 16px;
   border-radius: 24px;
-  background-color: #efefef; 
-  color: #333;
+  background-color: #f8bbd0; 
+  color: #670626;
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
@@ -276,13 +249,13 @@ small {
 }
 
 .tagItem:hover {
-  background-color: #ddd;
+  background-color: #f89cbc;
 }
 
 .tagItem.selected {
-  background-color: #e50829;
-  color: white;
-  border-color: #e50829;
+  background-color: #670626;
+  color: #fff8f0;
+  border-color: #670626;
 }
 
 .createPage {
@@ -301,7 +274,7 @@ small {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.6); 
+  background-color: rgba(255, 248, 240, 0.8); 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -310,14 +283,14 @@ small {
   gap: 16px;
   font-size: 20px;
   font-weight: 600;
-  color: #333;
+  color: #670626;
 }
 
 .spinner {
   width: 50px;
   height: 50px;
-  border: 5px solid #f3f3f3; 
-  border-top: 5px solid #e50829; 
+  border: 5px solid #f8bbd0; 
+  border-top: 5px solid #670626; 
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -327,24 +300,22 @@ small {
   100% { transform: rotate(360deg); }
 }
 
-
 .contestSection {
-  margin-top: 24px;
+  margin-top: 0px;
+  margin-bottom: 24px;
   padding: 20px;
-  background: linear-gradient(to right, #fffdf5, #fff); /* Ușor auriu */
-  border: 2px solid #ffd700; /* Bordură aurie */
+  background: #fffdf5;
+  border: 2px solid #fef7c0;
   border-radius: 12px;
-  position: relative;
 }
 
-/* Checkbox-ul principal */
 .contestCheckboxLabel {
   display: flex;
   align-items: center;
   gap: 12px;
   font-weight: 700;
   font-size: 16px;
-  color: #d4af37; /* Auriu închis */
+  color: #670626; 
   cursor: pointer;
   margin-bottom: 0;
 }
@@ -352,41 +323,41 @@ small {
 .contestCheckboxLabel input[type="checkbox"] {
   width: 18px;
   height: 18px;
-  accent-color: #d4af37;
+  accent-color: #670626;
 }
 
-/* Containerul pentru câmpurile care apar */
 .contestFields {
   margin-top: 16px;
   padding-top: 16px;
-  border-top: 1px dashed #e0e0e0;
+  border-top: 1px dashed #670626;
   display: flex;
   flex-direction: column;
   gap: 16px;
   animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Input-urile specifice concursului */
 .contestInput {
   width: 100%;
   padding: 12px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #670626;
   border-radius: 8px;
-  background-color: white;
+  background-color: #faf9f2;
   font-size: 14px;
+  color: #670626;
 }
 
 .contestInput:focus {
-  border-color: #ffd700;
+  border-color: #670626;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+  background-color: #fbf5c2;
 }
-
-/* Eticheta mică pentru dată */
+.useragentpart{
+  color:#670626
+}
 .dateLabel {
   font-size: 12px;
   font-weight: 600;
-  color: #666;
+  color: #670626;
   margin-bottom: 4px;
   display: block;
 }

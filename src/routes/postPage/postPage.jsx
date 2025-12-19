@@ -6,7 +6,7 @@ import Comments from '../../components/comments/comments';
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"; 
 import apiRequest from "../../utils/apiRequest";
 import { useParams, useNavigate } from "react-router-dom"; 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useAuthStore from '../../utils/authStore';
 import EditPin from '../../components/editPin/editPin';
 
@@ -34,6 +34,12 @@ const Postpage = () => {
     }
   });
 
+    useEffect(() => {
+    if (id) {
+      apiRequest.put(`/pins/${id}/view`).catch(err => console.error(err));
+    }
+  }, [id]);
+
   if (isLoading) return "Loading...";
   if (error) return "An error has occurred: " + error.message;
   if (!data) return "Pin not found!";
@@ -50,6 +56,10 @@ const Postpage = () => {
 
   const handleOpenEdit = () => {
     setIsEditModalOpen(true);
+  };
+
+  const handleLinkClick = () => {
+    apiRequest.put(`/pins/${id}/click`).catch(err => console.error(err));
   };
 
   return (
@@ -87,11 +97,32 @@ const Postpage = () => {
               )}
             </div>
             <div className="postInfo">
+
+              {data.type === 'contest' && (
+                <div className="contestHighlight">
+                   <div className="contestHeader">
+                      <span>🏆 CONCURS ACTIV</span>
+                   </div>
+                   <div className="contestBody">
+                      <p className="prizeText">
+                        <strong>Premiu:</strong> {data.prize || "Nespecificat"}
+                      </p>
+                      {data.deadline && (
+                        <p className="deadlineText">
+                          ⏳ Deadline: {new Date(data.deadline).toLocaleDateString('ro-RO')}
+                        </p>
+                      )}
+                   </div>
+                </div>
+              )}
+              
               {data.link && (
                 <a 
-                  href={data.link} 
+                  href={data.link.startsWith('http') ? data.link : `https://${data.link}`} 
                   target="_blank" 
-                  rel="noopener noreferrer"
+                  rel="noreferrer"
+                  className="shopLinkButton"
+                  onClick={handleLinkClick}
                   style={{
                     backgroundColor: "#000",
                     color: "white",

@@ -1,6 +1,6 @@
 .adminBar {
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #ddd;
+  background-color: #fff8f0;
+  border-bottom: 1px solid #f8bbd0;
   padding: 0 20px;
   margin-bottom: 20px;
 }
@@ -17,7 +17,7 @@
 .adminTitle {
   font-weight: bold;
   font-size: 18px;
-  color: #333;
+  color: #670626;
 }
 
 .adminLinks {
@@ -27,7 +27,7 @@
 
 .adminLinks a {
   text-decoration: none;
-  color: #555;
+  color: #670626;
   font-weight: 500;
   padding: 8px 12px;
   border-radius: 8px;
@@ -35,17 +35,17 @@
 }
 
 .adminLinks a:hover {
-  background-color: #e9ecef;
-  color: #000;
+  background-color: #f8bbd0;
+  color: #670626;
 }
 
 .adminLinks a.active {
-  background-color: #333;
-  color: white;
+  background-color: #f89cbc;
+  color: #fff8f0;
 }
 
 .adminSearchContainer {
-  flex: 1; /* Ocupă spațiul din mijloc */
+  flex: 1;
   display: flex;
   justify-content: center;
 }
@@ -54,13 +54,19 @@
   padding: 8px 16px;
   width: 100%;
   max-width: 400px;
-  border: 1px solid #ddd;
+  border: 1px solid #f89cbc;
   border-radius: 20px;
-  background-color: #f1f1f1;
+  background-color: #fff8f0;
   font-size: 14px;
+  color: #670626;
 }
+
+.adminNavSearch::placeholder {
+  color: #f89cbc;
+}
+
 .adminNavSearch:focus {
-  background-color: white;
-  border-color: #aaa;
+  background-color: #fff185;
+  border-color: #670626;
   outline: none;
 }

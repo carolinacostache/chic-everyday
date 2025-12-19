@@ -1,38 +1,80 @@
 .adminPage {
   padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
+
 .adminPage h1 {
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 20px;
+  color: #670626;
 }
+
+.adminUserList {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(103, 6, 38, 0.05);
+  border: 1px solid #f8bbd0;
+  overflow: hidden;
+}
+
 .adminUserList table {
   width: 100%;
   border-collapse: collapse;
 }
-.adminUserList th,
-.adminUserList td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-}
+
 .adminUserList th {
-  background-color: #f2f2f2;
+  background-color: #f8bbd0;
+  color: #670626;
+  font-weight: 700;
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #f89cbc;
 }
+
+.adminUserList td {
+  border-bottom: 1px solid #f8bbd0;
+  padding: 12px 16px;
+  text-align: left;
+  color: #670626;
+}
+
+.adminUserList tr:last-child td {
+  border-bottom: none;
+}
+
+.adminUserList tr:hover {
+  background-color: #fff8f0;
+}
+
 .adminUserList img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
+  border: 1px solid #f8bbd0;
 }
+
 .deleteButton {
-  background-color: #e50829;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
+  background-color: #fff8f0;
+  color: #670626;
+  border: 1px solid #f8bbd0;
+  padding: 6px 12px;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
 }
+
+.deleteButton:hover {
+  background-color: #fff185;
+  border-color: #670626;
+}
+
 .deleteButton:disabled {
-  background-color: #ccc;
+  background-color: #f8bbd0;
+  color: #ffffff;
+  cursor: not-allowed;
+  border-color: transparent;
 }

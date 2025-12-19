@@ -16,6 +16,26 @@ const Collections = ({ userId }) => {
   if (error && !userId) return null; 
   if (error) return "An error has occurred: " + error.message;
 
+  if (!data || data.length === 0) {
+    return (
+      <div style={{
+        display: "flex", 
+        flexDirection: "column", 
+        alignItems: "center", 
+        justifyContent: "center", 
+        padding: "60px 20px", 
+        color: "#666",
+        textAlign: "center",
+        width: "100%"
+      }}>
+        <div style={{ fontSize: "40px", marginBottom: "10px" }}>📂</div>
+        <h3 style={{fontSize: "20px", fontWeight: "600", marginBottom: "8px"}}>
+          Încă nu există nimic salvat.
+        </h3>
+      </div>
+    );
+  }
+
   return (
     <div className="collections">
       {data?.map((board) => (
@@ -30,6 +50,24 @@ const Collections = ({ userId }) => {
             ) : (
               <div className="collectionImagePlaceholder" /> 
             )}
+            {board.isSecret && (
+      <div style={{
+        position: 'absolute', 
+        top: '10px', 
+        left: '10px', 
+        background: 'rgba(255,255,255,0.9)', 
+        padding: '6px', 
+        borderRadius: '50%',
+        width: '24px',
+        height: '24px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        boxShadow: '0 2px 5px rgba(0,0,0,0.2)'
+      }}>
+        🔒
+      </div>
+    )}
           </div>
           
           <div className="collectionInfo">

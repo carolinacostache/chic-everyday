@@ -111,12 +111,6 @@ const GalleryItem = ({item}) => {
               )}
             </div>
             
-            {item.title && (
-                <div className="galleryTitleContainer">
-                    <h4>{item.title}</h4>
-                </div>
-            )}
-
             {isSaveModalOpen && (
                 <Save 
                     pinId={item._id} 

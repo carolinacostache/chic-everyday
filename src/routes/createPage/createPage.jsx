@@ -217,6 +217,7 @@ const CreatePage = () => {
         <NImage src="/general/edit.svg" alt="Editează imaginea" />
       </div>
     </div>
+    
       
           ) : (
             <>
@@ -323,17 +324,8 @@ const CreatePage = () => {
               />
               <small>Oamenii nu vor vedea tag-urile tale personalizate.</small>
             </div>
-          </form>
 
-          {isNewBoardOpen && (
-            <BoardForm
-              setIsNewBoardOpen={setIsNewBoardOpen}
-              setNewBoard={setNewBoardTitle} 
-              setSelectedBoard={setSelectedBoard}
-            />
-          )}
-          
-          {currentUser?.role === "SHOP" && (
+            {currentUser?.role === "SHOP" && (
             <div className="contestSection">
               <label className="contestCheckboxLabel">
                 <input 
@@ -368,6 +360,17 @@ const CreatePage = () => {
               )}
             </div>
           )}
+          </form>
+
+          {isNewBoardOpen && (
+            <BoardForm
+              setIsNewBoardOpen={setIsNewBoardOpen}
+              setNewBoard={setNewBoardTitle} 
+              setSelectedBoard={setSelectedBoard}
+            />
+          )}
+          
+          
         </div>
       )}
     </div>

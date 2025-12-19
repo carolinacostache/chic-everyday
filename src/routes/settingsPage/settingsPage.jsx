@@ -3,10 +3,13 @@ import useAuthStore from "../../utils/authStore";
 import apiRequest from "../../utils/apiRequest";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import "./settingsPage.css";
-import BecomeShopModal from "../../components/becomeShopModal/becomeShopModal";
+import { Link } from "react-router-dom";
+import BecomeShopModal from "../../components/becomeShopModal/becomeShopModal"; 
+
 
 const SettingsPage = () => {
-  const { currentUser, updateUser } = useAuthStore(); // Presupunem că ai updateUser în store, dacă nu, folosim doar currentUser
+  const { currentUser, updateUser } = useAuthStore();
+  const [openShopModal, setOpenShopModal] = useState(false); 
   const queryClient = useQueryClient();
 
   const [formData, setFormData] = useState({
@@ -19,13 +22,11 @@ const SettingsPage = () => {
 
   const [showShopModal, setShowShopModal] = useState(false);
 
-  // Mutație pentru actualizarea profilului (Nume, Parolă)
   const updateMutation = useMutation({
     mutationFn: (data) => apiRequest.put(`/users/${currentUser._id}`, data),
     onSuccess: (res) => {
       setSuccessMsg("Profil actualizat cu succes!");
       queryClient.invalidateQueries(["profile", currentUser.username]);
-      // Aici ar trebui să actualizăm și useAuthStore dacă se schimbă numele
       setTimeout(() => setSuccessMsg(""), 3000);
     },
     onError: (err) => {
@@ -48,7 +49,6 @@ const SettingsPage = () => {
 
       <div className="settingsContainer">
         
-        {/* --- SECȚIUNEA 1: Profil General --- */}
         <section className="settingsSection">
           <h2>Informații Profil</h2>
           <form onSubmit={handleSubmit} className="settingsForm">
@@ -78,7 +78,6 @@ const SettingsPage = () => {
 
         <hr />
 
-        {/* --- SECȚIUNEA 2: Securitate (Opțional) --- */}
         <section className="settingsSection">
           <h2>Schimbă Parola</h2>
           <div className="formGroup">
@@ -94,39 +93,64 @@ const SettingsPage = () => {
 
         <hr />
 
-        {/* În interiorul return, în Shop Section */}
         <section className="settingsSection shopSection">
         <h2>Cont Magazin</h2>
 
-        {/* CAZUL 1: Este deja Magazin */}
-        {currentUser?.role === "SHOP" ? (
-            <div className="shopStatus active">
-            <p>✅ Ești înregistrat ca Magazin Verificat.</p>
-            <button className="shopDashboardBtn">Mergi la Statistici</button>
-            </div>
-        ) : 
-        /* CAZUL 2: A aplicat deja și așteaptă */
-        currentUser?.shopDetails?.status === "PENDING" ? (
-            <div className="shopStatus pending" style={{backgroundColor: "#fff3cd", padding: "15px", borderRadius: "8px"}}>
-            <p>🕒 Aplicația ta este în curs de revizuire.</p>
-            <small>Un administrator va verifica documentele în curând.</small>
-            </div>
-        ) : (
-            /* CAZUL 3: Utilizator normal */
-            <div className="shopStatus upgrade">
-            <p>Reprezinți un brand? Transformă-ți contul...</p>
-            {/* ... lista beneficii ... */}
+        {/* --- LOGICA PENTRU STATUS MAGAZIN --- */}
 
-            {/* Butonul care deschide modalul */}
-            <button className="upgradeBtn" onClick={() => setShowShopModal(true)}>
-                Aplică pentru Magazin
-            </button>
+        {/* CAZ 1: Ești deja Magazin */}
+        {currentUser.role === "SHOP" && (
+          <div className="shopStatus active">
+            <p>✅ Ești înregistrat ca Magazin Verificat.</p>
+            <Link to="/shop/stats">
+              <button className="shopDashboardBtn">Mergi la Statistici</button>
+            </Link>
+          </div>
+        )}
+
+        {/* CAZ 2: Ai aplicat și aștepți aprobarea (PENDING) */}
+        {currentUser.role === "USER" && currentUser.shopDetails?.status === "PENDING" && (
+          <div className="shopStatus pending">
+            <div className="statusIcon">⏳</div>
+            <div className="statusText">
+              <h3>Cerere în curs de verificare</h3>
+              <p>Documentele tale au fost trimise și sunt analizate de echipa noastră. Vei primi o notificare când statusul se schimbă.</p>
             </div>
+          </div>
+        )}
+
+        {/* CAZ 3: Cererea a fost respinsă (REJECTED) */}
+        {currentUser.role === "USER" && currentUser.shopDetails?.status === "REJECTED" && (
+          <div className="shopStatus rejected">
+            <div className="statusIcon">❌</div>
+            <div className="statusText">
+              <h3>Cerere Respinsă</h3>
+              <p>Din păcate, documentele tale nu au fost aprobate. Te rugăm să verifici condițiile și să aplici din nou.</p>
+              <button className="retryBtn" onClick={() => setOpenShopModal(true)}>
+                Aplică din nou
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* CAZ 4: Nu ești magazin și nici nu aștepți (Poți aplica) */}
+        {currentUser.role === "USER" && 
+        (!currentUser.shopDetails || currentUser.shopDetails.status === "NONE") && (
+          <div className="shopSection">
+            <p>Transformă-ți contul în Magazin Verificat și accesează funcții premium.</p>
+            <ul>
+              <li>📈 Statistici avansate</li>
+              <li>🏷️ Etichetare produse</li>
+              <li>✅ Insignă pe profil</li>
+            </ul>
+            <button className="upgradeBtn" onClick={() => setOpenShopModal(true)}>
+              Devino Magazin Verificat
+            </button>
+          </div>
         )}
         </section>
 
-        {/* Afișează modalul dacă este deschis */}
-        {showShopModal && (
+        {openShopModal && (
         <BecomeShopModal onClose={() => setShowShopModal(false)} />
         )}
 

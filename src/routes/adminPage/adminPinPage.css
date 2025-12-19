@@ -8,12 +8,12 @@
   font-size: 28px;
   font-weight: 600;
   margin-bottom: 10px;
-  color: #333;
+  color: #670626;
 }
 
 .adminPage p {
   font-size: 16px;
-  color: #666;
+  color: #8c6b74;
   margin-bottom: 32px;
 }
 
@@ -23,7 +23,7 @@
   position: relative;
   break-inside: avoid; 
   margin-bottom: 16px;
-  background: #fff;
+  background: transparent;
   border-radius: 16px;
 }
 
@@ -46,13 +46,14 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(103, 6, 38, 0.6);
   border-radius: 16px;
   display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 10px;
+  backdrop-filter: blur(2px);
 }
 
 .adminImageContainer:hover .adminOverlay {
@@ -60,19 +61,30 @@
 }
 
 .adminDeleteBtn {
-  background-color: #e50829;
-  color: white;
+  background-color: #fff8f0;
+  color: #670626;
   border: none;
   padding: 8px 16px;
   border-radius: 20px;
   cursor: pointer;
   font-weight: bold;
+  transition: all 0.2s;
+}
+
+.adminDeleteBtn:hover {
+  background-color: #fff185;
+  transform: scale(1.05);
 }
 
 .adminViewLink {
-  color: white;
+  color: #f8bbd0;
   text-decoration: underline;
   font-size: 14px;
+  transition: color 0.2s;
+}
+
+.adminViewLink:hover {
+  color: #fff185;
 }
 
 .adminItemInfo {
@@ -85,9 +97,10 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: #670626;
 }
 
 .adminItemInfo small {
-  color: #666;
+  color: #8c6b74;
   font-size: 12px;
 }

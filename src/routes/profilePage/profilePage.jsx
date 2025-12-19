@@ -9,6 +9,7 @@ import apiRequest from "../../utils/apiRequest";
 import FollowButton from "./FollowButton";
 import FollowListModal from '../../components/followListModal/followListModal'; 
 import useAuthStore from '../../utils/authStore';
+import { Link } from "react-router-dom";
 
 const Profilepage = () => {
   const [type, setType] = useState("saved");
@@ -28,6 +29,8 @@ const Profilepage = () => {
   if (!data) return "User not found!";
 
   const isOwnProfile = currentUser?._id === data._id;
+
+  const gamification = data.gamification || { points: 0, level: 1, badges: [] };
   
   return (
     <> 
@@ -57,7 +60,9 @@ const Profilepage = () => {
           <Image src="/general/share.svg" alt="Distribuie profilul" />
           <div className="profileButtons">
             {isOwnProfile ? (
+              <Link to="/settings">
               <button className="editProfileButton">Edit Profile</button>
+              </Link>
             ) : (
               <>
             <button>Message</button>
@@ -67,9 +72,37 @@ const Profilepage = () => {
             </>
             )}
           </div>
-          <Image src="/general/more.svg" alt="Mai multe opțiuni" />
-           
+          <Image src="/general/more.svg" alt="Mai multe opțiuni" /> 
         </div>
+
+        <div className="gamificationContainer">
+            {/* Partea de Nivel și Puncte */}
+            <div className="levelWrapper">
+                <div className="levelBadge">
+                    LVL <strong>{gamification.level}</strong>
+                </div>
+                <div className="pointsInfo">
+                    <span className="pointsValue">{gamification.points}</span>
+                    <span className="pointsLabel">Fashion Points</span>
+                </div>
+            </div>
+
+            {/* Lista de Insigne (Badges) */}
+            <div className="badgesWrapper">
+                {gamification.badges.length > 0 ? (
+                    gamification.badges.map((badge, index) => (
+                        <div key={index} className="badgeItem" title={badge.name}>
+                            <span className="badgeIcon">{badge.icon}</span>
+                            {/* Poți decomenta linia de mai jos dacă vrei numele sub iconiță */}
+                            {/* <span className="badgeName">{badge.name}</span> */}
+                        </div>
+                    ))
+                ) : (
+                    <span className="noBadgesText">Încă nu ai insigne. Fii activ!</span>
+                )}
+            </div>
+        </div>
+
         <div className="profileOptions">
           <span
             onClick={() => setType("created")}

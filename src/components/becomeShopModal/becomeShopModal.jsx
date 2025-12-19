@@ -1,16 +1,19 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { AuthContext } from "../../context/AuthContext";
 import apiRequest from "../../utils/apiRequest";
 import "./becomeShopModal.css";
 
 const BecomeShopModal = ({ onClose }) => {
   const queryClient = useQueryClient();
+  const { updateUser } = useContext(AuthContext);
   const [website, setWebsite] = useState("");
   const [file, setFile] = useState(null);
 
   const mutation = useMutation({
-    mutationFn: (formData) => apiRequest.post("/users/upgrade-to-shop", formData),
+    mutationFn: (formData) => apiRequest.post("/users/apply-shop", formData),
     onSuccess: () => {
+      updateUser(res.data);
       alert("Aplicația ta a fost trimisă! Un administrator o va revizui curând.");
       onClose();
     },

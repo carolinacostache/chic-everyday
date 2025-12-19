@@ -22,7 +22,7 @@ const TopBar = () => {
 
   return (
     <div className="topBar">
-        <form onSubmit={handleSubmit} className="search">
+      <form onSubmit={handleSubmit} className="search">
         <NImage src="/general/search.svg" alt="" />
         <input 
           type="text" 
@@ -31,8 +31,11 @@ const TopBar = () => {
           onChange={(e) => setQuery(e.target.value)}
         />
       </form>
+      
+      {/* Zona Dreaptă conține acum totul în UserButton */}
+      <div className="topBarRight">
         <UserButton />
-
+      </div>
     </div>
   );
 };
