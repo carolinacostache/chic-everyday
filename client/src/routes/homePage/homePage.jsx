@@ -6,7 +6,7 @@ import './homePage.css'; // Vom crea acest fișier imediat
 
 
 const Homepage = () => {
-    const [feedType, setFeedType] = useState("newest");
+    const [feedType, setFeedType] = useState("recommended");
 
     return (
         <div className="homePageContainer">
@@ -24,16 +24,23 @@ const Homepage = () => {
             </div>
             <div className="feedToggleContainer">
                 <button 
+                    className={`feedTab ${feedType === "recommended" ? "active" : ""}`} 
+                    onClick={() => setFeedType("recommended")}
+                >
+                    ❤️ Pentru Tine
+                </button>
+                <button 
                     className={`feedTab ${feedType === "newest" ? "active" : ""}`} 
                     onClick={() => setFeedType("newest")}
                 >
                     ✨ Noutăți
                 </button>
+                
                 <button 
-                    className={`feedTab ${feedType === "recommended" ? "active" : ""}`} 
-                    onClick={() => setFeedType("recommended")}
+                    className={`feedTab ${feedType === "following" ? "active" : ""}`} 
+                    onClick={() => setFeedType("following")}
                 >
-                    ❤️ Pentru Tine
+                    👥 Urmărești
                 </button>
             </div>
 

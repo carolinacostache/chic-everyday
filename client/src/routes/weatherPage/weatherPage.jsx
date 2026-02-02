@@ -3,31 +3,53 @@ import axios from 'axios';
 import Gallery from '../../components/gallery/gallery';
 import './WeatherPage.css';
 
-const getWeatherTag = (weatherMain) => {
-  switch (weatherMain.toLowerCase()) {
-    case 'rain':
-    case 'drizzle':
-    case 'thunderstorm':
-      return 'rainy';
-    case 'snow':
-      return 'snowy';
-    case 'clear':
-      return 'sunny';
-    case 'clouds':
-      return 'cloudy';
-    case 'mist':
-    case 'fog':
-      return 'foggy';
-    default:
-      return 'outfit';
+const getWeatherTag = (weatherMain, temp) => {
+  const condition = weatherMain.toLowerCase();
+
+  // 1. Prioritate: Precipitații (Umbrelă/Impermeabil)
+  if (['rain', 'drizzle', 'thunderstorm'].includes(condition)) {
+    return 'rainy';
   }
+
+  // 2. Prioritate: Zăpadă
+  if (condition === 'snow') {
+    return 'snowy'; // sau 'winter'
+  }
+
+  // 3. Prioritate: Temperatura
+  // Dacă e frig (sub 10 grade), e "winter", chiar dacă cerul e "Clear"
+  if (temp < 10) {
+    return 'winter';
+  }
+
+  // Dacă e foarte cald (peste 25 grade), e "summer"
+  if (temp > 25) {
+    return 'summer';
+  }
+
+  // 4. Zona Moderată (10°C - 25°C)
+  if (condition === 'clear') {
+    return 'sunny';
+  }
+  
+  if (condition === 'clouds') {
+    return 'cloudy';
+  }
+
+  if (['mist', 'fog', 'haze'].includes(condition)) {
+    return 'foggy';
+  }
+
+  return 'casual'; // Fallback
 };
 
 const WeatherPage = () => {
   const [weatherTag, setWeatherTag] = useState(null);
   const [location, setLocation] = useState(null);
+  const [displayData, setDisplayData] = useState({ temp: null, condition: '' });
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  
 
   useEffect(() => {
     if (!navigator.geolocation) {
@@ -55,14 +77,16 @@ const WeatherPage = () => {
       const fetchWeather = async () => {
         try {
           const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
-          const url = `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lon}&appid=${API_KEY}`;
+          const url = `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lon}&appid=${API_KEY}&units=metric`;
           
           const res = await axios.get(url);
           
           const weatherMain = res.data.weather[0].main;
-          const tag = getWeatherTag(weatherMain);
+          const temp = res.data.main.temp;
+          const tag = getWeatherTag(weatherMain, temp);
           
           setWeatherTag(tag);
+          setDisplayData({ temp: Math.round(temp), condition: weatherMain });
         } catch (err) {
           setError('Nu am putut prelua starea vremii.');
         } finally {
@@ -85,8 +109,17 @@ const WeatherPage = () => {
   return (
     <div className="weatherPage">
       <h2>Ținute recomandate pentru vremea de azi (tag: "{weatherTag}")</h2>
-      <p>Acestea sunt pin-uri din comunitate etichetate cu tag-ul "{weatherTag}".</p>
-      <Gallery search={weatherTag} />
+      <div className="weatherCurrentInfo">
+             <span className="tempDisplay">{displayData.temp}°C ~ </span>
+             <span className="condDisplay">{displayData.condition}</span>
+          </div>
+          <p>
+            Vremea cere ținute <strong>{weatherTag}</strong>. 
+            <br/>Iată ce am selectat pentru tine, bazat pe stilul tău:
+          </p>
+      {weatherTag && (
+        <Gallery type="weather" tag={weatherTag} />
+      )}
     </div>
   );
 };

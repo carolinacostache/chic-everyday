@@ -53,6 +53,9 @@ export const getPins = async (req, res) => {
           "username img displayName"
         );
       } else if (type === "recommended" && loggedInUser) {
+
+        const currentUser = await User.findById(loggedInUser);
+        const followingIds = currentUser.following || [];
         
         // 1. Găsim ce a apreciat utilizatorul (Like-uri)
         const userLikes = await Like.find({ user: loggedInUser }).populate("pin");
@@ -69,9 +72,16 @@ export const getPins = async (req, res) => {
 
         // 3. Căutăm postări care au aceleași tag-uri, dar NU sunt deja apreciate
         let recommendedQuery = {
-            tags: { $in: uniqueTags },
-            _id: { $nin: likedPinIds }, // Excludem ce a văzut deja (like)
-            type: { $ne: 'contest' }    // Opțional: lăsăm concursurile pentru feed-ul principal
+            $and: [
+                {
+                    $or: [
+                        { tags: { $in: uniqueTags } },        // Criteriul 1: Are tag-uri care îmi plac
+                        { user: { $in: followingIds } }       // Criteriul 2: Este postat de un prieten
+                    ]
+                },
+                { _id: { $nin: likedPinIds } }, // Excludem ce am văzut deja (like)
+                { type: { $ne: 'contest' } }    // Excludem concursurile (opțional)
+            ]
         };
 
         // Fetch Recomandări
@@ -100,9 +110,74 @@ export const getPins = async (req, res) => {
         // Aproximare pentru paginare (nu e perfectă la mix, dar e ok pentru scroll infinit)
         totalPinsInQuery = pins.length + (pageNumber * LIMIT) + 1; 
 
-      }
+      } else if (type === "following" && loggedInUser) {
+        const currentUser = await User.findById(loggedInUser);
+        if (!currentUser.following || currentUser.following.length === 0) {
+            pins = [];
+            totalPinsInQuery = 0;
+        } else {
+            const followingQuery = {
+                user: { $in: currentUser.following },
+                type: { $ne: 'contest' }
+            };
 
-      else {
+            const count = await Pin.countDocuments(followingQuery);
+            totalPinsInQuery = count;
+            
+            pins = await Pin.find(followingQuery)
+                .populate("user", "username img displayName")
+                .sort({ createdAt: -1 })
+                .limit(LIMIT)
+                .skip(skip);
+        }
+      } else if (type === "weather") {
+        
+        const rawTag = req.query.tag; 
+
+        if (!rawTag) {
+             return res.status(400).json({ message: "Weather tag missing" });
+        }
+
+        // 1. QUERY CU REGEX (Case Insensitive)
+        // Găsește "Winter", "winter", "WINTER" sau chiar tag-uri care conțin cuvântul
+        let weatherQuery = {
+            tags: { $regex: rawTag, $options: "i" }, 
+            type: { $ne: 'contest' }
+        };
+
+        // Fetch inițial (doar filtrare după vreme)
+        pins = await Pin.find(weatherQuery)
+            .populate("user", "username img displayName")
+            .limit(LIMIT)
+            .skip(skip);
+
+        // 2. SORTARE SMART (Doar dacă userul e logat)
+        // Reordonăm lista: punem primele postările care se potrivesc și cu stilul userului
+        if (loggedInUser) {
+            const userLikes = await Like.find({ user: loggedInUser }).populate("pin");
+            
+            // Extragem stilul (excludem tag-urile de vreme din stil)
+            const styleTags = userLikes
+                .map(like => like.pin)
+                .filter(pin => pin != null)
+                .flatMap(pin => pin.tags)
+                .filter(t => !["rainy", "sunny", "winter", "summer", "cloudy", "snow", "foggy", "mist"].includes(t));
+
+            const uniqueStyleTags = [...new Set(styleTags)];
+
+            if (uniqueStyleTags.length > 0) {
+                pins.sort((a, b) => {
+                    // Calculăm scorul de potrivire pentru fiecare pin
+                    const aMatches = a.tags.filter(t => uniqueStyleTags.includes(t)).length;
+                    const bMatches = b.tags.filter(t => uniqueStyleTags.includes(t)).length;
+                    
+                    // Sortare descrescătoare (cele cu scor mai mare sus)
+                    return bMatches - aMatches;
+                });
+            }
+        }
+        totalPinsInQuery = pins.length; 
+      } else {
         
         if (type && type !== "recommended") {
           query.type = type;
@@ -151,7 +226,7 @@ export const getPins = async (req, res) => {
     res
       .status(200)
       .json({ pins, nextCursor: hasNextPage ? pageNumber + 1 : null });
-  }
+  } 
   else {
         // 1. Luăm postările STANDARD (excludem concursurile din lista principală)
         const standardQuery = { type: { $ne: 'contest' } };

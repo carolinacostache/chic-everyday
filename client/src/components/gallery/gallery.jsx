@@ -52,6 +52,14 @@ const Gallery = ({ search, userId, boardId, tag , renderItem, type, feedType }) 
   const allPins = data?.pages.flatMap((page) => page.pins) || [];
 
   return (
+
+    <>{allPins.length === 0 && status === "success" && (
+        <div style={{ textAlign: "center", padding: "40px", color: "#888", fontSize: "18px" }}>
+           {activeType === "following" 
+             ? "Nu urmărești pe nimeni încă sau prietenii tăi nu au postat nimic."
+             : "Nu am găsit postări."}
+        </div>
+      )}
     <InfiniteScroll
       dataLength={allPins.length}
       next={fetchNextPage}
@@ -70,6 +78,7 @@ const Gallery = ({ search, userId, boardId, tag , renderItem, type, feedType }) 
           ))}
       </Masonry>
     </InfiniteScroll>
+    </>
   );
 };
 
