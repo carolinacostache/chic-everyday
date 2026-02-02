@@ -14,13 +14,14 @@ import {
   getContestEntries, // 👈 NOU
 } from "../controllers/pin.controller.js";
 import { verifyToken } from "../middlewares/verifyToken.js";
+import {verifyTokenOptional} from "../middlewares/verifyToken.js";
 import { getTagsData } from "../controllers/admin.controller.js";
 
 const router = express.Router();
 
 router.get("/tags", verifyToken, getTagsData);
 
-router.get("/", getPins);
+router.get("/", verifyTokenOptional, getPins);
 
 // IMPORTANT: ruta asta trebuie INAINTE de "/:id"
 router.get("/:id/entries", getContestEntries);

@@ -24,7 +24,14 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    
+    followers: {
+      type: [String], // Lista de ID-uri ale celor care mă urmăresc
+      default: []
+    },
+    following: {
+      type: [String], // Lista de ID-uri ale celor pe care îi urmăresc eu (CRITIC PENTRU FEED)
+      default: []
+    },
     isAdmin: {
       type: Boolean,
       default: false,

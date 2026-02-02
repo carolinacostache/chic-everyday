@@ -24,6 +24,8 @@ export const getPins = async (req, res) => {
     const boardId = req.query.boardId;
     const tag = req.query.tag;
     const type = req.query.type;
+    
+    const loggedInUser = req.userId;
 
     const LIMIT = 18;
     const skip = pageNumber * LIMIT;
@@ -56,8 +58,134 @@ export const getPins = async (req, res) => {
           "user",
           "username img displayName"
         );
+      } else if (type === "recommended" && loggedInUser) {
+
+        const currentUser = await User.findById(loggedInUser);
+        const followingIds = currentUser.following || [];
+        
+        // 1. Găsim ce a apreciat utilizatorul (Like-uri)
+        const userLikes = await Like.find({ user: loggedInUser }).populate("pin");
+
+        // 2. Extragem Tag-urile din postările apreciate
+        const likedPinIds = userLikes.map(like => like.pin?._id); // ID-urile deja apreciate
+        
+        const tagsList = userLikes
+            .map(like => like.pin)     // Luăm obiectul pin
+            .filter(pin => pin != null) // Eliminăm pin-urile șterse
+            .flatMap(pin => pin.tags);  // Punem toate tagurile într-un singur array
+
+        const uniqueTags = [...new Set(tagsList)]; // Eliminăm duplicatele
+
+        // 3. Căutăm postări care au aceleași tag-uri, dar NU sunt deja apreciate
+        let recommendedQuery = {
+            $and: [
+                {
+                    $or: [
+                        { tags: { $in: uniqueTags } },        // Criteriul 1: Are tag-uri care îmi plac
+                        { user: { $in: followingIds } }       // Criteriul 2: Este postat de un prieten
+                    ]
+                },
+                { _id: { $nin: likedPinIds } }, // Excludem ce am văzut deja (like)
+                { type: { $ne: 'contest' } }    // Excludem concursurile (opțional)
+            ]
+        };
+
+        // Fetch Recomandări
+        pins = await Pin.find(recommendedQuery)
+            .populate("user", "username img displayName")
+            .sort({ views: -1, createdAt: -1 }) // Sortăm după popularitate și noutate
+            .limit(LIMIT)
+            .skip(skip);
+
+        // 4. FALLBACK: Dacă nu avem suficiente recomandări (< 5), completăm cu postări populare
+        // (Sau dacă userul nu are like-uri deloc)
+        if (pins.length < 5) {
+             const excludedIds = [...likedPinIds, ...pins.map(p => p._id)];
+             
+             const fillerPins = await Pin.find({
+                 _id: { $nin: excludedIds },
+                 type: { $ne: 'contest' }
+             })
+             .populate("user", "username img displayName")
+             .sort({ views: -1, createdAt: -1 })
+             .limit(LIMIT - pins.length);
+
+             pins = [...pins, ...fillerPins];
+        }
+
+        // Aproximare pentru paginare (nu e perfectă la mix, dar e ok pentru scroll infinit)
+        totalPinsInQuery = pins.length + (pageNumber * LIMIT) + 1; 
+
+      } else if (type === "following" && loggedInUser) {
+        const currentUser = await User.findById(loggedInUser);
+        if (!currentUser.following || currentUser.following.length === 0) {
+            pins = [];
+            totalPinsInQuery = 0;
+        } else {
+            const followingQuery = {
+                user: { $in: currentUser.following },
+                type: { $ne: 'contest' }
+            };
+
+            const count = await Pin.countDocuments(followingQuery);
+            totalPinsInQuery = count;
+            
+            pins = await Pin.find(followingQuery)
+                .populate("user", "username img displayName")
+                .sort({ createdAt: -1 })
+                .limit(LIMIT)
+                .skip(skip);
+        }
+      } else if (type === "weather") {
+        
+        const rawTag = req.query.tag; 
+
+        if (!rawTag) {
+             return res.status(400).json({ message: "Weather tag missing" });
+        }
+
+        // 1. QUERY CU REGEX (Case Insensitive)
+        // Găsește "Winter", "winter", "WINTER" sau chiar tag-uri care conțin cuvântul
+        let weatherQuery = {
+            tags: { $regex: rawTag, $options: "i" }, 
+            type: { $ne: 'contest' }
+        };
+
+        // Fetch inițial (doar filtrare după vreme)
+        pins = await Pin.find(weatherQuery)
+            .populate("user", "username img displayName")
+            .limit(LIMIT)
+            .skip(skip);
+
+        // 2. SORTARE SMART (Doar dacă userul e logat)
+        // Reordonăm lista: punem primele postările care se potrivesc și cu stilul userului
+        if (loggedInUser) {
+            const userLikes = await Like.find({ user: loggedInUser }).populate("pin");
+            
+            // Extragem stilul (excludem tag-urile de vreme din stil)
+            const styleTags = userLikes
+                .map(like => like.pin)
+                .filter(pin => pin != null)
+                .flatMap(pin => pin.tags)
+                .filter(t => !["rainy", "sunny", "winter", "summer", "cloudy", "snow", "foggy", "mist"].includes(t));
+
+            const uniqueStyleTags = [...new Set(styleTags)];
+
+            if (uniqueStyleTags.length > 0) {
+                pins.sort((a, b) => {
+                    // Calculăm scorul de potrivire pentru fiecare pin
+                    const aMatches = a.tags.filter(t => uniqueStyleTags.includes(t)).length;
+                    const bMatches = b.tags.filter(t => uniqueStyleTags.includes(t)).length;
+                    
+                    // Sortare descrescătoare (cele cu scor mai mare sus)
+                    return bMatches - aMatches;
+                });
+            }
+        }
+        totalPinsInQuery = pins.length; 
       } else {
-        if (type) {
+        
+        if (type && type !== "recommended") {
           query.type = type;
         }
 
@@ -99,18 +227,22 @@ export const getPins = async (req, res) => {
           .skip(skip);
       }
 
-      const hasNextPage = skip + pins.length < totalPinsInQuery;
-      return res
-        .status(200)
-        .json({ pins, nextCursor: hasNextPage ? pageNumber + 1 : null });
-    } else {
-      const standardQuery = { type: { $ne: "contest" } };
-
-      const standardPins = await Pin.find(standardQuery)
-        .populate("user", "username img displayName")
-        .sort({ views: -1, createdAt: -1 })
-        .limit(LIMIT)
-        .skip(skip);
+    const hasNextPage = skip + pins.length < totalPinsInQuery;
+    res
+      .status(200)
+      .json({ pins, nextCursor: hasNextPage ? pageNumber + 1 : null });
+  } 
+  else {
+        // 1. Luăm postările STANDARD (excludem concursurile din lista principală)
+        const standardQuery = { type: { $ne: 'contest' } };
+        
+        // SORTARE DUPĂ INTERES: Cele mai vizualizate primele, apoi cele noi
+        // Asta răspunde cerinței de "recomandări personalizate" [cite: 177]
+        const standardPins = await Pin.find(standardQuery)
+            .populate("user", "username img displayName")
+            .sort({ views: -1, createdAt: -1 }) 
+            .limit(LIMIT)
+            .skip(skip);
 
       const contestPins = await Pin.aggregate([
         { $match: { type: "contest" } },
@@ -482,31 +614,50 @@ export const getShopStats = async (req, res) => {
   try {
     const userId = req.userId;
 
-    const stats = await Pin.aggregate([
-      { $match: { user: new mongoose.Types.ObjectId(userId) } },
-      {
-        $group: {
-          _id: null,
-          totalPins: { $sum: 1 },
-          totalViews: { $sum: "$views" },
-          totalClicks: { $sum: "$linkClicks" },
-        },
-      },
-    ]);
+    // 1. Luăm TOATE postările magazinului (ca să le putem afișa în tabel)
+    const pins = await Pin.find({ user: userId }).sort({ createdAt: -1 });
 
-    const data = stats[0] || { totalPins: 0, totalViews: 0, totalClicks: 0 };
+    const pinsWithStats = await Promise.all(
+      pins.map(async (pin) => {
+        const commentCount = await Comment.countDocuments({ pin: pin._id });
+        return {
+          ...pin,
+          commentCount: commentCount || 0
+        };
+      })
+    );
+
+    // 2. Calculăm totalurile iterând prin array-ul de pin-uri
+    let totalViews = 0;
+    let totalClicks = 0;
+    let totalLikes = 0;
+    let totalComments = 0;
+
+    pins.forEach((pin) => {
+      totalViews += pin.views || 0;
+      // Atenție: În codul tău anterior era 'linkClicks', asigură-te că așa se numește în model
+      totalClicks += pin.linkClicks || 0; 
+      totalLikes += pin.likes ? pin.likes.length : 0;
+      totalComments += pin.commentCout || 0;
+    });
+
+    // 3. Setările de monetizare (folosind valorile tale: 0.01 și 0.5)
     const costPerView = 0.01;
     const costPerClick = 0.5;
-    const totalCost =
-      data.totalViews * costPerView + data.totalClicks * costPerClick;
+    const totalCost = (totalViews * costPerView) + (totalClicks * costPerClick);
 
-    return res.status(200).json({
-      ...data,
+    res.status(200).json({
+      totalPins: pins.length,
+      totalViews,
+      totalClicks,
+      totalLikes,
+      totalComments,
       monetization: {
         costPerView,
         costPerClick,
-        totalCost: totalCost.toFixed(2),
+        totalCost: totalCost.toFixed(2)
       },
+      pins: pins // <--- FOARTE IMPORTANT: Trimitem lista pentru a popula tabelul din frontend
     });
   } catch (err) {
     console.error(err);

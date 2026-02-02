@@ -166,8 +166,24 @@ export const followUser = async (req, res) => {
 
     if (isFollowing) {
       await Follow.deleteOne({ follower: currentUserId, following: user._id });
+      await User.findByIdAndUpdate(user._id, {
+        $pull: { followers: currentUserId }
+      });
+
+      // 3. Scoatem ID-ul din array-ul 'following' al nostru (CRITIC PENTRU FEED)
+      await User.findByIdAndUpdate(currentUserId, {
+        $pull: { following: targetUserId }
+      });
     } else {
       await Follow.create({ follower: currentUserId, following: user._id });
+      await User.findByIdAndUpdate(user._id, {
+        $push: { followers: currentUserId }
+      });
+
+      // 3. Adăugăm ID-ul în array-ul 'following' al nostru (CRITIC PENTRU FEED)
+      await User.findByIdAndUpdate(currentUserId, {
+        $push: { following: user._id }
+      });
       await Notification.create({
       recipient: user._id,
       sender: currentUserId,

@@ -247,6 +247,7 @@ export const rejectShop = async (req, res) => {
 
 export const getAdminStats = async (req, res) => {
   try {
+    // 1. Statistici Generale (Counts + Latest Users) - Folosite pe Dashboard
     const [
       totalUsers,
       totalPins,
@@ -263,6 +264,54 @@ export const getAdminStats = async (req, res) => {
       User.find().sort({ createdAt: -1 }).limit(5).select("username email img createdAt role")
     ]);
 
+    // 2. Statistici Financiare & Gamification - Folosite pe pagina de Statistici
+    const shopPerformance = await User.aggregate([
+      { $match: { role: "SHOP" } }, // Luăm doar magazinele
+      {
+        $lookup: {
+          from: "pins", // Colecția de pin-uri
+          localField: "_id",
+          foreignField: "user",
+          as: "shopPosts"
+        }
+      },
+      {
+        $project: {
+          username: 1,
+          shopName: "$shopDetails.shopName",
+          logo: "$img",
+          status: "$shopDetails.status",
+          // Sumăm vizualizările și click-urile
+          totalViews: { $sum: "$shopPosts.views" },
+          totalClicks: { $sum: "$shopPosts.linkClicks" }, // Asigură-te că e linkClicks în baza de date
+          postCount: { $size: "$shopPosts" }
+        }
+      },
+      { $sort: { totalViews: -1 } } // Sortăm descrescător după vizualizări
+    ]);
+
+    // 3. Calculăm Factura și Nivelul (Gamification)
+    const COST_PER_VIEW = 0.01;
+    const COST_PER_CLICK = 0.5;
+
+    const shopsWithBilling = shopPerformance.map(shop => {
+      const estimatedBill = (shop.totalViews * COST_PER_VIEW) + (shop.totalClicks * COST_PER_CLICK);
+      
+      let tier = "Bronze 🥉";
+      if (estimatedBill > 500) tier = "Diamond 💎";
+      else if (estimatedBill > 100) tier = "Gold 🥇";
+      else if (estimatedBill > 50) tier = "Silver 🥈";
+
+      return {
+        ...shop,
+        estimatedBill: estimatedBill.toFixed(2),
+        tier
+      };
+    });
+
+    // 4. Calculăm Venitul Total al Platformei
+    const totalRevenue = shopsWithBilling.reduce((acc, curr) => acc + parseFloat(curr.estimatedBill), 0);
+
     res.status(200).json({
       counts: {
         users: totalUsers,
@@ -271,8 +320,12 @@ export const getAdminStats = async (req, res) => {
         comments: totalComments,
         pendingShops: pendingShops
       },
-      latestUsers: latestUsers
+      latestUsers: latestUsers,
+      // Date noi pentru pagina de statistici:
+      revenue: totalRevenue.toFixed(2),
+      shopsLeaderboard: shopsWithBilling
     });
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error stats" });
