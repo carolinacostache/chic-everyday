@@ -8,30 +8,63 @@
 .adminContainer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-between; /* Distribuie: Stânga - Mijloc - Dreapta */
   height: 60px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
+/* --- GRUP STÂNGA (Săgeată + Titlu) --- */
+.adminLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Spațiu mic între săgeată și titlu */
+  min-width: 200px; /* Asigură că nu se strânge prea tare */
+}
+
+/* Stil pentru săgeată */
+.backArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #670626; /* Am schimbat în culoarea temei (era #333) */
+  transition: transform 0.2s ease, background-color 0.2s;
+  padding: 8px; /* Zonă de click mai mare */
+  border-radius: 50%;
+}
+
+.backArrow:hover {
+  transform: translateX(-3px);
+  background-color: #f8bbd0; /* Fundal rozaliu la hover */
+}
+
+/* Titlul */
 .adminTitle {
-  font-weight: bold;
-  font-size: 18px;
+  text-decoration: none;
   color: #670626;
 }
 
+.adminTitle h1 {
+  font-weight: 800;
+  font-size: 20px; /* Am mărit puțin fontul (era 12px) */
+  margin: 0; /* FOARTE IMPORTANT: Resetează marginile implicite ale h1 */
+  line-height: 1;
+}
+
+/* --- LINKS DREAPTA --- */
 .adminLinks {
   display: flex;
-  gap: 20px;
+  gap: 15px;
 }
 
 .adminLinks a {
   text-decoration: none;
   color: #670626;
-  font-weight: 500;
+  font-weight: 600;
   padding: 8px 12px;
   border-radius: 8px;
   transition: background-color 0.2s;
+  font-size: 14px;
 }
 
 .adminLinks a:hover {
@@ -40,14 +73,16 @@
 }
 
 .adminLinks a.active {
-  background-color: #f89cbc;
-  color: #fff8f0;
+  background-color: #670626; /* Activ mai închis */
+  color: #fff;
 }
 
+/* --- SEARCH (MIJLOC) --- */
 .adminSearchContainer {
-  flex: 1;
+  flex: 1; /* Ocupă tot spațiul disponibil la mijloc */
   display: flex;
   justify-content: center;
+  margin: 0 20px; /* Spațiu stânga-dreapta să nu atingă titlul sau linkurile */
 }
 
 .adminNavSearch {
@@ -56,7 +91,7 @@
   max-width: 400px;
   border: 1px solid #f89cbc;
   border-radius: 20px;
-  background-color: #fff8f0;
+  background-color: #fff; /* Alb curat pe fundal */
   font-size: 14px;
   color: #670626;
 }
@@ -66,7 +101,8 @@
 }
 
 .adminNavSearch:focus {
-  background-color: #fff185;
+  background-color: #fff;
   border-color: #670626;
   outline: none;
+  box-shadow: 0 0 0 2px rgba(103, 6, 38, 0.1);
 }
