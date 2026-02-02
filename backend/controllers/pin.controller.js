@@ -6,11 +6,15 @@ import Board from "../models/board.model.js";
 import Comment from "../models/comment.model.js";
 import Tag from "../models/tag.model.js";
 import Notification from "../models/notification.model.js";
+import ContestEntry from "../models/contestEntry.model.js"; // 👈 NOU
+
 import Imagekit from "imagekit";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import { checkBadges } from "../utils/gamification.js";
 
+import fs from "fs"; // 👈 NOU
+import path from "path"; // 👈 NOU
 
 export const getPins = async (req, res) => {
   try {
@@ -38,10 +42,12 @@ export const getPins = async (req, res) => {
           savedPinsQuery,
         ]);
 
-        const allPinIds = [...new Set([
-                ...createdPins.map((p) => p._id.toString()), 
-                ...savedPins.map((s) => s.pin.toString())
-            ])];
+        const allPinIds = [
+          ...new Set([
+            ...createdPins.map((p) => p._id.toString()),
+            ...savedPins.map((s) => s.pin.toString()),
+          ]),
+        ];
 
         totalPinsInQuery = allPinIds.length;
         const paginatedPinIds = allPinIds.slice(skip, skip + LIMIT);
@@ -51,14 +57,12 @@ export const getPins = async (req, res) => {
           "username img displayName"
         );
       } else {
-        
         if (type) {
           query.type = type;
         }
-        
+
         if (tag) {
           query.tags = { $in: [tag] };
-          
         } else if (search) {
           const matchingUsers = await User.find({
             $or: [
@@ -66,12 +70,12 @@ export const getPins = async (req, res) => {
               { username: { $regex: search, $options: "i" } },
             ],
           }).select("_id");
-          const userIds = matchingUsers.map(u => u._id);
+          const userIds = matchingUsers.map((u) => u._id);
 
           const matchingBoards = await Board.find({
             title: { $regex: search, $options: "i" },
           }).select("_id");
-          const boardIds = matchingBoards.map(b => b._id);
+          const boardIds = matchingBoards.map((b) => b._id);
 
           query.$or = [
             { title: { $regex: search, $options: "i" } },
@@ -95,61 +99,52 @@ export const getPins = async (req, res) => {
           .skip(skip);
       }
 
-    const hasNextPage = skip + pins.length < totalPinsInQuery;
-    res
-      .status(200)
-      .json({ pins, nextCursor: hasNextPage ? pageNumber + 1 : null });
-  }
-  else {
-        // 1. Luăm postările STANDARD (excludem concursurile din lista principală)
-        const standardQuery = { type: { $ne: 'contest' } };
-        
-        // SORTARE DUPĂ INTERES: Cele mai vizualizate primele, apoi cele noi
-        // Asta răspunde cerinței de "recomandări personalizate" [cite: 177]
-        const standardPins = await Pin.find(standardQuery)
-            .populate("user", "username img displayName")
-            .sort({ views: -1, createdAt: -1 }) 
-            .limit(LIMIT)
-            .skip(skip);
+      const hasNextPage = skip + pins.length < totalPinsInQuery;
+      return res
+        .status(200)
+        .json({ pins, nextCursor: hasNextPage ? pageNumber + 1 : null });
+    } else {
+      const standardQuery = { type: { $ne: "contest" } };
 
-        // 2. Luăm câteva CONCURSURI active (random)
-        // Luăm 3 concursuri random pentru a le insera în pagină
-        const contestPins = await Pin.aggregate([
-            { $match: { type: 'contest' } }, // Doar concursuri
-            { $sample: { size: 3 } } // 3 Aleatorii
-        ]);
-        
-        // Trebuie să populăm userul și pentru concursurile luate prin aggregate
-        await User.populate(contestPins, { path: "user", select: "username img displayName" });
+      const standardPins = await Pin.find(standardQuery)
+        .populate("user", "username img displayName")
+        .sort({ views: -1, createdAt: -1 })
+        .limit(LIMIT)
+        .skip(skip);
 
-        // 3. ALGORITM DE INJECȚIE (Pinterest Style)
-        let finalFeed = [];
-        let contestIndex = 0;
+      const contestPins = await Pin.aggregate([
+        { $match: { type: "contest" } },
+        { $sample: { size: 3 } },
+      ]);
 
-        // Introducem un concurs la fiecare 6 postări normale
-        standardPins.forEach((pin, index) => {
-            finalFeed.push(pin);
+      await User.populate(contestPins, {
+        path: "user",
+        select: "username img displayName",
+      });
 
-            // Dacă am pus 6 postări normale și mai avem concursuri disponibile
-            if ((index + 1) % 6 === 0 && contestIndex < contestPins.length) {
-                // Adăugăm concursul în feed
-                finalFeed.push(contestPins[contestIndex]);
-                contestIndex++;
-            }
-        });
+      let finalFeed = [];
+      let contestIndex = 0;
 
-        // Verificăm paginarea
-        const totalStandardPins = await Pin.countDocuments(standardQuery);
-        const hasNextPage = skip + LIMIT < totalStandardPins;
+      standardPins.forEach((pin, index) => {
+        finalFeed.push(pin);
 
-        return res.status(200).json({ 
-            pins: finalFeed, 
-            nextCursor: hasNextPage ? pageNumber + 1 : null 
-        });
+        if ((index + 1) % 6 === 0 && contestIndex < contestPins.length) {
+          finalFeed.push(contestPins[contestIndex]);
+          contestIndex++;
+        }
+      });
+
+      const totalStandardPins = await Pin.countDocuments(standardQuery);
+      const hasNextPage = skip + LIMIT < totalStandardPins;
+
+      return res.status(200).json({
+        pins: finalFeed,
+        nextCursor: hasNextPage ? pageNumber + 1 : null,
+      });
     }
- } catch (error) {
+  } catch (error) {
     console.error("EROARE în getPins:", error);
-    res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: "Server error" });
   }
 };
 
@@ -163,13 +158,12 @@ export const getPin = async (req, res) => {
     if (!pin) {
       return res.status(404).json({ message: "Pin not found" });
     }
-    res.status(200).json(pin);
+    return res.status(200).json(pin);
   } catch (error) {
     console.error("EROARE în getPin:", error);
-    res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: "Server error" });
   }
 };
-
 
 export const createPin = async (req, res) => {
   try {
@@ -180,13 +174,13 @@ export const createPin = async (req, res) => {
       board,
       tags,
       newBoard,
-      width, 
-      height, 
+      width,
+      height,
       textOptions,
       canvasOptions,
       isContest,
       prize,
-      deadline
+      deadline,
     } = req.body;
 
     const media = req.files.media;
@@ -195,24 +189,32 @@ export const createPin = async (req, res) => {
     if (!title || !description || !media || !width || !height) {
       return res.status(400).json({ message: "Lipsesc câmpuri obligatorii." });
     }
-    
+
     const weatherTagsDocs = await Tag.find({ type: "weather" });
-    const validWeatherTags = weatherTagsDocs.map(t => t.name);
-    const hasWeatherTag = tagsArray.some((tag) => validWeatherTags.includes(tag));
+    const validWeatherTags = weatherTagsDocs.map((t) => t.name);
+    const hasWeatherTag = tagsArray.some((tag) =>
+      validWeatherTags.includes(tag)
+    );
     if (!hasWeatherTag) {
-      return res.status(400).json({ message: "Vă rugăm selectați cel puțin un tag de vreme." });
+      return res
+        .status(400)
+        .json({ message: "Vă rugăm selectați cel puțin un tag de vreme." });
     }
 
     let pinType = "standard";
     if (isContest === "true") {
       const user = await User.findById(req.userId);
       if (user.role !== "SHOP" && !user.isAdmin) {
-        return res.status(403).json({ message: "Doar magazinele pot crea concursuri." });
+        return res
+          .status(403)
+          .json({ message: "Doar magazinele pot crea concursuri." });
       }
       pinType = "contest";
-      
+
       if (!prize || !deadline) {
-        return res.status(400).json({ message: "Concursurile necesită un Premiu și o Dată Limită." });
+        return res.status(400).json({
+          message: "Concursurile necesită un Premiu și o Dată Limită.",
+        });
       }
     }
 
@@ -226,7 +228,7 @@ export const createPin = async (req, res) => {
 
     if (textOptions) {
       const parsedText = JSON.parse(textOptions);
-      
+
       if (parsedText.text && parsedText.text.trim() !== "") {
         const originalWidth = Number(width);
         const scaleFactor = originalWidth / 375;
@@ -234,7 +236,7 @@ export const createPin = async (req, res) => {
         const textLeft = Math.round(parsedText.left * scaleFactor);
         const textTop = Math.round(parsedText.top * scaleFactor);
         const fontSize = Math.round(parsedText.fontSize * scaleFactor);
-        
+
         const color = parsedText.color.replace("#", "");
 
         transformationString = `l-text,i-${parsedText.text},fs-${fontSize},lx-${textLeft},ly-${textTop},co-${color},l-end`;
@@ -242,7 +244,7 @@ export const createPin = async (req, res) => {
     }
 
     const response = await imagekit.upload({
-      file: media.data, 
+      file: media.data,
       fileName: media.name,
       folder: "test",
       ...(transformationString && {
@@ -255,7 +257,10 @@ export const createPin = async (req, res) => {
     let boardIdToSave = board || null;
     if (newBoard) {
       if (board) return res.status(400).json({ message: "Conflict board." });
-      const createdBoard = await Board.create({ title: newBoard, user: req.userId });
+      const createdBoard = await Board.create({
+        title: newBoard,
+        user: req.userId,
+      });
       boardIdToSave = createdBoard._id;
     }
 
@@ -277,11 +282,14 @@ export const createPin = async (req, res) => {
     checkBadges(req.userId, "post");
 
     if (boardIdToSave) {
-      await Save.create({ pin: newPin._id, user: req.userId, board: boardIdToSave });
+      await Save.create({
+        pin: newPin._id,
+        user: req.userId,
+        board: boardIdToSave,
+      });
     }
 
     return res.status(201).json(newPin);
-
   } catch (err) {
     console.log("EROARE în createPin:", err);
     return res.status(500).json(err);
@@ -295,15 +303,11 @@ export const interactionCheck = async (req, res) => {
     const likeCount = await Like.countDocuments({ pin: id });
 
     if (!token) {
-      return res
-        .status(200)
-        .json({ likeCount, isLiked: false, isSaved: false });
+      return res.status(200).json({ likeCount, isLiked: false, isSaved: false });
     }
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     if (!payload) {
-      return res
-        .status(200)
-        .json({ likeCount, isLiked: false, isSaved: false });
+      return res.status(200).json({ likeCount, isLiked: false, isSaved: false });
     }
     const userId = payload.userId;
     const isLiked = await Like.findOne({ user: userId, pin: id });
@@ -340,7 +344,7 @@ export const interact = async (req, res) => {
             recipient: pinData.user,
             sender: userId,
             type: "like",
-            pin: id
+            pin: id,
           });
         }
       }
@@ -366,7 +370,7 @@ export const interact = async (req, res) => {
       return res.status(409).json({ message: "Pin-ul este deja salvat." });
     }
     console.error("EROARE în interact:", error);
-    res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: "Server error" });
   }
 };
 
@@ -383,9 +387,7 @@ export const updatePin = async (req, res) => {
     }
 
     if (pin.user.toString() !== userId) {
-      return res
-        .status(403)
-        .json({ message: "Nu ești autorizat să editezi." });
+      return res.status(403).json({ message: "Nu ești autorizat să editezi." });
     }
 
     const tagsArray = tags ? tags.split(",").map((tag) => tag.trim()) : [];
@@ -417,10 +419,10 @@ export const updatePin = async (req, res) => {
     pin.tags = tagsArray;
 
     const updatedPin = await pin.save();
-    res.status(200).json(updatedPin);
+    return res.status(200).json(updatedPin);
   } catch (error) {
     console.error("EROARE în updatePin:", error);
-    res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: "Server error" });
   }
 };
 
@@ -439,22 +441,20 @@ export const deletePin = async (req, res) => {
     const isAdmin = currentUser?.isAdmin;
 
     if (pin.user.toString() !== userId && !isAdmin) {
-      return res
-        .status(403)
-        .json({ message: "Nu ești autorizat să ștergi." });
+      return res.status(403).json({ message: "Nu ești autorizat să ștergi." });
     }
 
     await Pin.deleteOne({ _id: id });
     await Like.deleteMany({ pin: id });
-    await Save.deleteMany({ pin:id });
+    await Save.deleteMany({ pin: id });
     await Comment.deleteMany({ pin: id });
 
-    res.status(200).json({ message: "Pin-ul a fost șters cu succes." });
-  
+    return res
+      .status(200)
+      .json({ message: "Pin-ul a fost șters cu succes." });
   } catch (error) {
     console.error("EROARE în deletePin:", error);
-    res.status(500).json({ message: "Server error" });
-  
+    return res.status(500).json({ message: "Server error" });
   }
 };
 
@@ -462,9 +462,9 @@ export const viewPin = async (req, res) => {
   try {
     const { id } = req.params;
     await Pin.findByIdAndUpdate(id, { $inc: { views: 1 } });
-    res.status(200).json({ message: "View counted" });
+    return res.status(200).json({ message: "View counted" });
   } catch (err) {
-    res.status(500).json({ message: "Error counting view" });
+    return res.status(500).json({ message: "Error counting view" });
   }
 };
 
@@ -472,9 +472,9 @@ export const clickPinLink = async (req, res) => {
   try {
     const { id } = req.params;
     await Pin.findByIdAndUpdate(id, { $inc: { linkClicks: 1 } });
-    res.status(200).json({ message: "Click counted" });
+    return res.status(200).json({ message: "Click counted" });
   } catch (err) {
-    res.status(500).json({ message: "Error counting click" });
+    return res.status(500).json({ message: "Error counting click" });
   }
 };
 
@@ -490,26 +490,99 @@ export const getShopStats = async (req, res) => {
           totalPins: { $sum: 1 },
           totalViews: { $sum: "$views" },
           totalClicks: { $sum: "$linkClicks" },
-        }
-      }
+        },
+      },
     ]);
 
     const data = stats[0] || { totalPins: 0, totalViews: 0, totalClicks: 0 };
     const costPerView = 0.01;
     const costPerClick = 0.5;
-    const totalCost = (data.totalViews * costPerView) + (data.totalClicks * costPerClick);
+    const totalCost =
+      data.totalViews * costPerView + data.totalClicks * costPerClick;
 
-    res.status(200).json({
+    return res.status(200).json({
       ...data,
       monetization: {
         costPerView,
         costPerClick,
-        totalCost: totalCost.toFixed(2)
-      }
+        totalCost: totalCost.toFixed(2),
+      },
     });
-
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Error fetching stats" });
+    return res.status(500).json({ message: "Error fetching stats" });
+  }
+};
+
+/* ====================== NOU: participateContest (upload) ====================== */
+export const participateContest = async (req, res) => {
+  try {
+    const pinId = req.params.id;
+
+    const pin = await Pin.findById(pinId);
+    if (!pin) return res.status(404).json({ message: "Pin not found" });
+    if (pin.type !== "contest") {
+      return res.status(400).json({ message: "Pin is not a contest" });
+    }
+
+    if (pin.deadline && new Date(pin.deadline) < new Date()) {
+      return res.status(400).json({ message: "Contest ended" });
+    }
+
+    if (!req.files || !req.files.image) {
+      return res.status(400).json({ message: "Image is required" });
+    }
+
+    const already = await ContestEntry.findOne({
+      contest: pinId,
+      user: req.userId,
+    });
+    if (already) {
+      return res.status(400).json({ message: "Already participated" });
+    }
+
+    if (!fs.existsSync("uploads")) fs.mkdirSync("uploads");
+
+    const imageFile = req.files.image;
+    const ext = path.extname(imageFile.name || ".jpg");
+    const fileName = `${Date.now()}-${Math.random()
+      .toString(16)
+      .slice(2)}${ext}`;
+
+    await imageFile.mv(path.join("uploads", fileName));
+
+    const entry = await ContestEntry.create({
+      contest: pinId,
+      user: req.userId,
+      image: `/uploads/${fileName}`,
+      comment: req.body.comment || "",
+    });
+
+    return res.status(201).json(entry);
+  } catch (err) {
+    console.error("EROARE în participateContest:", err);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+/* ====================== NOU: getContestEntries (lista inscrieri) ====================== */
+export const getContestEntries = async (req, res) => {
+  try {
+    const pinId = req.params.id;
+
+    const pin = await Pin.findById(pinId);
+    if (!pin) return res.status(404).json({ message: "Pin not found" });
+    if (pin.type !== "contest") {
+      return res.status(400).json({ message: "Pin is not a contest" });
+    }
+
+    const entries = await ContestEntry.find({ contest: pinId })
+      .populate("user", "username img displayName")
+      .sort({ createdAt: -1 });
+
+    return res.status(200).json(entries);
+  } catch (err) {
+    console.error("EROARE in getContestEntries:", err);
+    return res.status(500).json({ message: "Server error" });
   }
 };
