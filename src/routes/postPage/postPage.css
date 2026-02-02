@@ -1,0 +1,183 @@
+.postPage {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+}
+
+.postContainer {
+    width: 70%;
+    max-height: 825px;
+    display: flex;
+    border: 1px solid #f8bbd0;
+    border-radius: 32px;
+    overflow: hidden;
+    background-color: #fff8f0;
+    box-shadow: 0 10px 30px rgba(103, 6, 38, 0.05);
+}
+
+.postImg {
+    flex: 1;
+    background-color: #fff8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.postImg img {
+    width: 99%;
+    object-fit: contain;
+    border-radius: 32px;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.postDetails {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+}
+
+.postInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 12px
+}
+
+.postUser {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #670626;
+    font-weight: 600;
+}
+
+.postUser img {
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    border: 1px solid #f8bbd0;
+    object-fit: cover;
+}
+
+.postUser span {
+    font-size: 14px;
+}
+
+.postTitle {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    color: #670626;
+}
+
+.postDescription {
+    font-size: 14px;
+    margin: 0;
+    color: #8c6b74;
+}
+
+@media (max-width: 1127px) {
+    .postContainer {
+        width: 100%;
+        margin-right: 16px;
+    }
+}
+
+@media (max-width: 751px) {
+    .postContainer {
+        flex-direction: column;
+        max-height: unset;
+    }
+}
+
+.commentsWrapper {
+    flex: 1; 
+    overflow-y: auto; 
+    min-height: 0;
+    scrollbar-width: thin;
+    scrollbar-color: #f89cbc #fff8f0;
+}
+
+.commentsWrapper::-webkit-scrollbar {
+    width: 6px;
+}
+.commentsWrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
+.commentsWrapper::-webkit-scrollbar-thumb {
+    background-color: #f8bbd0;
+    border-radius: 10px;
+}
+
+.postTags {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 8px;
+}
+
+.tagItem {
+    padding: 8px 16px;
+    border-radius: 24px;
+    background-color: #f8bbd0;
+    color: #670626;
+    font-size: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.tagItem:hover {
+    background-color: #f89cbc;
+}
+
+
+/* Stiluri pentru Concurs în PostPage */
+.contestHighlight {
+  margin: 15px 0;
+  border: 2px solid #670626; /* Culoarea temei (vișiniu) */
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.contestHeader {
+  background-color: #670626;
+  color: white;
+  padding: 8px 16px;
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.contestBody {
+  padding: 12px 16px;
+  background-color: #fdf5f7; /* Un fundal foarte pal, tentă roz/crem */
+}
+
+.prizeText {
+  font-size: 16px;
+  color: #333;
+  margin: 0 0 4px 0;
+}
+
+.prizeText strong {
+  color: #670626;
+}
+
+.deadlineText {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}

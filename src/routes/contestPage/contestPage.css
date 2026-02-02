@@ -1,0 +1,58 @@
+.contestPage {
+    height: 100%;
+    overflow-y: auto;
+    padding-bottom: 50px;
+    background-color: #fff;
+}
+
+/* Banner */
+.contestBanner {
+    background: linear-gradient(135deg, #670626 0%, #a01a45 100%);
+    color: white;
+    padding: 30px;
+    border-radius: 16px;
+    margin: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(103, 6, 38, 0.2);
+}
+
+.contestBanner h1 {
+    margin: 0 0 10px 0;
+    font-size: 24px;
+}
+
+.bannerIcon {
+    font-size: 50px;
+}
+
+/* --- GRID LAYOUT PENTRU GALLERY ITEM --- */
+.contestGrid {
+    padding: 0 20px;
+    display: grid;
+    /* GalleryItem se va adapta la lățimea coloanei */
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 20px;
+    align-items: start; /* Important ca să nu se întindă pe verticală */
+}
+
+/* Stiluri pentru mesaje */
+.centerMsg, .noContests {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: #888;
+    font-size: 1.2rem;
+}
+
+.createBtn {
+    background-color: #670626;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-weight: 600;
+}
