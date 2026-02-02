@@ -14,6 +14,7 @@ import {
   adminDeleteBoard,
   approveShop,
   rejectShop,
+  adminUpdateUserRole,
 } from "../controllers/admin.controller.js";
 
 const router = express.Router();
@@ -24,6 +25,7 @@ router.get("/stats", getAdminStats);
 
 router.get("/users", getAllUsers);
 router.delete("/users/:id", adminDeleteUser);
+router.put("/users/:id", adminUpdateUserRole);
 
 router.delete("/pins/:id", adminDeletePin);
 router.delete("/comments/:id", adminDeleteComment);

@@ -33,6 +33,34 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
+export const adminUpdateUserRole = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { role } = req.body;
+
+    // Validăm dacă rolul este unul permis
+    const validRoles = ["USER", "ADMIN", "SHOP"];
+    if (!validRoles.includes(role)) {
+      return res.status(400).json({ message: "Rol invalid." });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { role: role },
+      { new: true } // Returnează userul actualizat
+    ).select("-hashedPassword");
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "Utilizatorul nu a fost găsit." });
+    }
+
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    console.error("EROARE în adminUpdateUserRole:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 export const adminDeleteUser = async (req, res) => {
   try {
     const { id } = req.params;
