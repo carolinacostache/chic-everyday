@@ -482,30 +482,40 @@ export const getShopStats = async (req, res) => {
   try {
     const userId = req.userId;
 
-    const stats = await Pin.aggregate([
-      { $match: { user: new mongoose.Types.ObjectId(userId) } },
-      {
-        $group: {
-          _id: null,
-          totalPins: { $sum: 1 },
-          totalViews: { $sum: "$views" },
-          totalClicks: { $sum: "$linkClicks" },
-        }
-      }
-    ]);
+    // 1. Luăm TOATE postările magazinului (ca să le putem afișa în tabel)
+    const pins = await Pin.find({ user: userId }).sort({ createdAt: -1 });
 
-    const data = stats[0] || { totalPins: 0, totalViews: 0, totalClicks: 0 };
+    // 2. Calculăm totalurile iterând prin array-ul de pin-uri
+    let totalViews = 0;
+    let totalClicks = 0;
+    let totalLikes = 0;
+    let totalComments = 0;
+
+    pins.forEach((pin) => {
+      totalViews += pin.views || 0;
+      // Atenție: În codul tău anterior era 'linkClicks', asigură-te că așa se numește în model
+      totalClicks += pin.linkClicks || 0; 
+      totalLikes += pin.likes ? pin.likes.length : 0;
+      totalComments += pin.commentCout || 0;
+    });
+
+    // 3. Setările de monetizare (folosind valorile tale: 0.01 și 0.5)
     const costPerView = 0.01;
     const costPerClick = 0.5;
-    const totalCost = (data.totalViews * costPerView) + (data.totalClicks * costPerClick);
+    const totalCost = (totalViews * costPerView) + (totalClicks * costPerClick);
 
     res.status(200).json({
-      ...data,
+      totalPins: pins.length,
+      totalViews,
+      totalClicks,
+      totalLikes,
+      totalComments,
       monetization: {
         costPerView,
         costPerClick,
         totalCost: totalCost.toFixed(2)
-      }
+      },
+      pins: pins // <--- FOARTE IMPORTANT: Trimitem lista pentru a popula tabelul din frontend
     });
 
   } catch (err) {
