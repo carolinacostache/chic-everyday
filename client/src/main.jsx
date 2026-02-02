@@ -31,7 +31,7 @@ const AdminTagsPage = React.lazy(() => import("./routes/adminPage/adminTagPage")
 const AdminBoardsPage = React.lazy(() => import("./routes/adminPage/adminBoardPage"));
 const AdminShopReq = React.lazy(() => import("./routes/adminPage/adminShopReq"));
 
-const AdminStats = React.lazy(() => import("./routes/adminPage/AdminStats"));
+const AdminStats = React.lazy(() => import("./routes/adminPage/adminStats"));
 
 const ShopStatsPage = React.lazy(() => import("./routes/shopStats/shopStats"));
 

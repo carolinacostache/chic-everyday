@@ -20,6 +20,8 @@ export const getPins = async (req, res) => {
     const boardId = req.query.boardId;
     const tag = req.query.tag;
     const type = req.query.type;
+    
+    const loggedInUser = req.userId;
 
     const LIMIT = 18;
     const skip = pageNumber * LIMIT;
@@ -50,9 +52,59 @@ export const getPins = async (req, res) => {
           "user",
           "username img displayName"
         );
-      } else {
+      } else if (type === "recommended" && loggedInUser) {
         
-        if (type) {
+        // 1. Găsim ce a apreciat utilizatorul (Like-uri)
+        const userLikes = await Like.find({ user: loggedInUser }).populate("pin");
+
+        // 2. Extragem Tag-urile din postările apreciate
+        const likedPinIds = userLikes.map(like => like.pin?._id); // ID-urile deja apreciate
+        
+        const tagsList = userLikes
+            .map(like => like.pin)     // Luăm obiectul pin
+            .filter(pin => pin != null) // Eliminăm pin-urile șterse
+            .flatMap(pin => pin.tags);  // Punem toate tagurile într-un singur array
+
+        const uniqueTags = [...new Set(tagsList)]; // Eliminăm duplicatele
+
+        // 3. Căutăm postări care au aceleași tag-uri, dar NU sunt deja apreciate
+        let recommendedQuery = {
+            tags: { $in: uniqueTags },
+            _id: { $nin: likedPinIds }, // Excludem ce a văzut deja (like)
+            type: { $ne: 'contest' }    // Opțional: lăsăm concursurile pentru feed-ul principal
+        };
+
+        // Fetch Recomandări
+        pins = await Pin.find(recommendedQuery)
+            .populate("user", "username img displayName")
+            .sort({ views: -1, createdAt: -1 }) // Sortăm după popularitate și noutate
+            .limit(LIMIT)
+            .skip(skip);
+
+        // 4. FALLBACK: Dacă nu avem suficiente recomandări (< 5), completăm cu postări populare
+        // (Sau dacă userul nu are like-uri deloc)
+        if (pins.length < 5) {
+             const excludedIds = [...likedPinIds, ...pins.map(p => p._id)];
+             
+             const fillerPins = await Pin.find({
+                 _id: { $nin: excludedIds },
+                 type: { $ne: 'contest' }
+             })
+             .populate("user", "username img displayName")
+             .sort({ views: -1, createdAt: -1 })
+             .limit(LIMIT - pins.length);
+
+             pins = [...pins, ...fillerPins];
+        }
+
+        // Aproximare pentru paginare (nu e perfectă la mix, dar e ok pentru scroll infinit)
+        totalPinsInQuery = pins.length + (pageNumber * LIMIT) + 1; 
+
+      }
+
+      else {
+        
+        if (type && type !== "recommended") {
           query.type = type;
         }
         
@@ -484,6 +536,16 @@ export const getShopStats = async (req, res) => {
 
     // 1. Luăm TOATE postările magazinului (ca să le putem afișa în tabel)
     const pins = await Pin.find({ user: userId }).sort({ createdAt: -1 });
+
+    const pinsWithStats = await Promise.all(
+      pins.map(async (pin) => {
+        const commentCount = await Comment.countDocuments({ pin: pin._id });
+        return {
+          ...pin,
+          commentCount: commentCount || 0
+        };
+      })
+    );
 
     // 2. Calculăm totalurile iterând prin array-ul de pin-uri
     let totalViews = 0;

@@ -1,3 +1,4 @@
+/* --- CONTAINER PRINCIPAL --- */
 .homePageContainer {
     padding: 20px;
     max-width: 1600px; 
@@ -5,6 +6,7 @@
     width: 100%;
 }
 
+/* --- BANNERUL TĂU (Design Gradient) --- */
 .homeBanner {
     background: linear-gradient(105deg, #670626 0%, #a01a45 100%);
     border-radius: 20px;
@@ -53,6 +55,44 @@
     filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
 }
 
+/* --- STILURI NOI PENTRU TOGGLE (Noutăți / Pentru Tine) --- */
+.feedToggleContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 0 auto 30px auto;
+}
+  
+.feedTab {
+    padding: 10px 24px;
+    border: 1px solid #ddd; /* Bordură subtilă inactivă */
+    background-color: transparent;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    color: #666;
+    transition: all 0.2s ease;
+    min-width: 140px;
+}
+  
+.feedTab:hover {
+    background-color: #fff0f5;
+    color: #670626;
+    border-color: #670626;
+}
+  
+/* Starea activă (Butonul selectat) */
+.feedTab.active {
+    background-color: #670626; /* Aceeași culoare ca bannerul tău */
+    color: white;
+    border-color: #670626;
+    box-shadow: 0 4px 12px rgba(103, 6, 38, 0.2);
+    transform: scale(1.05);
+}
+
+/* --- RESPONSIVE --- */
 @media (max-width: 768px) {
     .homeBanner {
         flex-direction: column;
@@ -64,5 +104,11 @@
     .trophyImg {
         width: 80px;
         height: 80px;
+    }
+
+    .feedTab {
+        padding: 8px 16px;
+        font-size: 14px;
+        min-width: auto; /* Pe mobil le lăsăm să fie mai mici */
     }
 }

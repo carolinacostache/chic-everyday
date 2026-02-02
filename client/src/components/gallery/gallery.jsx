@@ -2,14 +2,15 @@ import GalleryItem from "../galleryItem/galleryItem";
 import "./gallery.css";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroll-component";
-import axios from "axios";
+import apiRequest from "../../utils/apiRequest"; // <--- FOLOSEȘTE ASTA (verifică calea dacă e utils sau lib)
 import Skeleton from "../skeleton/skeleton";
 import Masonry from 'react-masonry-css';
 
 
-const fetchPins = async ({ pageParam, search, userId, boardId, tag, type}) => {
-  const res = await axios.get(
-    `${import.meta.env.VITE_API_ENDPOINT}/pins?cursor=${pageParam}&search=${
+const fetchPins = async ({ pageParam, search, userId, boardId, tag, type }) => {
+  // Folosim apiRequest pentru a include automat cookie-urile (withCredentials: true)
+  const res = await apiRequest.get(
+    `/pins?cursor=${pageParam}&search=${
       search || ""
     }&userId=${userId || ""}&boardId=${boardId || ""}&tag=${tag||""}&type=${type || ""}`
   );
@@ -17,11 +18,20 @@ const fetchPins = async ({ pageParam, search, userId, boardId, tag, type}) => {
 };
 
 
-const Gallery = ({ search, userId, boardId, tag , renderItem, type }) => {
+// 1. Adăugăm feedType în props
+const Gallery = ({ search, userId, boardId, tag , renderItem, type, feedType }) => {
+  
+  // 2. Determinăm tipul activ (Homepage trimite feedType, alte pagini trimit type)
+  let activeType = type || feedType;
+  if (activeType === "newest") {
+    activeType = ""; 
+  }
+
   const { data, fetchNextPage, hasNextPage, status } = useInfiniteQuery({
-    queryKey: ["pins", search, userId, boardId, tag, type],
+    // 3. Punem activeType în queryKey ca să se facă refresh la schimbare
+    queryKey: ["pins", search, userId, boardId, tag, activeType], 
     queryFn: ({ pageParam = 0 }) =>
-      fetchPins({ pageParam, search, userId, boardId, tag, type }),
+      fetchPins({ pageParam, search, userId, boardId, tag, type: activeType }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
   });
@@ -54,7 +64,6 @@ const Gallery = ({ search, userId, boardId, tag , renderItem, type }) => {
           columnClassName="my-masonry-grid_column" 
         >
           {allPins?.map((item) => (
-            /*<GalleryItem key={item._id} item={item} />*/
             <div key={item._id}>
              {renderItem ? renderItem(item) : <GalleryItem item={item} />}
           </div>
