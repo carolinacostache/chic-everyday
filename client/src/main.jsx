@@ -31,6 +31,8 @@ const AdminTagsPage = React.lazy(() => import("./routes/adminPage/adminTagPage")
 const AdminBoardsPage = React.lazy(() => import("./routes/adminPage/adminBoardPage"));
 const AdminShopReq = React.lazy(() => import("./routes/adminPage/adminShopReq"));
 
+const AdminStats = React.lazy(() => import("./routes/adminPage/AdminStats"));
+
 const ShopStatsPage = React.lazy(() => import("./routes/shopStats/shopStats"));
 
 const queryClient = new QueryClient()
@@ -61,7 +63,7 @@ createRoot(document.getElementById('root')).render(
                 <Route path="/admin/pins" element={<AdminPinPage/>}/>
                 <Route path="/admin/tags" element={<AdminTagsPage/>} />
                 <Route path="/admin/boards" element={<AdminBoardsPage/>} />
-                <Route path="/admin/stats" element={<div>Pagina de Statistici (În lucru)</div>} />
+                <Route path="/admin/stats" element={<AdminStats/>} />
               </Route>
             </Routes>
           </Suspense>

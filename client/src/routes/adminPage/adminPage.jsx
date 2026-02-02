@@ -28,6 +28,13 @@ const AdminPage = () => {
             <span className="statNumber">{counts.pendingShops}</span>
           </div>
         </Link>
+        <Link to="/admin/stats" className="statCard money">
+          <div className="statInfo">
+            <h3>Monetizare & Top</h3>
+            {/* Putem pune un icon sau text "Vezi detalii" */}
+            <span className="statLabel">Vezi Raport ➔</span>
+          </div>
+        </Link>
         <Link to="/admin/users" className="statCard">
           <div className="statInfo">
             <h3>Utilizatori</h3>
