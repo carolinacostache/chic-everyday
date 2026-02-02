@@ -22,11 +22,29 @@ const AdminUserPage = () => {
     },
   });
 
+  const updateRoleMutation = useMutation({
+    mutationFn: ({ userId, newRole }) => 
+      apiRequest.put(`/admin/users/${userId}`, { role: newRole }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["adminUsers"] });
+      // Opțional: alert("Rol actualizat cu succes!");
+    },
+    onError: (err) => {
+      alert(err.response?.data?.message || "Eroare la actualizarea rolului!");
+    }
+  });
+
   const pendingCount = users?.filter(u => u.shopDetails?.status === "PENDING").length || 0;
 
   const handleDeleteUser = (userId) => {
     if (window.confirm("Ești sigur că vrei să ștergi acest utilizator?")) {
       deleteUserMutation.mutate(userId);
+    }
+  };
+
+  const handleRoleChange = (userId, newRole) => {
+    if (window.confirm(`Ești sigur că vrei să schimbi rolul în ${newRole}?`)) {
+      updateRoleMutation.mutate({ userId, newRole });
     }
   };
 
@@ -81,7 +99,19 @@ const AdminUserPage = () => {
                 </td>
                 <td>{user.username}</td>
                 <td>{user.email}</td>
-                <td>{user.role}</td>
+                <td>
+                  {/* --- AICI AM SCHIMBAT TEXTUL CU UN SELECT --- */}
+                  <select 
+                    value={user.role}
+                    onChange={(e) => handleRoleChange(user._id, e.target.value)}
+                    className={`roleSelect ${user.role.toLowerCase()}`}
+                    disabled={updateRoleMutation.isPending}
+                  >
+                    <option value="USER">USER</option>
+                    <option value="ADMIN">ADMIN</option>
+                    <option value="SHOP">SHOP</option>
+                  </select>
+                </td>
                 <td>
                   <button 
                     className="deleteButton"
