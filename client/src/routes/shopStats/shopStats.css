@@ -1,0 +1,133 @@
+.shopStatsPage {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.statsHeader {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.statsHeader h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+  color: #670626;
+}
+
+.statsHeader p {
+  color: #8c6b74;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-bottom: 60px;
+}
+
+.statCard {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(103, 6, 38, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border: 1px solid #f8bbd0;
+  transition: transform 0.2s;
+}
+
+.statCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(103, 6, 38, 0.1);
+}
+
+.statCard.highlight {
+  border-color: #fff185;
+  background-color: #fffdf5;
+}
+
+.iconContainer {
+  font-size: 32px;
+  width: 60px;
+  height: 60px;
+  background: #f8bbd0;
+  color: #670626;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.statInfo h3 {
+  font-size: 14px;
+  color: #8c6b74;
+  margin: 0 0 5px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.statNumber {
+  font-size: 36px;
+  font-weight: 800;
+  color: #670626;
+  line-height: 1;
+}
+
+.statSubtext {
+  display: block;
+  margin-top: 5px;
+  color: #8c6b74;
+  font-size: 12px;
+}
+
+.billingSection h2 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #670626;
+}
+
+.billCard {
+  background: #ffffff;
+  border: 1px solid #f8bbd0;
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 500px;
+  box-shadow: 0 4px 12px rgba(103, 6, 38, 0.05);
+}
+
+.billRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  color: #670626;
+}
+
+.billRow.total {
+  font-weight: 800;
+  font-size: 20px;
+  color: #670626;
+  margin-top: 10px;
+  border-top: 1px solid #f8bbd0;
+  padding-top: 12px;
+}
+
+.payBtn {
+  width: 100%;
+  background-color: #670626;
+  color: #fff8f0;
+  padding: 15px;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.payBtn:hover {
+  background-color: #fff185;
+  color: #670626;
+}

@@ -1,0 +1,44 @@
+import express from "express";
+import { verifyAdmin } from "../middlewares/verifyAdmin.js";
+import { 
+  getAdminStats,
+  getAllUsers, 
+  adminDeleteUser, 
+  adminDeletePin, 
+  adminDeleteComment,
+  getTagsData, 
+  addWeatherTag, 
+  deleteWeatherTag, 
+  deleteUserTag,
+  getAllBoards,
+  adminDeleteBoard,
+  approveShop,
+  rejectShop,
+} from "../controllers/admin.controller.js";
+
+const router = express.Router();
+
+router.use(verifyAdmin);
+
+router.get("/stats", getAdminStats);
+
+router.get("/users", getAllUsers);
+router.delete("/users/:id", adminDeleteUser);
+
+router.delete("/pins/:id", adminDeletePin);
+router.delete("/comments/:id", adminDeleteComment);
+
+
+router.get("/tags", getTagsData);
+router.post("/tags/weather", addWeatherTag);
+router.delete("/tags/weather/:id", deleteWeatherTag);
+router.put("/tags/user/delete", deleteUserTag);
+
+router.get("/boards", getAllBoards);
+router.delete("/boards/:id", adminDeleteBoard);
+
+router.put("/shops/approve/:id", approveShop);
+router.put("/shops/reject/:id", rejectShop);
+
+
+export default router;

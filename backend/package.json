@@ -1,0 +1,25 @@
+{
+  "name": "ingp-api",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch --env-file=.env  index.js",
+    "seed": "node utils/seed.js"
+  },
+  "dependencies": {
+    "@imagekit/react": "^5.0.1",
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "emoji-picker-react": "^4.15.0",
+    "express": "^5.1.0",
+    "express-fileupload": "^1.5.2",
+    "imagekit": "^6.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.2",
+    "react-masonry-css": "^1.0.16",
+    "sharp": "^0.34.4"
+  }
+}
+

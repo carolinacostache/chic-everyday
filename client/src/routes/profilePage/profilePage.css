@@ -1,0 +1,194 @@
+.profilePage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.profileImg {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 80px;
+    height: 80px;
+    border: 2px solid #f8bbd0;
+}
+
+.profileName {
+    font-size: 24px;
+    font-weight: 600;
+    color: #670626;
+}
+
+.profileUsername {
+    font-weight: 500;
+    color: #8c6b74;
+}
+
+.followCount {
+    font-weight: 600;
+    color: #670626;
+}
+
+.profileInteractions {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.profileButtons {
+    display: flex;
+    gap: 16px;
+}
+
+.profileButtons button {
+    border: none;
+    padding: 16px;
+    border-radius: 32px;
+    font-weight: 700;
+    cursor: pointer;
+    background-color: #f8bbd0;
+    color: #670626;
+    transition: background-color 0.2s;
+}
+
+.profileButtons button:hover {
+    background-color: #f89cbc;
+}
+
+.profileButtons button:last-child {
+    background-color: #670626;
+    color: #fff8f0;
+}
+
+.profileButtons button:last-child:hover {
+    background-color: #f89cbc;
+    color: #670626;
+}
+
+.profileOptions {
+    display: flex;
+    gap: 16px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    font-weight: 600;
+    color: #8c6b74;
+}
+
+.profileOptions span {
+    cursor: pointer;
+    padding: 8px 0px;
+    transition: color 0.2s;
+}
+
+.profileOptions span:hover {
+    color: #670626;
+}
+
+.active {
+    border-bottom: 3px solid #670626;
+    color: #670626;
+}
+
+.followCount .followLink {
+    cursor: pointer;
+    font-weight: 600;
+    color: #670626;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.followCount .followLink:hover {
+    text-decoration: underline;
+    color: #f89cbc;
+}
+
+/* --- GAMIFICATION STYLES --- */
+
+.gamificationContainer {
+    width: 100%;
+    max-width: 500px; /* Să nu fie prea lat pe desktop */
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+/* Zona de Nivel și Puncte */
+.levelWrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+    width: 100%;
+    justify-content: center;
+}
+
+.levelBadge {
+    background-color: #670626; /* Vișiniul temei */
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.levelBadge strong {
+    font-size: 16px;
+    margin-left: 4px;
+}
+
+.pointsInfo {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.pointsValue {
+    font-weight: 800;
+    font-size: 18px;
+    color: #333;
+}
+
+.pointsLabel {
+    font-size: 12px;
+    color: #777;
+    text-transform: uppercase;
+}
+
+/* Zona de Insigne */
+.badgesWrapper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.badgeItem {
+    width: 45px;
+    height: 45px;
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px; /* Mărimea emoji-ului */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    cursor: help; /* Arată tooltip cu numele la hover */
+    transition: transform 0.2s;
+}
+
+.badgeItem:hover {
+    transform: scale(1.15);
+}
+
+.noBadgesText {
+    font-size: 13px;
+    color: #999;
+    font-style: italic;
+}

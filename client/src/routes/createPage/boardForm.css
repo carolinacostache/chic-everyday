@@ -1,0 +1,214 @@
+.boardForm {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.boardFormOverlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-color: rgba(103, 6, 38, 0.6);
+  backdrop-filter: blur(2px);
+}
+
+.boardFormContainer {
+  position: relative;
+  background-color: #fff8f0;
+  padding: 32px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 480px;
+  z-index: 10000;
+  box-shadow: 0 10px 30px rgba(103, 6, 38, 0.2);
+  border: 1px solid #f8bbd0;
+  color: #670626;
+}
+
+.boardFormClose {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  background-color: transparent;
+  transition: background-color 0.2s;
+  color: #670626;
+}
+.boardFormClose:hover { background-color: #f8bbd0; }
+
+.boardFormContainer h1 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  text-align: center;
+  color: #670626;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.formGroup label {
+  font-size: 13px;
+  color: #670626;
+  font-weight: 600;
+}
+
+.formGroup input[type="text"] {
+  padding: 12px 16px;
+  border: 2px solid #f89cbc;
+  border-radius: 12px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  color: #670626;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.formGroup input[type="text"]:focus {
+  border-color: #670626;
+  background-color: #fff185;
+}
+
+.createButton {
+  width: 100%;
+  background-color: #670626;
+  color: #fff8f0;
+  border: none;
+  padding: 12px;
+  border-radius: 24px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.createButton:hover { 
+  background-color: #f89cbc; 
+  color: #670626;
+}
+.createButton:disabled { 
+  opacity: 1; 
+  background-color: #f8bbd0;
+  cursor: not-allowed; 
+}
+
+.collabInputWrapper { position: relative; }
+
+.collabDropdown {
+  position: absolute;
+  top: 100%; left: 0; right: 0;
+  background: #fff8f0;
+  border: 1px solid #f8bbd0;
+  border-radius: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(103, 6, 38, 0.1);
+  margin-top: 4px;
+}
+
+.collabResultItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  cursor: pointer;
+  color: #670626;
+  transition: background-color 0.2s;
+}
+.collabResultItem:hover { background-color: #f8bbd0; }
+.collabResultItem img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 1px solid #f8bbd0; }
+
+.selectedCollabsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+.collabChip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f8bbd0;
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: #670626;
+  font-weight: 500;
+}
+.collabChip img { width: 20px; height: 20px; border-radius: 50%; border: 1px solid #fff8f0; }
+.collabChip button { border: none; background: none; font-weight: bold; cursor: pointer; color: #670626; opacity: 0.7; }
+.collabChip button:hover { opacity: 1; }
+
+.checkboxGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.checkboxLabel {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkboxLabel span {
+  font-weight: 600;
+  color: #670626;
+}
+
+.checkboxLabel small {
+  color: #8c6b74;
+  font-size: 12px;
+}
+
+.toggleSwitch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+
+.toggleSwitch input { 
+  opacity: 0; 
+  width: 0; 
+  height: 0; 
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #f89cbc;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #fff8f0;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #670626;
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px);
+}

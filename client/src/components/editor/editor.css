@@ -1,0 +1,212 @@
+.editor {
+  display: flex;
+  gap: 16px;
+  color: #670626; 
+}
+
+.layers {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.layers h3 {
+  font-size: 20px;
+  font-weight: 600; 
+  color: #670626;
+}
+
+.layers p {
+  font-size: 14px;
+  color: #8c6b74; 
+  margin-top: 4px;
+}
+
+.layer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  color: #670626;
+  transition: background-color 0.2s;
+}
+
+.layer:hover {
+  background-color: #f8bbd0; 
+}
+
+.layer.selected {
+  background-color: #fff185; 
+  font-weight: 700;
+}
+
+.layerImage {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #f8bbd0;
+}
+
+.workspace {
+  flex: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8bbd0; 
+  padding: 64px 0px;
+  border-radius: 16px; 
+}
+
+.canvas {
+  width: 375px;
+  border-radius: 32px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-color: #ffffff; 
+  box-shadow: 0 10px 30px rgba(103, 6, 38, 0.15);
+}
+
+.text {
+  position: absolute;
+  z-index: 999;
+  max-width: 100%;
+  border: 1px dashed #670626; 
+  padding: 5px;
+}
+
+.text input {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: inherit;
+  cursor: grab;
+  width: calc(100% - 40px);
+  color: inherit; 
+}
+
+.deleteTextButton {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  background-color: #fff8f0; 
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid #670626;
+  color: #670626;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.deleteTextButton:hover {
+  background-color: #670626;
+  color: #fff8f0;
+}
+
+.canvas img {
+  width: 100%;
+}
+
+.options {
+  flex: 1;
+  margin-top: 32px;
+}
+
+.editingOption {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.editingOption span {
+  font-weight: 600;
+  color: #670626;
+}
+
+.editingOption input {
+  border: 1px solid #f89cbc; 
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #ffffff;
+  color: #670626;
+  outline: none;
+}
+
+.editingOption input:focus {
+  border-color: #670626;
+  background-color: #fff185; 
+}
+
+.textColor,
+.bgColor {
+  position: relative;
+}
+
+.colorPreview {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #fff8f0;
+  box-shadow: 0 0 0 2px #f8bbd0; 
+}
+
+.colorPicker {
+  position: absolute;
+  top: 120%;
+  left: 0;
+  z-index: 100;
+}
+
+.orientations,
+.sizes {
+  padding: 4px;
+  border-radius: 12px;
+  background-color: #f8bbd0;
+  display: flex;
+  font-size: 14px;
+  font-weight: 500;
+  width: max-content;
+}
+
+.orientation,
+.size {
+  padding: 8px 12px;
+  border-radius: 8px;
+  min-width: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #670626;
+  transition: all 0.2s;
+}
+
+.orientation:hover,
+.size:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.orientation.selected,
+.size.selected {
+  background-color: #fff8f0;
+  color: #670626;
+  font-weight: 700;
+  box-shadow: 0 2px 4px rgba(103, 6, 38, 0.1);
+}

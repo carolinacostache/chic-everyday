@@ -1,0 +1,238 @@
+.saveModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(103, 6, 38, 0.6);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.saveModalContent {
+  background-color: #fff8f0;
+  border-radius: 16px;
+  width: 500px;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(103, 6, 38, 0.2);
+  border: 1px solid #f8bbd0;
+}
+
+.saveModalHeader {
+  padding: 16px 24px;
+  border-bottom: 1px solid #f8bbd0;
+  position: relative;
+  text-align: center;
+}
+
+.saveModalHeader h1 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #670626;
+}
+
+.closeButton {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: transparent;
+  border: 1px solid #f8bbd0;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #670626;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.closeButton:hover {
+  background-color: #f8bbd0;
+}
+
+.backButton {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  background: transparent;
+  border: 1px solid #f8bbd0;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #670626;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.backButton:hover {
+  background-color: #f8bbd0;
+}
+
+.boardList {
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: #f89cbc #fff8f0;
+}
+
+.boardList::-webkit-scrollbar {
+  width: 6px;
+}
+.boardList::-webkit-scrollbar-track {
+  background: transparent;
+}
+.boardList::-webkit-scrollbar-thumb {
+  background-color: #f8bbd0;
+  border-radius: 10px;
+}
+
+.boardItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  color: #670626;
+}
+
+.boardItem:hover {
+  background-color: #f8bbd0;
+}
+
+.boardItem img {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid #f8bbd0;
+}
+
+.boardItem span {
+  flex: 1;
+  font-weight: 600;
+}
+
+.saveButtonModal {
+  background-color: #670626;
+  color: #fff8f0;
+  border: none;
+  border-radius: 24px;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.saveButtonModal:hover {
+  background-color: #f89cbc;
+  color: #670626;
+}
+
+.saveButtonModal.saved {
+  background-color: #f89cbc; 
+  color: #670626;
+  cursor: default;
+}
+
+.createBoardToggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  cursor: pointer;
+  border-top: 1px solid #f8bbd0;
+  transition: background-color 0.2s;
+  color: #670626;
+  font-weight: 600;
+}
+
+.createBoardToggle:hover {
+  background-color: #f8bbd0;
+}
+
+.createBoardPlus {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  background-color: #f8bbd0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #670626;
+}
+
+.createBoardForm {
+  padding: 16px 24px;
+}
+
+.createBoardForm form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 16px;
+}
+
+.createBoardForm label {
+  font-size: 14px;
+  color: #670626;
+  font-weight: 600;
+}
+
+.createBoardForm input {
+  padding: 12px;
+  border: 2px solid #f89cbc;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #ffffff;
+  color: #670626;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.createBoardForm input:focus {
+  border-color: #670626;
+  background-color: #fff185;
+}
+
+.createBoardForm .createButton {
+  background-color: #670626;
+  color: #fff8f0;
+  border: none;
+  border-radius: 24px;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-weight: bold;
+  align-self: flex-end;
+  transition: background-color 0.2s;
+}
+
+.createBoardForm .createButton:hover {
+  background-color: #f89cbc;
+  color: #670626;
+}
+
+.createBoardForm .createButton:disabled {
+  background-color: #f8bbd0;
+  color: #ffffff;
+  cursor: not-allowed;
+}

@@ -1,0 +1,107 @@
+.topBar {
+    margin: 16px 0px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.search {
+    flex: 1;
+    background-color: #ffffff;
+    border: 2px solid #f8bbd0;
+    border-radius: 16px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: all 0.2s;
+}
+
+.search:focus-within {
+    background-color: #fff185;
+    border-color: #670626;
+}
+
+.search input {
+    border: none;
+    background-color: transparent;
+    outline: none;
+    flex: 1;
+    font-size: 18px;
+    color: #670626;
+}
+
+.search input::placeholder {
+    color: #f89cbc;
+}
+
+.topBar {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+}
+
+.topBarRight {
+    display: flex;
+    align-items: center;
+    gap: 24px; /* Spațiu între clopoțel și user */
+}
+
+/* Wrapper pentru iconiță și meniu */
+.notificationWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Iconița de notificare */
+.notificationIcon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background 0.2s;
+    position: relative;
+}
+
+.notificationIcon:hover {
+    background-color: #f0f0f0;
+}
+
+.notificationIcon img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Badge-ul Roșu */
+.topBarBadge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background-color: #e50829;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ffffff;
+}
+
+/* Poziționarea meniului dropdown */
+.topBarMenuContainer {
+    position: absolute;
+    top: 50px; /* Imediat sub iconiță */
+    right: -10px; /* Aliniat spre dreapta */
+    z-index: 1000;
+}
