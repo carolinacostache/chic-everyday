@@ -20,7 +20,7 @@
 .adminOverlay {
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(56, 201, 245, 0.6);
+  background: #3a2d28;
   display: none;
   flex-direction: column;
   align-items: center;
@@ -35,8 +35,8 @@
 }
 
 .adminDeleteBtn {
-  background-color: #fafaf8; 
-  color: #1f3a5f; 
+  background-color: #f1ede6; 
+  color: #a48374; 
   border: none;
   padding: 8px 16px;
   border-radius: 20px;
@@ -46,13 +46,13 @@
 }
 
 .adminDeleteBtn:hover {
-  background-color: #e6eef8; 
-  color: #1f3a5f;
+  background-color: #ebe3db; 
+  color: #3a2d28;
   transform: scale(1.05);
 }
 
 .adminViewLink {
-  color: #e6eef8;
+  color: #ebe3db;
   text-decoration: underline;
   font-size: 14px;
   transition: color 0.2s;
@@ -60,17 +60,17 @@
 }
 
 .adminViewLink:hover {
-  color: #e6eef8;
+  color: #ebe3db;
 }
 
 .adminItemInfo h4 {
   margin: 8px 0 0 0;
   font-size: 14px;
-  color: #1f3a5f;
+  color: #3a2d28;
 }
 
 .adminItemInfo small {
-  color: #36a0d1; 
+  color: #a48374; 
   font-weight: 500;
 }
 
