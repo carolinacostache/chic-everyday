@@ -12,7 +12,7 @@
   flex-direction: column;
   gap: 16px;
   overflow-y: auto;
-scrollbar-width: thin;
+  scrollbar-width: thin;
   scrollbar-color: #f89cbc #fff8f0;
 }
 
@@ -33,66 +33,86 @@ scrollbar-width: thin;
 .comment {
   display: flex;
   gap: 16px;
+  align-items: flex-start;
 }
 
-.comment img {
+/* AVATAR: doar imaginea din link-ul din stanga */
+.comment > a img {
   width: 32px;
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid #f8bbd0; 
+  border: 1px solid #f8bbd0;
+  display: block;
 }
 
+/* continut */
 .commentContent {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  min-width: 0;
 }
 
 .commentUsername {
   font-weight: 600;
   font-size: 14px;
-  color: #670626; 
+  color: #670626;
 }
 
 .commentText {
   font-size: 14px;
   color: #670626;
   line-height: 1.4;
+  word-break: break-word;
+}
+
+/* POZA din comentariu (contest entry) */
+.commentImage {
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 1px solid #f8bbd0;
+  margin-top: 8px;
+  display: block;
 }
 
 .commentTime {
   font-size: 12px;
-  color: #8c6b74; 
+  color: #8c6b74;
+  margin-top: 2px;
 }
 
 .commentForm {
-  background-color: #ffffff; 
-  padding: 12px 16px; 
+  background-color: #ffffff;
+  padding: 12px 16px;
   border-radius: 32px;
   display: flex;
   align-items: center;
   gap: 16px;
-  border: 1px solid #f8bbd0; 
+  border: 1px solid #f8bbd0;
   transition: all 0.2s ease;
 }
 
 .commentForm:focus-within {
-  border-color: #670626; 
-  background-color: #fffdf5; 
+  border-color: #670626;
+  background-color: #fffdf5;
   box-shadow: 0 4px 12px rgba(103, 6, 38, 0.1);
 }
 
-.commentForm input {
+/* input text */
+.commentForm input[type="text"] {
   flex: 1;
   border: none;
   outline: none;
   background-color: transparent;
   font-size: 14px;
-  color: #670626; 
+  color: #670626;
 }
 
-.commentForm input::placeholder {
+.commentForm input[type="text"]::placeholder {
   color: #f89cbc;
 }
 
@@ -104,4 +124,20 @@ scrollbar-width: thin;
 
 .emoji:hover {
   transform: scale(1.2);
+}
+
+/* buton send */
+.commentForm button {
+  border: none;
+  background: #f89cbc;
+  color: white;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.commentForm button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
