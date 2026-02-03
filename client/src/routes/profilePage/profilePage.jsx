@@ -33,6 +33,24 @@ const Profilepage = () => {
   if (error) return "An error has occurred: " + error.message;
   if (!data) return "User not found!";
 
+  if (data.role === "BANNED") {
+    return (
+      <div className="profilePage bannedProfile">
+        <div className="bannedMessageCard">
+          <span className="bannedIcon">🚫</span>
+          <h1>Cont Suspendat</h1>
+          <p>Acest cont a fost restricționat pentru încălcarea regulamentului platformei.</p>
+          {data.banReason && (
+            <div className="banReasonBox">
+              <strong>Motiv:</strong> {data.banReason}
+            </div>
+          )}
+          <Link to="/" className="backHomeBtn">Înapoi la pagina principală</Link>
+        </div>
+      </div>
+    );
+  }
+
   const isOwnProfile = currentUser?._id === data._id;
 
   // NEW: normalize gamification + compute progress to next level

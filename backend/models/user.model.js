@@ -39,8 +39,16 @@ const userSchema = new Schema(
 
     role: {
       type: String,
-      enum: ["USER", "SHOP", "ADMIN"],
+      enum: ["USER", "SHOP", "ADMIN", "BANNED"],
       default: "USER"
+    },
+
+    bannedAt: { 
+      type: Date 
+    },
+    
+    banReason: { 
+      type: String 
     },
     
     shopDetails: {

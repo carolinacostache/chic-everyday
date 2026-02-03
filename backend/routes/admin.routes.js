@@ -1,4 +1,5 @@
 import express from "express";
+import { verifyToken } from "../middlewares/verifyToken.js";
 import { verifyAdmin } from "../middlewares/verifyAdmin.js";
 import { 
   getAdminStats,
@@ -19,12 +20,12 @@ import {
 
 const router = express.Router();
 
-router.use(verifyAdmin);
+router.use(verifyToken, verifyAdmin);
 
 router.get("/stats", getAdminStats);
 
 router.get("/users", getAllUsers);
-router.delete("/users/:id", adminDeleteUser);
+router.put("/user/:id/ban", verifyToken, verifyAdmin, adminDeleteUser);
 router.put("/users/:id", adminUpdateUserRole);
 
 router.delete("/pins/:id", adminDeletePin);

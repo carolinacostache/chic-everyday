@@ -29,6 +29,8 @@ export const getPins = async (req, res) => {
 
     const LIMIT = 18;
     const skip = pageNumber * LIMIT;
+    const visibilityFilter = { visibility: { $nin: ["banned", "hidden"] } };
+
 
     if (search || userId || boardId || tag || type) {
       let query = {};
@@ -54,7 +56,7 @@ export const getPins = async (req, res) => {
         totalPinsInQuery = allPinIds.length;
         const paginatedPinIds = allPinIds.slice(skip, skip + LIMIT);
 
-        pins = await Pin.find({ _id: { $in: paginatedPinIds } }).populate(
+        pins = await Pin.find({ _id: { $in: paginatedPinIds }, ...visibilityFilter }).populate(
           "user",
           "username img displayName"
         );
@@ -86,7 +88,8 @@ export const getPins = async (req, res) => {
                     ]
                 },
                 { _id: { $nin: likedPinIds } }, // Excludem ce am văzut deja (like)
-                { type: { $ne: 'contest' } }    // Excludem concursurile (opțional)
+                { type: { $ne: 'contest' } },
+                visibilityFilter    // Excludem concursurile (opțional)
             ]
         };
 
@@ -124,7 +127,8 @@ export const getPins = async (req, res) => {
         } else {
             const followingQuery = {
                 user: { $in: currentUser.following },
-                type: { $ne: 'contest' }
+                type: { $ne: 'contest' },
+                ...visibilityFilter
             };
 
             const count = await Pin.countDocuments(followingQuery);
@@ -148,7 +152,8 @@ export const getPins = async (req, res) => {
         // Găsește "Winter", "winter", "WINTER" sau chiar tag-uri care conțin cuvântul
         let weatherQuery = {
             tags: { $regex: rawTag, $options: "i" }, 
-            type: { $ne: 'contest' }
+            type: { $ne: 'contest' },
+            ...visibilityFilter
         };
 
         // Fetch inițial (doar filtrare după vreme)
@@ -205,7 +210,7 @@ export const getPins = async (req, res) => {
           }).select("_id");
           const boardIds = matchingBoards.map((b) => b._id);
 
-          query.$or = [
+          query.$or = [ visibilityFilter,
             { title: { $regex: search, $options: "i" } },
             { tags: { $in: [search] } },
             { user: { $in: userIds } },
@@ -234,7 +239,7 @@ export const getPins = async (req, res) => {
   } 
   else {
         // 1. Luăm postările STANDARD (excludem concursurile din lista principală)
-        const standardQuery = { type: { $ne: 'contest' } };
+        const standardQuery = { type: { $ne: 'contest' }, visibility: { $nin: ["banned", "hidden"]} };
         
         // SORTARE DUPĂ INTERES: Cele mai vizualizate primele, apoi cele noi
         // Asta răspunde cerinței de "recomandări personalizate" [cite: 177]
@@ -245,7 +250,7 @@ export const getPins = async (req, res) => {
             .skip(skip);
 
       const contestPins = await Pin.aggregate([
-        { $match: { type: "contest" } },
+        { $match: { type: "contest", visibility: { $nin: ["banned", "hidden"] } } },
         { $sample: { size: 3 } },
       ]);
 
@@ -615,7 +620,7 @@ export const getShopStats = async (req, res) => {
     const userId = req.userId;
 
     // 1. Luăm TOATE postările magazinului (ca să le putem afișa în tabel)
-    const pins = await Pin.find({ user: userId }).sort({ createdAt: -1 });
+    const pins = await Pin.find({ user: userId,  }).sort({ createdAt: -1 });
 
     const pinsWithStats = await Promise.all(
       pins.map(async (pin) => {
