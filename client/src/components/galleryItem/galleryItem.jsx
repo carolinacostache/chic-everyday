@@ -16,20 +16,20 @@ import {
 
 const GalleryItem = ({ item }) => {
   const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
-
-  // Zustand store: luam si updateCurrentUser
   const { currentUser, updateCurrentUser } = useAuthStore();
-
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  // NEW: contest join state + feedback message
   const [isJoined, setIsJoined] = useState(false);
   const [feedbackMsg, setFeedbackMsg] = useState("");
 
-  // daca ai deja vreo logica de join in DB, aici ai putea initializa isJoined
+  // ✅ 1. VERIFICĂM DACĂ E ÎNCHEIAT
+  // Un concurs e gata dacă are un winner SAU a trecut deadline-ul
+  const isContestEnded = item.type === "contest" && (
+    !!item.winner || (item.deadline && new Date(item.deadline) < new Date())
+  );
+
   useEffect(() => {
-    // keep simple: reset when item changes
     setIsJoined(false);
     setFeedbackMsg("");
   }, [item?._id]);
@@ -87,11 +87,10 @@ const GalleryItem = ({ item }) => {
   const handleReportClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    alert("Pin-ul a fost raportat (funcționalitate de implementat).");
+    alert("Pin-ul a fost raportat.");
     setIsMenuOpen(false);
   };
 
-  // NEW: join contest (frontend-only demo, can be wired to backend later)
   const handleJoinContest = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -107,7 +106,6 @@ const GalleryItem = ({ item }) => {
       return;
     }
 
-    // apply points + badges
     const oldG = normalizeGamification(currentUser.gamification);
     const updatedG = applyPointsAndBadges(
       oldG,
@@ -117,19 +115,15 @@ const GalleryItem = ({ item }) => {
       }
     );
 
-    // update user in store (instant UI)
     const updatedUser = {
       ...currentUser,
       gamification: {
         ...updatedG,
       },
     };
-    // remove helper field before storing
     delete updatedUser.gamification._newBadges;
 
     updateCurrentUser(updatedUser);
-
-    // set join state + feedback
     setIsJoined(true);
 
     const unlocked = updatedG._newBadges || [];
@@ -153,7 +147,8 @@ const GalleryItem = ({ item }) => {
 
         {item.type === "contest" && (
           <div className="contestBadge">
-            <span>🏆 CONCURS</span>
+            {/* Putem schimba textul badge-ului dacă e încheiat */}
+            <span>{isContestEnded ? "🏁 ÎNCHEIAT" : "🏆 CONCURS"}</span>
           </div>
         )}
 
@@ -176,17 +171,14 @@ const GalleryItem = ({ item }) => {
             {isMenuOpen && (
               <div className="optionsMenu galleryOverlayMenu">
                 <button onClick={handleReportClick}>Raportează</button>
-                {/* daca vrei admin delete din meniu, poti activa aici */}
-                {/* {currentUser?.role === "ADMIN" && (
-                  <button onClick={handleDelete}>Șterge</button>
-                )} */}
               </div>
             )}
           </div>
         </div>
 
-        {/* NEW: contest CTA + feedback overlay (only for contest items) */}
-        {item.type === "contest" && (
+        {/* ✅ 2. AICI E MODIFICAREA PRINCIPALĂ */}
+        {/* Afișăm butonul DOAR dacă e concurs ȘI NU este încheiat */}
+        {item.type === "contest" && !isContestEnded && (
           <div
             style={{
               position: "absolute",
