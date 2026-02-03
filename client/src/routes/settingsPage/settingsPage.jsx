@@ -3,14 +3,20 @@ import useAuthStore from "../../utils/authStore";
 import apiRequest from "../../utils/apiRequest";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import "./settingsPage.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BecomeShopModal from "../../components/becomeShopModal/becomeShopModal"; 
 
 
 const SettingsPage = () => {
   const { currentUser, updateUser } = useAuthStore();
+  const navigate = useNavigate();
   const [openShopModal, setOpenShopModal] = useState(false); 
   const queryClient = useQueryClient();
+
+  const DEFAULT_AVATAR = "https://ik.imagekit.io/carolina/general/noAvatar.jpg?updatedAt=1761775233364"
+
+  const [file, setFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(currentUser?.img || DEFAULT_AVATAR);
 
   const [formData, setFormData] = useState({
     displayName: currentUser?.displayName || "",
@@ -23,20 +29,47 @@ const SettingsPage = () => {
   const [showShopModal, setShowShopModal] = useState(false);
 
   const updateMutation = useMutation({
-    mutationFn: (data) => apiRequest.put(`/users/${currentUser._id}`, data),
+    mutationFn: (data) => {
+      return apiRequest.put(`/users/${currentUser._id}`, data);
+    },
     onSuccess: (res) => {
+      updateUser(res.data);
       setSuccessMsg("Profil actualizat cu succes!");
-      queryClient.invalidateQueries(["profile", currentUser.username]);
+      updateUser(res.data);
+      queryClient.invalidateQueries(["profile"]);
       setTimeout(() => setSuccessMsg(""), 3000);
     },
     onError: (err) => {
+      console.error(err);
       alert(err.response?.data?.message || "Eroare la actualizare");
+      
     }
   });
 
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+        setFile(selectedFile);
+        setPreviewUrl(URL.createObjectURL(selectedFile));
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateMutation.mutate(formData);
+
+    const dataToSend = new FormData();
+    dataToSend.append("displayName", formData.displayName);
+    
+    // Trimitem parolele doar dacă sunt completate
+    if (formData.password) dataToSend.append("password", formData.password);
+    if (formData.newPassword) dataToSend.append("newPassword", formData.newPassword);
+    
+    // Trimitem fișierul doar dacă userul a selectat unul nou
+    if (file) {
+        dataToSend.append("img", file);
+    }
+
+    updateMutation.mutate(dataToSend);
   };
 
   const handleChange = (e) => {
@@ -52,10 +85,32 @@ const SettingsPage = () => {
         <section className="settingsSection">
           <h2>Informații Profil</h2>
           <form onSubmit={handleSubmit} className="settingsForm">
-            <div className="formGroup">
-              <label>Username (nu se poate schimba)</label>
-              <input type="text" value={currentUser?.username} disabled className="disabledInput" />
+
+            <div className="profilePicContainer">
+                <img src={previewUrl} alt="Profile" className="settingsAvatar" />
+                <label htmlFor="fileInput" className="changePhotoBtn">
+                    📷 Schimbă Poza
+                </label>
+                <input 
+                    type="file" 
+                    id="fileInput" 
+                    style={{ display: "none" }} 
+                    onChange={handleFileChange}
+                    accept="image/*"
+                />
             </div>
+
+            <div className="formGroup">
+              <label>Username</label>
+              <input 
+                type="text" 
+                value={currentUser?.username} 
+                disabled 
+                className="disabledInput" // Asigură-te că ai stilul acesta în CSS (gri, opac)
+              />
+              <small style={{color: "#888"}}>Username-ul nu poate fi schimbat.</small>
+            </div>
+
             <div className="formGroup">
               <label>Email</label>
               <input type="text" value={currentUser?.email} disabled className="disabledInput" />
@@ -151,7 +206,7 @@ const SettingsPage = () => {
         </section>
 
         {openShopModal && (
-        <BecomeShopModal onClose={() => setShowShopModal(false)} />
+        <BecomeShopModal onClose={() => setOpenShopModal(false)} />
         )}
 
       </div>

@@ -5,6 +5,101 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import Imagekit from "imagekit"; 
 
+export const updateUser = async (req, res) => {
+  const id = req.params.id;
+  const tokenUserId = req.userId;
+
+
+  console.log("🔵 ID din URL:", id);
+  console.log("🔵 ID din Token:", tokenUserId);
+
+  // --- DEBUGGING START ---
+  console.log("🔵 REQUEST PRIMIT!");
+  console.log("Body:", req.body);
+  console.log("Files:", req.files); // <--- Asta ne interesează cel mai mult!
+  // --
+  const bodyData = JSON.parse(JSON.stringify(req.body));
+  // Extragem datele din req.body
+  const { password, newPassword, username, displayName, ...inputs } = req.body;
+
+
+  // 1. Verificare Securitate: Doar proprietarul contului poate modifica
+  if (id !== tokenUserId) {
+    return res.status(403).json({ message: "Not Authorized!" });
+  }
+
+  try {
+
+    // Pregătim obiectul cu datele de actualizat
+    let updatedData = {
+        username,
+        displayName,
+        ...inputs
+    };
+
+    // 3. Hash la parola nouă (doar dacă a fost completată)
+    if (newPassword && newPassword.trim() !== "") {
+        updatedData.hashedPassword = await bcrypt.hash(newPassword, 10);
+    }
+
+    // 4. Upload Poză de Profil (ImageKit)
+    // Verificăm dacă req.files există și dacă avem câmpul 'img'
+    if (req.files && req.files.img) {
+        const file = req.files.img;
+
+        if(!process.env.IK_PUBLIC_KEY) throw new Error("Lipsesc cheile ImageKit");
+
+        // Inițializare ImageKit
+        const imagekit = new Imagekit({
+            publicKey: process.env.IK_PUBLIC_KEY,
+            privateKey: process.env.IK_PRIVATE_KEY,
+            urlEndpoint: process.env.IK_URL_ENDPOINT,
+        });
+
+        console.log("Încep upload-ul avatarului...");
+
+        // Încărcare (folosind file.data pentru că e Buffer în memorie)
+        const uploadResponse = await imagekit.upload({
+            file: file.data, 
+            fileName: `avatar_${id}_${Date.now()}`, // Nume unic
+            folder: "avatars",
+        });
+
+        console.log("Avatar uploadat:", uploadResponse.url);
+        
+        // Salvăm link-ul în baza de date
+        updatedData.img = uploadResponse.url;
+    }
+
+    console.log("💾 Încerc salvarea în DB cu datele:", updatedData);
+
+    // 5. Actualizare în MongoDB
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { $set: updatedData },
+      { new: true } // Returnează userul modificat
+    );
+
+    if (!updatedUser) {
+        console.error("❌ EROARE GRAVĂ: Userul cu ID-ul " + id + " nu a fost găsit în baza de date!");
+        return res.status(404).json({ message: "Utilizatorul nu există în baza de date." });
+    }
+    // --------------------------
+
+    console.log("✅ User actualizat cu succes în DB!");
+
+    // Scoatem parola din răspuns
+    const userObject = updatedUser.toObject ? updatedUser.toObject() : updatedUser._doc;
+    const { hashedPassword, ...rest } = userObject;
+
+    res.status(200).json(rest);
+
+  } catch (err) {
+    console.error("EROARE ÎN UPDATE USER:", err);
+    res.status(500).json({ message: err.message || "Failed to update user!" });
+  }
+};
+
 export const registerUser = async (req, res) => {
   try {
     const { username, displayName, email, password } = req.body;
@@ -172,7 +267,7 @@ export const followUser = async (req, res) => {
 
       // 3. Scoatem ID-ul din array-ul 'following' al nostru (CRITIC PENTRU FEED)
       await User.findByIdAndUpdate(currentUserId, {
-        $pull: { following: targetUserId }
+        $pull: { following: user._id }
       });
     } else {
       await Follow.create({ follower: currentUserId, following: user._id });
