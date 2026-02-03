@@ -16,6 +16,9 @@ import {
   approveShop,
   rejectShop,
   adminUpdateUserRole,
+  createReport,
+  getReports,
+  resolveReport,
 } from "../controllers/admin.controller.js";
 
 const router = express.Router();
@@ -43,5 +46,8 @@ router.delete("/boards/:id", adminDeleteBoard);
 router.put("/shops/approve/:id", approveShop);
 router.put("/shops/reject/:id", rejectShop);
 
+router.post("/reports", verifyToken, createReport);
+router.get("/reports", verifyToken, verifyAdmin, getReports);
+router.put("/reports/:id/resolve", verifyToken, verifyAdmin, resolveReport);
 
 export default router;

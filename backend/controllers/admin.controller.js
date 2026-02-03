@@ -5,6 +5,7 @@ import Comment from "../models/comment.model.js";
 import Tag from "../models/tag.model.js";
 import Board from "../models/board.model.js";
 import Save from "../models/save.model.js";
+import Report from "../models/report.model.js";
 
 const logAudit = (actionType, adminId, targetId, details) => {
   const logEntry = {
@@ -375,6 +376,8 @@ export const getAdminStats = async (req, res) => {
       User.find().sort({ createdAt: -1 }).limit(5).select("username email img createdAt role")
     ]);
 
+    const pendingReportsCount = await Report.countDocuments({ status: "pending" });
+
     const shopPerformance = await User.aggregate([
       { $match: { role: "SHOP" } }, 
       {
@@ -425,7 +428,8 @@ export const getAdminStats = async (req, res) => {
         pins: totalPins,
         boards: totalBoards,
         comments: totalComments,
-        pendingShops: pendingShops
+        pendingShops: pendingShops,
+        pendingReports: pendingReportsCount
       },
       latestUsers: latestUsers,
       revenue: totalRevenue.toFixed(2),
@@ -435,5 +439,61 @@ export const getAdminStats = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error stats" });
+  }
+};
+
+export const createReport = async (req, res) => {
+  try {
+    const { targetId, targetType, reason } = req.body;
+    const newReport = await Report.create({
+      reporter: req.userId,
+      targetId,
+      targetType,
+      reason
+    });
+    res.status(201).json({ message: "Raport trimis cu succes." });
+  } catch (err) {
+    res.status(500).json({ message: "Eroare la trimiterea raportului." });
+  }
+};
+
+export const getReports = async (req, res) => {
+  try {
+    const reports = await Report.find({ status: "pending" })
+      .populate("reporter", "username")
+      .sort({ createdAt: -1 });
+
+    // Pentru a vedea detaliile Pin-ului raportat, facem un populate manual
+    const populatedReports = await Promise.all(
+      reports.map(async (report) => {
+        const targetData = await Pin.findById(report.targetId).select("title media");
+        return { ...report._doc, targetData };
+      })
+    );
+
+    res.status(200).json(populatedReports);
+  } catch (err) {
+    res.status(500).json({ message: "Eroare la preluarea rapoartelor." });
+  }
+};
+
+export const resolveReport = async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    // Actualizăm statusul raportului
+    const updatedReport = await Report.findByIdAndUpdate(
+      id, 
+      { status: "resolved" }, 
+      { new: true }
+    );
+
+    if (!updatedReport) return res.status(404).json({ message: "Raportul nu a fost găsit." });
+
+    logAudit("REPORT_RESOLVE", req.userId, id, { action: "Marked as resolved" });
+
+    res.status(200).json({ message: "Raportul a fost marcat ca rezolvat." });
+  } catch (err) {
+    res.status(500).json({ message: "Eroare la procesarea raportului." });
   }
 };
