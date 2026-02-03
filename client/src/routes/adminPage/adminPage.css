@@ -7,10 +7,13 @@
 .dashboardHeader h1 {
   font-size: 28px;
   margin-bottom: 5px;
-  color: #1f3a5f;
+  /* Maro închis 3a2d28 */
+  color: #3a2d28;
 }
+
 .dashboardHeader p {
-  color: #6288b9;
+  /* Maro mediu a48374 */
+  color: #a48374;
   margin-bottom: 30px;
 }
 
@@ -25,35 +28,37 @@
   background: #ffffff;
   padding: 24px;
   border-radius: 16px;
-  box-shadow: 0 4px 15px rgba(14, 187, 218, 0.719);
+  /* Umbră discretă maro */
+  box-shadow: 0 4px 15px rgba(58, 45, 40, 0.1);
   display: flex;
   align-items: center;
   gap: 20px;
   text-decoration: none;
   color: inherit;
   transition: transform 0.2s, box-shadow 0.2s;
-  border: 1px solid #e6eef8;
+  /* Border bej d1c7bd */
+  border: 1px solid #d1c7bd;
 }
 
 .statCard:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(103, 6, 38, 0.1);
+  box-shadow: 0 8px 20px rgba(58, 45, 40, 0.15);
 }
 
 .statCard.pending {
-  background: #fffdf5;
-  border-color: #e6eef8;
-}
-.statCard.pending .statNumber {
-  color: #1f3a5f;
+  /* Fundal crem foarte deschis f1ede6 */
+  background: #f1ede6;
+  border-color: #d1c7bd;
 }
 
 .statIcon {
   font-size: 32px;
   width: 60px;
   height: 60px;
-  background: #e6eef8;
-  color: #1f3a5f;
+  /* Fundal crem ebe3db */
+  background: #ebe3db;
+  /* Iconiță maro închis */
+  color: #3a2d28;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -62,7 +67,8 @@
 
 .statInfo h3 {
   font-size: 14px;
-  color: #3695d4;
+  /* Maro mediu a48374 */
+  color: #a48374;
   margin: 0;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -72,22 +78,23 @@
   display: block;
   font-size: 28px;
   font-weight: 700;
-  color: #1f3a5f;
+  color: #3a2d28;
   line-height: 1.2;
 }
 
 .recentSection h2 {
   font-size: 20px;
   margin-bottom: 15px;
-  color: #1f3a5f;
+  color: #3a2d28;
 }
 
 .recentTableContainer {
   background: #ffffff;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 2px 10px rgba(10, 63, 179, 0.623);
-  border: 1px solid #e6eef8;
+  /* Umbră fină */
+  box-shadow: 0 2px 10px rgba(58, 45, 40, 0.08);
+  border: 1px solid #d1c7bd;
 }
 
 .recentTableContainer table {
@@ -99,14 +106,16 @@
 .recentTableContainer td {
   padding: 12px 20px;
   text-align: left;
-  border-bottom: 1px solid #e6eef8;
-  color: #1f3a5f;
+  /* Linie despărțitoare crem */
+  border-bottom: 1px solid #f1ede6;
+  color: #3a2d28;
 }
 
 .recentTableContainer th {
-  background-color: #e6eef8;
+  /* Header crem ebe3db */
+  background-color: #ebe3db;
   font-size: 13px;
-  color: #1f3a5f;
+  color: #3a2d28;
   text-transform: uppercase;
   font-weight: 700;
 }
@@ -123,7 +132,7 @@
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid #e6eef8;
+  border: 1px solid #d1c7bd;
 }
 
 .roleBadge {
@@ -132,13 +141,15 @@
   font-size: 12px;
   font-weight: bold;
 }
+
 .roleBadge.user { 
-  background: #fafaf8; 
-  color: #1f3a5f; 
-  border: 1px solid #e6eef8;
-}
-.roleBadge.shop { 
-  background: #e6eef8; 
-  color: #1f3a5f; 
+  background: #f1ede6; 
+  color: #3a2d28; 
+  border: 1px solid #d1c7bd;
 }
 
+.roleBadge.shop { 
+  /* Badge-ul de magazin primește maro mediu cu text deschis */
+  background: #a48374; 
+  color: #ffffff; 
+}

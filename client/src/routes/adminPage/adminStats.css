@@ -5,33 +5,45 @@
 }
 
 .headerSection h1 {
-  color: #1f3a5f;
+  /* Maro închis 3a2d28 */
+  color: #3a2d28;
   margin-bottom: 5px;
 }
 
-/* Cardul mare cu banii */
+/* Cardul mare cu veniturile (Revenue) */
 .revenueCard {
-  background: linear-gradient(135deg, #1f3a5f 0%, #0a618a 100%);
-  color: white;
+  /* Gradient asortat cu bannerul principal: Maro închis -> Maro mediu */
+  background: linear-gradient(135deg, #3a2d28 0%, #a48374 100%);
+  /* Text crem deschis ebe3db */
+  color: #ebe3db;
   padding: 30px;
   border-radius: 15px;
   margin: 30px 0;
   text-align: center;
-  box-shadow: 0 10px 20px rgba(4, 190, 247, 0.616);
+  /* Umbră bazată pe culoarea de brand */
+  box-shadow: 0 10px 30px rgba(58, 45, 40, 0.2);
 }
 
 .bigMoney {
   font-size: 48px;
   font-weight: 800;
   margin: 10px 0;
+  /* Alb pur pentru contrast maxim pe gradient */
+  color: #ffffff;
 }
 
-/* Tabelul */
+/* Tabelul (Leaderboard) */
 .leaderboardSection {
   background: white;
   padding: 20px;
   border-radius: 12px;
-  border: 1px solid #e6eef8;
+  /* Border bej d1c7bd */
+  border: 1px solid #d1c7bd;
+}
+
+.leaderboardSection h2 {
+    color: #3a2d28;
+    margin-bottom: 15px;
 }
 
 .gamificationTable {
@@ -41,15 +53,20 @@
 }
 
 .gamificationTable th {
-  background-color: #e6eef8;
-  color: #1f3a5f;
+  /* Fundal crem ebe3db */
+  background-color: #ebe3db;
+  /* Text maro închis */
+  color: #3a2d28;
   padding: 15px;
   text-align: left;
+  border-bottom: 2px solid #d1c7bd;
 }
 
 .gamificationTable td {
   padding: 15px;
-  border-bottom: 1px solid #eee;
+  /* Linie despărțitoare fină f1ede6 */
+  border-bottom: 1px solid #f1ede6;
+  color: #3a2d28;
 }
 
 .shopInfo {
@@ -64,24 +81,43 @@
   height: 35px;
   border-radius: 50%;
   object-fit: cover;
+  border: 1px solid #d1c7bd;
 }
 
-/* Badge-uri Nivel */
+/* Badge-uri Nivel (Gamification) - Adaptate la paletă */
 .tierBadge {
-  padding: 5px 10px;
+  padding: 5px 12px;
   border-radius: 20px;
   font-size: 12px;
   font-weight: bold;
   color: #fff;
 }
-.tierBadge.diamond { background: #29b6f6; box-shadow: 0 0 10px #29b6f6; }
-.tierBadge.gold { background: #fbc02d; }
-.tierBadge.silver { background: #bdbdbd; }
-.tierBadge.bronze { background: #8d6e63; }
+
+/* Diamond devine un bej-auriu strălucitor */
+.tierBadge.diamond { 
+  background: #cbad8d; 
+  box-shadow: 0 0 10px rgba(203, 173, 141, 0.5); 
+}
+
+/* Gold - Păstrăm nuanța dar o facem mai "matte" */
+.tierBadge.gold { 
+  background: #a48374; 
+}
+
+/* Silver - Bej gri */
+.tierBadge.silver { 
+  background: #d1c7bd; 
+  color: #3a2d28;
+}
+
+/* Bronze - Maro pământiu */
+.tierBadge.bronze { 
+  background: #5d4840; 
+}
 
 .billCell {
   font-weight: 800;
-  color: #2e7d32;
+  /* Un verde mai închis, asortat cu paleta caldă */
+  color: #3e5c3f;
   font-size: 16px;
 }
-

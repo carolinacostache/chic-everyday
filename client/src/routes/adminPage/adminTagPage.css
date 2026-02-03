@@ -15,8 +15,10 @@
   background: #ffffff;
   padding: 24px;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(103, 6, 38, 0.05);
-  border: 1px solid #e6eef8;
+  /* Umbră discretă maro */
+  box-shadow: 0 4px 12px rgba(58, 45, 40, 0.05);
+  /* Border bej d1c7bd */
+  border: 1px solid #d1c7bd;
   height: fit-content;
 }
 
@@ -24,12 +26,14 @@
   font-size: 18px;
   margin-bottom: 8px;
   font-weight: 700;
-  color: #1f3a5f;
+  /* Maro închis 3a2d28 */
+  color: #3a2d28;
 }
 
 .infoText {
   font-size: 13px;
-  color: #8c6b74;
+  /* Maro mediu a48374 pentru text secundar */
+  color: #a48374;
   margin-bottom: 20px;
 }
 
@@ -42,29 +46,35 @@
   gap: 10px;
   margin-bottom: 20px;
   padding-bottom: 20px;
-  border-bottom: 1px solid #e6eef8;
+  /* Linie despărțitoare bej d1c7bd */
+  border-bottom: 1px solid #d1c7bd;
 }
 
 .addTagForm input {
   flex: 1;
   padding: 10px 12px;
-  border: 2px solid #dfe8f6;
+  /* Border bej d1c7bd */
+  border: 2px solid #d1c7bd;
   border-radius: 8px;
   font-size: 14px;
   background-color: #ffffff;
-  color: #1f3a5f;
+  color: #3a2d28;
   outline: none;
   transition: all 0.2s;
 }
 
 .addTagForm input:focus {
-  border-color: #1f3a5f;
-  background-color: #e6eef8;
+  /* Focus pe maro mediu a48374 */
+  border-color: #a48374;
+  /* Fundal crem deschis ebe3db la focus */
+  background-color: #ebe3db;
 }
 
 .addTagForm button {
-  background-color: #1f3a5f;
-  color: #fafaf8;
+  /* Fundal maro închis 3a2d28 */
+  background-color: #3a2d28;
+  /* Text crem f1ede6 */
+  color: #f1ede6;
   border: none;
   padding: 0 16px;
   border-radius: 8px;
@@ -74,39 +84,34 @@
 }
 
 .addTagForm button:hover {
-  background-color: #dfe8f6;
-  color: #1f3a5f;
+  /* Hover spre maro mediu a48374 */
+  background-color: #a48374;
+  color: #ffffff;
 }
 
 .addTagForm button:disabled {
-  opacity: 0.7;
+  opacity: 0.6;
   cursor: not-allowed;
-  background-color: #e6eef8;
+  background-color: #d1c7bd;
 }
 
 .localSearchInput {
   width: 100%;
   padding: 10px 12px;
-  border: 2px solid #dfe8f6;
+  border: 2px solid #d1c7bd;
   border-radius: 8px;
   margin-bottom: 16px;
   font-size: 14px;
   background-color: #ffffff;
-  color: #1f3a5f;
+  color: #3a2d28;
   box-sizing: border-box;
   outline: none;
   transition: all 0.2s;
 }
 
 .localSearchInput:focus {
-  border-color: #1f3a5f;
-  background-color: #e6eef8;
-}
-
-.tagsList {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+  border-color: #a48374;
+  background-color: #ebe3db;
 }
 
 .tagsList.scrollable {
@@ -114,9 +119,11 @@
   overflow-y: auto;
   padding-right: 4px;
   scrollbar-width: thin;
-  scrollbar-color: #dfe8f6 #fafaf8;
+  /* Scrollbar asortat */
+  scrollbar-color: #d1c7bd #f1ede6;
 }
 
+/* Scrollbar Custom pentru Chrome/Safari */
 .tagsList.scrollable::-webkit-scrollbar {
   width: 6px;
 }
@@ -124,7 +131,7 @@
   background: transparent;
 }
 .tagsList.scrollable::-webkit-scrollbar-thumb {
-  background-color: #e6eef8;
+  background-color: #d1c7bd;
   border-radius: 10px;
 }
 
@@ -133,16 +140,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 0;
-  border-bottom: 1px solid #e6eef8;
+  /* Linie bej d1c7bd */
+  border-bottom: 1px solid #d1c7bd;
 }
 
 .tagRow:last-child {
   border-bottom: none;
-}
-
-.tagInfo {
-  display: flex;
-  flex-direction: column;
 }
 
 .tagBadge {
@@ -153,21 +156,24 @@
   width: fit-content;
 }
 
+/* Badge pentru tag-urile sistem/meteo */
 .tagBadge.weather {
-  background-color: #e6eef8;
-  color: #1f3a5f;
+  background-color: #3a2d28;
+  color: #f1ede6;
 }
 
+/* Badge pentru tag-urile utilizatorilor */
 .tagBadge.user {
-  background-color: #fafaf8;
-  color: #1f3a5f;
-  border: 1px solid #e6eef8;
+  background-color: #f1ede6;
+  color: #3a2d28;
+  border: 1px solid #d1c7bd;
   font-family: monospace;
 }
 
 .tagCount {
   font-size: 12px;
-  color: #4aade6;
+  /* Accent maro mediu a48374 */
+  color: #a48374;
   margin-top: 4px;
   margin-left: 4px;
 }
@@ -175,7 +181,7 @@
 .deleteIconBtn {
   background: none;
   border: none;
-  color: #1f3a5f;
+  color: #3a2d28;
   font-weight: bold;
   cursor: pointer;
   padding: 6px;
@@ -184,13 +190,15 @@
 }
 
 .deleteIconBtn:hover {
-  background-color: #e6eef8;
+  /* Hover crem deschis ebe3db */
+  background-color: #ebe3db;
 }
 
 .deleteTextBtn {
-  background-color: #fafaf8;
-  color: #1f3a5f;
-  border: 1px solid #e6eef8;
+  /* Buton neutru crem */
+  background-color: #f1ede6;
+  color: #3a2d28;
+  border: 1px solid #d1c7bd;
   padding: 6px 12px;
   border-radius: 6px;
   font-size: 12px;
@@ -200,9 +208,9 @@
 }
 
 .deleteTextBtn:hover {
-  background-color: #e6eef8;
-  color: #1f3a5f;
-  border-color: #1f3a5f;
+  background-color: #ebe3db;
+  color: #3a2d28;
+  border-color: #3a2d28;
 }
 
 @media (max-width: 768px) {
@@ -210,4 +218,3 @@
     grid-template-columns: 1fr;
   }
 }
-

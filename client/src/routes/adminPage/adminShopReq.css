@@ -1,31 +1,37 @@
 .requestCard {
   background: #ffffff;
-  border: 1px solid #e6eef8;
+  /* Border bej d1c7bd */
+  border: 1px solid #d1c7bd;
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 12px rgba(39, 119, 223, 0.678);
+  /* Umbră discretă bazată pe maro închis */
+  box-shadow: 0 4px 12px rgba(58, 45, 40, 0.1);
 }
 
 .requestHeader h3 { 
   margin: 0 0 5px 0; 
-  color: #1f3a5f;
+  /* Maro închis 3a2d28 */
+  color: #3a2d28;
 }
 
 .username { 
-  color: #1f3a5f; 
+  /* Maro închis 3a2d28 */
+  color: #3a2d28; 
   font-weight: 500; 
   font-size: 14px; 
 }
 
 .email { 
-  color: #2797d8; 
+  /* Maro mediu/accent a48374 */
+  color: #a48374; 
   font-size: 14px; 
 }
 
 .requestDetails { 
   margin: 15px 0; 
-  color: #1f3a5f;
+  /* Maro închis 3a2d28 */
+  color: #3a2d28;
 }
 
 .docPreview { 
@@ -33,21 +39,24 @@
 }
 
 .docPreview a { 
-  color: #1f3a5f; 
+  /* Maro închis 3a2d28 */
+  color: #3a2d28; 
   font-weight: bold; 
   text-decoration: underline;
   transition: color 0.2s;
 }
 
 .docPreview a:hover {
-  color: #dfe8f6;
+  /* Hover spre maro mediu a48374 */
+  color: #a48374;
 }
 
 .docImg { 
   display: block; 
   margin-top: 10px; 
   max-width: 200px; 
-  border: 1px solid #e6eef8; 
+  /* Border bej d1c7bd */
+  border: 1px solid #d1c7bd; 
   border-radius: 8px; 
 }
 
@@ -58,25 +67,31 @@
 }
 
 .approveBtn { 
-  background-color: #1f3a5f; 
-  color: #fafaf8; 
+  /* Fundal maro închis 3a2d28 */
+  background-color: #3a2d28; 
+  /* Text crem f1ede6 */
+  color: #f1ede6; 
   border: none; 
   padding: 10px 20px; 
   border-radius: 24px; 
   cursor: pointer; 
   font-weight: bold; 
-  transition: background-color 0.2s;
+  transition: all 0.2s;
 }
 
 .approveBtn:hover {
-  background-color: #dfe8f6;
-  color: #1f3a5f;
+  /* Hover maro mediu a48374 */
+  background-color: #a48374;
+  color: #ffffff;
 }
 
 .rejectBtn { 
-  background-color: #fafaf8; 
-  color: #1f3a5f; 
-  border: 1px solid #e6eef8; 
+  /* Fundal crem deschis f1ede6 */
+  background-color: #f1ede6; 
+  /* Text maro închis 3a2d28 */
+  color: #3a2d28; 
+  /* Border bej d1c7bd */
+  border: 1px solid #d1c7bd; 
   padding: 10px 20px; 
   border-radius: 24px; 
   cursor: pointer; 
@@ -85,7 +100,7 @@
 }
 
 .rejectBtn:hover {
-  background-color: #e6eef8;
-  border-color: #1f3a5f;
+  /* Hover spre crem mai închis ebe3db */
+  background-color: #ebe3db;
+  border-color: #3a2d28;
 }
-

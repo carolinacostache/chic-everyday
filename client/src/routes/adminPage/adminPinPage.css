@@ -8,12 +8,14 @@
   font-size: 28px;
   font-weight: 600;
   margin-bottom: 10px;
-  color: #1f3a5f;
+  /* Maro închis 3a2d28 */
+  color: #3a2d28;
 }
 
 .adminPage p {
   font-size: 16px;
-  color: #4a95eb;
+  /* Maro mediu a48374 */
+  color: #a48374;
   margin-bottom: 32px;
 }
 
@@ -36,6 +38,8 @@
 .adminImageContainer img {
   width: 100%;
   height: auto; 
+  /* Border bej d1c7bd pentru a defini imaginea */
+  border: 1px solid #d1c7bd;
   border-radius: 16px;
   display: block;
 }
@@ -46,7 +50,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(20, 153, 206, 0.6);
+  /* Folosim gradientul tău "o idee transparent" (90%) */
+  background: linear-gradient(180deg, rgba(58, 45, 40, 0.9), rgba(164, 131, 116, 0.9));
   border-radius: 16px;
   display: none;
   flex-direction: column;
@@ -61,8 +66,9 @@
 }
 
 .adminDeleteBtn {
-  background-color: #fafaf8;
-  color: #1f3a5f;
+  /* Buton crem f1ede6 pe overlay închis */
+  background-color: #f1ede6;
+  color: #3a2d28;
   border: none;
   padding: 8px 16px;
   border-radius: 20px;
@@ -72,19 +78,22 @@
 }
 
 .adminDeleteBtn:hover {
-  background-color: #e6eef8;
+  /* Hover spre alb pur */
+  background-color: #ffffff;
   transform: scale(1.05);
 }
 
 .adminViewLink {
-  color: #e6eef8;
+  /* Text bej d1c7bd pentru link-ul de pe overlay */
+  color: #d1c7bd;
   text-decoration: underline;
   font-size: 14px;
   transition: color 0.2s;
 }
 
 .adminViewLink:hover {
-  color: #e6eef8;
+  /* Hover spre crem deschis ebe3db */
+  color: #ebe3db;
 }
 
 .adminItemInfo {
@@ -97,11 +106,12 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #1f3a5f;
+  /* Maro închis 3a2d28 */
+  color: #3a2d28;
 }
 
 .adminItemInfo small {
-  color: #6b7c8c;
+  /* Maro mediu a48374 pentru detalii */
+  color: #a48374;
   font-size: 12px;
 }
-

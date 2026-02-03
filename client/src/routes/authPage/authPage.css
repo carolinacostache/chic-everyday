@@ -4,7 +4,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fafaf8;
+  /* Fundalul tău principal f1ede6 */
+  background-color: #f1ede6;
 }
 
 .authContainer {
@@ -16,14 +17,17 @@
   padding: 32px;
   border-radius: 32px;
   background-color: #ffffff;
-  border: 1px solid #e6eef8;
-  box-shadow: 0px 10px 30px rgba(11, 158, 226, 0.726);
-  color: #1f3a5f;
+  /* Border bej d1c7bd */
+  border: 1px solid #d1c7bd;
+  /* Umbră discretă bazată pe maro închis */
+  box-shadow: 0px 10px 30px rgba(58, 45, 40, 0.15);
+  /* Text maro închis 3a2d28 */
+  color: #3a2d28;
 }
 
 .authContainer h1 {
   font-weight: 600;
-  color: #1f3a5f;
+  color: #3a2d28;
 }
 
 .authContainer form {
@@ -42,6 +46,8 @@
 .authLogo img {
   width: 48px;
   height: 48px;
+  /* Opțional: un filtru pentru a asorta logo-ul dacă e negru */
+  filter: drop-shadow(0 2px 4px rgba(58, 45, 40, 0.2));
 }
 
 .formGroup {
@@ -53,57 +59,67 @@
 .formGroup label {
   font-size: 14px;
   font-weight: 600;
-  color: #1f3a5f;
+  color: #3a2d28;
 }
 
 .formGroup input {
   padding: 16px;
-  border: 2px solid #dfe8f6;
+  /* Border bej d1c7bd */
+  border: 2px solid #d1c7bd;
   border-radius: 16px;
   font-size: 16px;
   background-color: #ffffff;
-  color: #1f3a5f;
+  color: #3a2d28;
   outline: none;
   transition: all 0.2s;
 }
 
 .formGroup input:focus {
-  border-color: #1f3a5f;
-  background-color: #e6eef8;
+  /* Focus pe maro mediu a48374 */
+  border-color: #a48374;
+  /* Fundal crem deschis ebe3db la focus */
+  background-color: #ebe3db;
 }
 
 .authContainer button {
-  background-color: #1f3a5f;
+  /* Fundal maro închis 3a2d28 */
+  background-color: #3a2d28;
   padding: 16px;
   border: none;
   border-radius: 32px;
-  color: #fafaf8;
+  /* Text crem f1ede6 */
+  color: #f1ede6;
   cursor: pointer;
   font-weight: bold;
   font-size: 16px;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
 }
 
 .authContainer button:hover {
-  background-color: #dfe8f6;
-  color: #1f3a5f;
+  /* Hover spre maro mediu a48374 */
+  background-color: #a48374;
+  color: #ffffff;
+  transform: translateY(-1px);
 }
 
 .authContainer p {
   font-size: 14px;
   text-align: center;
   cursor: pointer;
-  color: #37aefd;
+  /* Link în maro mediu a48374 */
+  color: #a48374;
   text-decoration: underline;
 }
 
 .authContainer p:hover {
-  color: #1f3a5f;
+  /* Hover link maro închis */
+  color: #3a2d28;
 }
 
 .error {
-  color: #1f3a5f;
-  background-color: #e6eef8;
+  /* Text maro închis pe fundal bej deschis */
+  color: #3a2d28;
+  background-color: #d1c7bd;
   padding: 8px 16px;
   border-radius: 8px;
   font-size: 14px;
@@ -111,4 +127,3 @@
   text-align: center;
   width: 100%;
 }
-

@@ -7,12 +7,14 @@
 .boardsPage h1 {
   font-size: 28px;
   font-weight: 700;
-  color: #1f3a5f;
+  /* Maro închis 3a2d28 */
+  color: #3a2d28;
   margin-bottom: 8px;
 }
 
 .boardsPage .subtitle {
-  color: #388edf;
+  /* Maro mediu a48374 */
+  color: #a48374;
   margin-bottom: 30px;
   font-size: 15px;
 }
@@ -20,8 +22,10 @@
 .adminBoardsContainer {
   background: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(10, 100, 184, 0.05);
-  border: 1px solid #e6eef8;
+  /* Umbră discretă maro */
+  box-shadow: 0 4px 12px rgba(58, 45, 40, 0.05);
+  /* Border bej d1c7bd */
+  border: 1px solid #d1c7bd;
   overflow: hidden; 
   overflow-x: auto;
 }
@@ -33,7 +37,8 @@ table {
 }
 
 thead {
-  background-color: #e6eef8;
+  /* Fundal crem ebe3db */
+  background-color: #ebe3db;
 }
 
 th {
@@ -41,17 +46,20 @@ th {
   padding: 16px;
   font-size: 13px;
   font-weight: 700;
-  color: #1f3a5f;
+  /* Text maro închis */
+  color: #3a2d28;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  border-bottom: 1px solid #dfe8f6;
+  /* Border bej d1c7bd */
+  border-bottom: 1px solid #d1c7bd;
 }
 
 td {
   padding: 16px;
-  border-bottom: 1px solid #e6eef8;
+  /* Linie despărțitoare crem f1ede6 */
+  border-bottom: 1px solid #f1ede6;
   font-size: 14px;
-  color: #1f3a5f;
+  color: #3a2d28;
   vertical-align: middle;
 }
 
@@ -60,12 +68,13 @@ tr:last-child td {
 }
 
 tr:hover {
-  background-color: #fafaf8;
+  /* Hover foarte discret pe rânduri */
+  background-color: #f1ede6;
 }
 
 .boardTitleCell strong {
   font-size: 15px;
-  color: #1f3a5f;
+  color: #3a2d28;
 }
 
 .ownerInfo {
@@ -79,19 +88,21 @@ tr:hover {
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid #e6eef8;
+  border: 1px solid #d1c7bd;
 }
 
 .idCell {
   font-family: monospace;
-  color: #339ee6;
+  /* Maro mediu a48374 pentru ID-uri tehnice */
+  color: #a48374;
   font-size: 12px;
 }
 
 .deleteBoardBtn {
-  background-color: #fafaf8;
-  border: 1px solid #e6eef8;
-  color: #1f3a5f;
+  /* Buton neutru pe fundal crem deschis */
+  background-color: #f1ede6;
+  border: 1px solid #d1c7bd;
+  color: #3a2d28;
   padding: 8px 16px;
   border-radius: 6px;
   font-weight: 600;
@@ -101,21 +112,23 @@ tr:hover {
 }
 
 .deleteBoardBtn:hover {
-  background-color: #e6eef8;
-  color: #1f3a5f;
-  border-color: #1f3a5f;
+  /* Hover spre maro mediu */
+  background-color: #ebe3db;
+  color: #3a2d28;
+  border-color: #3a2d28;
 }
 
 .deleteBoardBtn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  background-color: #e6eef8;
+  background-color: #f1ede6;
+  border-color: #d1c7bd;
 }
 
 .loadingMsg, .errorMsg {
   padding: 40px;
   text-align: center;
   font-size: 16px;
-  color: #279ee2;
+  /* Maro mediu pentru mesaje de stare */
+  color: #a48374;
 }
-

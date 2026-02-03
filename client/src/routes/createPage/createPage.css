@@ -1,6 +1,7 @@
 .createTop {
-  border-top: 1px solid #e6eef8;
-  border-bottom: 1px solid #e6eef8;
+  /* Border bej d1c7bd */
+  border-top: 1px solid #d1c7bd;
+  border-bottom: 1px solid #d1c7bd;
   padding: 16px 0px;
   display: flex;
   align-items: center;
@@ -10,12 +11,15 @@
 .createTop h1 {
   font-size: 20px;
   font-weight: 600;
-  color: #1f3a5f;
+  /* Maro închis 3a2d28 */
+  color: #3a2d28;
 }
 
 .createTop button {
-  background-color: #1f3a5f;
-  color: #fafaf8;
+  /* Maro închis 3a2d28 */
+  background-color: #3a2d28;
+  /* Crem f1ede6 */
+  color: #f1ede6;
   font-weight: 600;
   border: none;
   outline: none;
@@ -27,8 +31,9 @@
 }
 
 .createTop button:hover {
-  background-color: #dfe8f6;
-  color: #1f3a5f;
+  /* Accent maro mediu a48374 */
+  background-color: #a48374;
+  color: #ffffff;
 }
 
 .createBottom {
@@ -39,25 +44,29 @@
 }
 
 .upload {
-  background-color: #fff0f9;
+  /* Fundal foarte deschis ebe3db */
+  background-color: #ebe3db;
   cursor: pointer;
   font-size: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 32px;
-  border: 2px dashed #e6eef8;
+  /* Border bej d1c7bd */
+  border: 2px dashed #d1c7bd;
   width: 375px;
   height: 574px;
   padding: 16px;
   position: relative;
-  color: #1f3a5f;
+  /* Maro închis 3a2d28 */
+  color: #3a2d28;
   transition: background-color 0.2s;
 }
 
 .upload:hover {
-  background-color: #b1e2ff;
-  border-color: #1f3a5f;
+  /* Fundal bej mediu d1c7bd la hover */
+  background-color: #d1c7bd;
+  border-color: #3a2d28;
 }
 
 .uploadTitle {
@@ -72,7 +81,8 @@
   bottom: 32px;
   font-size: 13px;
   text-align: center;
-  color: #8c6b74;
+  /* Maro mediu a48374 pentru info secundar */
+  color: #a48374;
 }
 
 .preview {
@@ -80,17 +90,18 @@
   position: relative;
 }
 
-.preview img{
+.preview img {
   border-radius: 32px;
   width: 100%;
-  border: 1px solid #e6eef8;
+  border: 1px solid #d1c7bd;
 }
 
-.editIcon{
+.editIcon {
   position: absolute;
   top: 16px;
   right: 16px;
-  background-color: #fafaf8;
+  /* Fundal crem f1ede6 */
+  background-color: #f1ede6;
   width: 40px;
   height: 40px;
   display: flex;
@@ -99,8 +110,8 @@
   padding: 6px;
   border-radius: 50%;
   cursor: pointer;
-  border: 1px solid #e6eef8;
-  color: #1f3a5f;
+  border: 1px solid #d1c7bd;
+  color: #3a2d28;
 }
 
 .createForm {
@@ -118,36 +129,38 @@
 
 .createFormItem label {
   font-size: 13px;
-  color: #1f3a5f;
+  color: #3a2d28;
   font-weight: 600;
 }
 
 .createFormItem input,
-textarea{
+textarea {
   font-size: 15px;
-  border: 2px solid #dfe8f6;
+  /* Border bej d1c7bd */
+  border: 2px solid #d1c7bd;
   padding: 16px;
   border-radius: 16px;
   background-color: #ffffff;
-  color: #1f3a5f;
+  color: #3a2d28;
   outline: none;
   transition: all 0.2s;
 }
 
 .createFormItem input:focus,
 textarea:focus {
-  border-color: #1f3a5f;
-  background-color: #e6eef8;
+  border-color: #a48374;
+  /* Fundal crem ebe3db la focus */
+  background-color: #ebe3db;
 }
 
-.createFormItem select#board{
+.createFormItem select#board {
   width: 100%;
   padding: 16px;
   border-radius: 16px;
-  border: 2px solid #dfe8f6;
+  border: 2px solid #d1c7bd;
   font-size: 15px;
   background-color: #ffffff;
-  color: #1f3a5f;
+  color: #3a2d28;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -156,8 +169,8 @@ textarea:focus {
 }
 
 .createFormItem select#board:focus {
-  border-color: #1f3a5f;
-  background-color: #e6eef8;
+  border-color: #a48374;
+  background-color: #ebe3db;
 }
 
 .createFormItem textarea {
@@ -179,17 +192,19 @@ textarea:focus {
 .newBoardItem {
   padding: 8px;
   border-radius: 12px;
-  background-color: #fafaf8;
-  border: 1px solid #e6eef8;
+  /* Fundal crem f1ede6 */
+  background-color: #f1ede6;
+  border: 1px solid #d1c7bd;
   font-size: 13px;
   cursor: pointer;
-  color: #1f3a5f;
+  color: #3a2d28;
   font-weight: 500;
 }
 
 .createBoardButton {
-  background-color: #1f3a5f;
-  color: #fafaf8;
+  /* Maro închis 3a2d28 */
+  background-color: #3a2d28;
+  color: #f1ede6;
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -202,32 +217,14 @@ textarea:focus {
 }
 
 .createBoardButton:hover {
-  background-color: #dfe8f6;
-  color: #1f3a5f;
+  background-color: #a48374;
+  color: #ffffff;
 }
 
 small {
-  color: #8c6b74;
+  /* Maro mediu a48374 */
+  color: #a48374;
   font-size: 13px;
-}
-
-@media (max-width: 1104px) {
-  .createBottom {
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 64px;
-  }
-}
-@media (max-width: 768px) {
-  .createForm {
-    width: 100%;
-  }
-}
-
-@media (max-width: 475px) {
-  .upload {
-    width: 100%;
-  }
 }
 
 .tagContainer {
@@ -239,8 +236,9 @@ small {
 .tagItem {
   padding: 8px 16px;
   border-radius: 24px;
-  background-color: #e6eef8; 
-  color: #1f3a5f;
+  /* Fundal crem ebe3db */
+  background-color: #ebe3db; 
+  color: #3a2d28;
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
@@ -249,100 +247,24 @@ small {
 }
 
 .tagItem:hover {
-  background-color: #dfe8f6;
+  background-color: #d1c7bd;
 }
 
 .tagItem.selected {
-  background-color: #1f3a5f;
-  color: #fafaf8;
-  border-color: #1f3a5f;
+  /* Selecție maro închis 3a2d28 */
+  background-color: #3a2d28;
+  color: #f1ede6;
+  border-color: #3a2d28;
 }
 
-.createPage {
-  position: relative;
-}
-
-.createGate {
-  min-height: 60vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-}
-
-.createGateCard {
-  max-width: 520px;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 28px;
-  box-shadow: var(--shadow-pop);
-  text-align: center;
-}
-
-.createGateCard h1 {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--ink);
-  margin-bottom: 8px;
-}
-
-.createGateCard p {
-  color: var(--ink-soft);
-  margin-bottom: 18px;
-}
-
-.createGateActions {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.createGatePrimary {
-  background-color: #1f3a5f;
-  color: #fafaf8;
-  font-weight: 700;
-  border: none;
-  outline: none;
-  padding: 12px 20px;
-  border-radius: 999px;
-  cursor: pointer;
-}
-
-.createGatePrimary:hover {
-  background-color: #dfe8f6;
-  color: #1f3a5f;
-}
-
-.createGateSecondary {
-  background: rgba(255, 255, 255, 0.9);
-  color: var(--ink);
-  font-weight: 700;
-  border: 1px solid var(--border);
-  padding: 12px 20px;
-  border-radius: 999px;
-  cursor: pointer;
-}
-
-.createGateSecondary:hover {
-  background: rgba(245, 185, 201, 0.3);
-}
-
-.createPage.isLoading .createTop,
-.createPage.isLoading .createBottom {
-  filter: blur(4px);
-  pointer-events: none; 
-  user-select: none; 
-}
 .loadingOverlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 248, 240, 0.8); 
+  /* Overlay maro transparent */
+  background-color: rgba(58, 45, 40, 0.8); 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -351,29 +273,27 @@ small {
   gap: 16px;
   font-size: 20px;
   font-weight: 600;
-  color: #1f3a5f;
+  color: #f1ede6;
 }
 
 .spinner {
   width: 50px;
   height: 50px;
-  border: 5px solid #e6eef8; 
-  border-top: 5px solid #1f3a5f; 
+  border: 5px solid #d1c7bd; 
+  /* Top maro închis */
+  border-top: 5px solid #3a2d28; 
   border-radius: 50%;
   animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
 }
 
 .contestSection {
   margin-top: 0px;
   margin-bottom: 24px;
   padding: 20px;
-  background: #fffdf5;
-  border: 2px solid #fef7c0;
+  /* Fundal crem foarte deschis */
+  background: #f1ede6;
+  /* Border accent bej mediu d1c7bd */
+  border: 2px solid #d1c7bd;
   border-radius: 12px;
 }
 
@@ -383,56 +303,50 @@ small {
   gap: 12px;
   font-weight: 700;
   font-size: 16px;
-  color: #1f3a5f; 
+  color: #3a2d28; 
   cursor: pointer;
-  margin-bottom: 0;
 }
 
 .contestCheckboxLabel input[type="checkbox"] {
   width: 18px;
   height: 18px;
-  accent-color: #1f3a5f;
+  /* Accent maro închis */
+  accent-color: #3a2d28;
 }
 
 .contestFields {
   margin-top: 16px;
   padding-top: 16px;
-  border-top: 1px dashed #1f3a5f;
+  border-top: 1px dashed #a48374;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  animation: fadeIn 0.3s ease-in-out;
 }
 
 .contestInput {
   width: 100%;
   padding: 12px;
-  border: 1px solid #1f3a5f;
+  border: 1px solid #d1c7bd;
   border-radius: 8px;
-  background-color: #faf9f2;
+  background-color: #ffffff;
   font-size: 14px;
-  color: #1f3a5f;
+  color: #3a2d28;
 }
 
 .contestInput:focus {
-  border-color: #1f3a5f;
+  border-color: #a48374;
   outline: none;
-  background-color: #fbf5c2;
+  background-color: #ebe3db;
 }
-.useragentpart{
-  color:#1f3a5f
-}
+
 .dateLabel {
   font-size: 12px;
   font-weight: 600;
-  color: #1f3a5f;
+  color: #3a2d28;
   margin-bottom: 4px;
   display: block;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
+.useragentpart {
+  color: #3a2d28;
 }
-
-

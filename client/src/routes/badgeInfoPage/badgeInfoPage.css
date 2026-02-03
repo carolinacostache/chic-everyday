@@ -3,11 +3,13 @@
   max-width: 900px;
   margin: 0 auto;
   font-family: 'Inter', sans-serif;
-  color: #333;
+  /* Text maro închis 3a2d28 */
+  color: #3a2d28;
 }
 
 .badgesInfoPage h1 {
-  color: #670626; /* Culoare matură, de brand */
+  /* Maro închis 3a2d28 pentru titlu principal */
+  color: #3a2d28; 
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 10px;
@@ -15,16 +17,18 @@
 
 .badgesInfoPage p {
   text-align: center;
-  color: #666;
+  /* Maro mediu a48374 pentru descrieri */
+  color: #a48374;
   margin-bottom: 40px;
 }
 
 .badgesInfoPage section {
   margin-bottom: 40px;
-  background: #fff;
+  background: #ffffff;
   padding: 25px;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05); /* Design modern */
+  /* Umbră fină bazată pe maro închis */
+  box-shadow: 0 4px 20px rgba(58, 45, 40, 0.08); 
 }
 
 .badgesGrid {
@@ -34,15 +38,19 @@
 }
 
 .infoBadgeCard {
-  border: 1px solid #f0f0f0;
+  /* Border bej d1c7bd */
+  border: 1px solid #d1c7bd;
   padding: 20px;
   border-radius: 12px;
   text-align: center;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  background: #ffffff;
 }
 
 .infoBadgeCard:hover {
-  transform: translateY(-5px); /* Feedback vizual la interacțiune */
+  transform: translateY(-5px);
+  /* Accent maro mediu a48374 la hover */
+  border-color: #a48374;
 }
 
 .infoBadgeIcon {
@@ -61,7 +69,21 @@
   display: flex;
   justify-content: space-between;
   padding: 15px;
-  background: #fdf2f5; /* Tonuri de roz pal pentru publicul feminin */
+  /* Fundal crem deschis ebe3db */
+  background: #ebe3db; 
+  /* Text maro închis */
+  color: #3a2d28;
   border-radius: 8px;
   font-weight: 600;
+  transition: background 0.2s;
+}
+
+.levelRow:hover {
+  /* Feedback vizual bej mediu d1c7bd */
+  background: #d1c7bd;
+}
+
+.levelRow span:last-child {
+  /* Accent maro mediu pentru punctaj/valoare */
+  color: #a48374;
 }
