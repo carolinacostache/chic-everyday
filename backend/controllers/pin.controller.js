@@ -274,7 +274,7 @@ export const getPins = async (req, res) => {
 export const getPin = async (req, res) => {
   try {
     const { id } = req.params;
-    const pin = await Pin.findById(id).populate("user", "username img displayName");
+    const pin = await Pin.findById(id).populate("user", "username img displayName").populate("winner", "username img displayName");
     if (!pin) {
       return res.status(404).json({ message: "Pin not found" });
     }

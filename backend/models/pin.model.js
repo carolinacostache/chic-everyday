@@ -46,6 +46,11 @@ const pinSchema = new Schema(
     prize: {
       type: String,
     },
+    winner: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User", // Spune-i că se leagă de colecția de Utilizatori
+      default: null
+    },
     deadline: {
       type: Date,
     },
