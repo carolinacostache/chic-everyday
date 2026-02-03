@@ -29,9 +29,19 @@
     transform: translateY(-1px);
     filter: brightness(1.05);
     box-shadow: 0 10px 20px rgba(17, 24, 39, 0.18);
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-/* Banner */
+.centerMsg {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 1.2rem;
+  color: #555;
+}
+
+/* --- Banner --- */
 .contestBanner {
     background: linear-gradient(135deg, #1f3a5f 0%, #2f6fb2 100%);
     color: white;
@@ -42,11 +52,25 @@
     justify-content: space-between;
     align-items: center;
     box-shadow: var(--shadow-pop);
+  background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
+  padding: 40px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
-.contestBanner h1 {
-    margin: 0 0 10px 0;
-    font-size: 24px;
+.bannerContent h1 {
+  font-size: 2.5rem;
+  color: #c0392b;
+  margin-bottom: 10px;
+}
+
+.bannerContent p {
+  font-size: 1.2rem;
+  color: #555;
 }
 
 .bannerIcon {
@@ -76,39 +100,112 @@
     stroke-width: 4;
     stroke-linecap: round;
     stroke-linejoin: round;
+  font-size: 4rem;
 }
 
-/* --- GRID LAYOUT PENTRU GALLERY ITEM --- */
+/* --- Secțiuni --- */
+.sectionTitle {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #eee;
+}
+
+.activeTitle {
+  color: #e60023; /* Roșu */
+}
+
+.endedTitle {
+  color: #555; /* Gri */
+}
+
+.divider {
+  height: 1px;
+  background-color: #ddd;
+  margin: 50px 0;
+}
+
+/* --- Grid --- */
+/* Folosim coloane responsive similar cu Masonry */
 .contestGrid {
-    padding: 0 20px;
-    display: grid;
-    /* GalleryItem se va adapta la lățimea coloanei */
-    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-    gap: 20px;
-    align-items: start; /* Important ca să nu se întindă pe verticală */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(236px, 1fr)); /* 236px e standard Pinterest */
+  gap: 20px;
 }
 
-/* Stiluri pentru mesaje */
-.centerMsg, .noContests {
-    grid-column: 1 / -1;
+/* --- Badge "Încheiat" --- */
+.endedBadge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  pointer-events: none; /* Să poți da click pe card */
+  z-index: 10;
+}
+
+/* Opțional: Facem cardurile încheiate puțin mai transparente */
+.endedGrid > div {
+  opacity: 0.85;
+  transition: opacity 0.3s;
+}
+
+.endedGrid > div:hover {
+  opacity: 1;
+}
+
+.noContests {
     text-align: center;
     padding: 40px;
     color: var(--ink-soft);
     font-size: 1.2rem;
+    padding: 20px;
 }
 
 .createBtn {
     background-color: var(--accent);
+    background-color: #e60023;
     color: white;
     border: none;
-    padding: 10px 24px;
+    padding: 10px 20px;
     border-radius: 20px;
     cursor: pointer;
-    margin-top: 15px;
-    font-weight: 600;
+    font-weight: bold;
+    margin-top: 10px;
 }
 
-.createBtn:hover {
-    background-color: var(--accent-strong);
+/* ... stilurile existente ... */
+
+.loadMoreContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
 }
 
+.loadMoreBtn {
+  background-color: white;
+  border: 2px solid #ddd;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.loadMoreBtn:hover {
+  background-color: #f8f8f8;
+  border-color: #bbb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.loadMoreBtn:active {
+  transform: translateY(0);
+}

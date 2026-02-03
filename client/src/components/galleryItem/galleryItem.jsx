@@ -11,13 +11,23 @@ import apiRequest from "../../utils/apiRequest";
 
 const GalleryItem = ({ item }) => {
   const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
-
-  const { currentUser } = useAuthStore();
-
+  const { currentUser, updateCurrentUser } = useAuthStore();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  // no local join state; handled in participate page
+  const [isJoined, setIsJoined] = useState(false);
+  const [feedbackMsg, setFeedbackMsg] = useState("");
+
+  // ✅ 1. VERIFICĂM DACĂ E ÎNCHEIAT
+  // Un concurs e gata dacă are un winner SAU a trecut deadline-ul
+  const isContestEnded = item.type === "contest" && (
+    !!item.winner || (item.deadline && new Date(item.deadline) < new Date())
+  );
+
+  useEffect(() => {
+    setIsJoined(false);
+    setFeedbackMsg("");
+  }, [item?._id]);
 
   const deleteMutation = useMutation({
     mutationFn: (pinId) => apiRequest.delete(`/pins/${pinId}`),
@@ -72,7 +82,7 @@ const GalleryItem = ({ item }) => {
   const handleReportClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    alert("Pin-ul a fost raportat (funcționalitate de implementat).");
+    alert("Pin-ul a fost raportat.");
     setIsMenuOpen(false);
   };
 
@@ -85,7 +95,44 @@ const GalleryItem = ({ item }) => {
       return;
     }
 
-    navigate(`/contest/${item._id}/participate`);
+    if (isJoined) {
+      setFeedbackMsg("Ești deja înscris la acest concurs.");
+      setTimeout(() => setFeedbackMsg(""), 1800);
+      return;
+    }
+
+    const oldG = normalizeGamification(currentUser.gamification);
+    const updatedG = applyPointsAndBadges(
+      oldG,
+      ACTION_POINTS.CONTEST_JOIN,
+      {
+        contestJoins: (oldG.contestJoins ?? 0) + 1,
+      }
+    );
+
+    const updatedUser = {
+      ...currentUser,
+      gamification: {
+        ...updatedG,
+      },
+    };
+    delete updatedUser.gamification._newBadges;
+
+    updateCurrentUser(updatedUser);
+    setIsJoined(true);
+
+    const unlocked = updatedG._newBadges || [];
+    if (unlocked.length > 0) {
+      setFeedbackMsg(
+        `+${ACTION_POINTS.CONTEST_JOIN} puncte! Badge nou: ${unlocked
+          .map((b) => b.icon)
+          .join(" ")}`
+      );
+    } else {
+      setFeedbackMsg(`+${ACTION_POINTS.CONTEST_JOIN} puncte! Te-ai înscris.`);
+    }
+
+    setTimeout(() => setFeedbackMsg(""), 2200);
   };
 
   return (
@@ -95,7 +142,8 @@ const GalleryItem = ({ item }) => {
 
         {item.type === "contest" && (
           <div className="contestBadge">
-            <span>🏆 CONCURS</span>
+            {/* Putem schimba textul badge-ului dacă e încheiat */}
+            <span>{isContestEnded ? "🏁 ÎNCHEIAT" : "🏆 CONCURS"}</span>
           </div>
         )}
 
@@ -118,19 +166,38 @@ const GalleryItem = ({ item }) => {
             {isMenuOpen && (
               <div className="optionsMenu galleryOverlayMenu">
                 <button onClick={handleReportClick}>Raportează</button>
-                {/* daca vrei admin delete din meniu, poti activa aici */}
-                {/* {currentUser?.role === "ADMIN" && (
-                  <button onClick={handleDelete}>Șterge</button>
-                )} */}
               </div>
             )}
           </div>
         </div>
 
-        {item.type === "contest" && (
-          <div className="contestCta">
-            <button onClick={handleJoinContest} className="contestJoinButton">
-              Participă
+        {/* ✅ 2. AICI E MODIFICAREA PRINCIPALĂ */}
+        {/* Afișăm butonul DOAR dacă e concurs ȘI NU este încheiat */}
+        {item.type === "contest" && !isContestEnded && (
+          <div
+            style={{
+              position: "absolute",
+              left: 12,
+              bottom: 12,
+              display: "flex",
+              flexDirection: "column",
+              gap: 8,
+              zIndex: 5,
+            }}
+          >
+            <button
+              onClick={handleJoinContest}
+              style={{
+                border: "none",
+                padding: "10px 14px",
+                borderRadius: 999,
+                fontWeight: 800,
+                cursor: "pointer",
+                background: isJoined ? "#670626" : "#f8bbd0",
+                color: isJoined ? "#fff8f0" : "#670626",
+              }}
+            >
+              {isJoined ? "Înscris ✅" : "Participă"}
             </button>
           </div>
         )}

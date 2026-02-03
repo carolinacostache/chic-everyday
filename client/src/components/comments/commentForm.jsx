@@ -32,10 +32,14 @@ const CommentForm = ({ id }) => {
       setDesc("");
       setOpen(false);
     },
+    onError: (err) => {
+      alert(err.response?.data?.message || err.message || "Comentariu esuat.");
+    },
   });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    if (!desc.trim()) return;
 
     mutation.mutate({
       description: desc,
@@ -51,14 +55,11 @@ const CommentForm = ({ id }) => {
         left: rect.left + window.scrollX - 300,
       });
     }
-
     setOpen((prev) => !prev);
   };
 
-    useEffect(() => {
-      if(!open) {
-        return;
-      }
+  useEffect(() => {
+    if (!open) return;
 
     const handleClickOutside = (event) => {
       const isOutsideButton =
@@ -66,52 +67,52 @@ const CommentForm = ({ id }) => {
         !emojiButtonRef.current.contains(event.target);
 
       const isOutsidePicker =
-        pickerRef.current && 
-        !pickerRef.current.contains(event.target);
+        pickerRef.current && !pickerRef.current.contains(event.target);
 
-      if (isOutsideButton && isOutsidePicker) {
-        setOpen(false);
-      }
+      if (isOutsideButton && isOutsidePicker) setOpen(false);
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [open, pickerRef, emojiButtonRef]);
-
-
-  
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [open]);
 
   return (
     <>
-    <form className="commentForm" onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Add a comment"
-        onChange={(e) => setDesc(e.target.value)}
-        value={desc}
-      />
-      <div className="emoji">
-        <div onClick={togglePicker} ref={emojiButtonRef}>😊</div>
-      </div>
-    </form>
-      {open && createPortal(
-        <div 
-          className="emojiPicker"
-          ref={pickerRef}
-          style={{
-            position: 'absolute',
-            top: `${pickerPosition.top}px`,
-            left: `${pickerPosition.left}px`,
-            zIndex: 1000,
-          }}
-        >
-          <EmojiPicker onEmojiClick={handleEmojiClick} />
-        </div>,
-        document.getElementById("portal-root")
-      )}
+      <form className="commentForm" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Add a comment"
+          onChange={(e) => setDesc(e.target.value)}
+          value={desc}
+        />
+
+        <div className="emoji">
+          <div onClick={togglePicker} ref={emojiButtonRef}>
+            😊
+          </div>
+        </div>
+
+        <button type="submit" disabled={mutation.isPending}>
+          {mutation.isPending ? "Sending..." : "Send"}
+        </button>
+      </form>
+
+      {open &&
+        createPortal(
+          <div
+            className="emojiPicker"
+            ref={pickerRef}
+            style={{
+              position: "absolute",
+              top: `${pickerPosition.top}px`,
+              left: `${pickerPosition.left}px`,
+              zIndex: 1000,
+            }}
+          >
+            <EmojiPicker onEmojiClick={handleEmojiClick} />
+          </div>,
+          document.getElementById("portal-root")
+        )}
     </>
   );
 };

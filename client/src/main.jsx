@@ -33,6 +33,8 @@ const AdminShopReq = React.lazy(() => import("./routes/adminPage/adminShopReq"))
 const AdminStats = React.lazy(() => import("./routes/adminPage/adminStats"));
 
 const ShopStatsPage = React.lazy(() => import("./routes/shopStats/shopStats"));
+const AdminReportsPage = React.lazy(() => import("./routes/adminPage/adminReportsPage"));
+const BadgesInfoPage = React.lazy(() => import("./routes/badgeInfoPage/badgeInfoPage"));  
 
 const queryClient = new QueryClient()
 
@@ -57,6 +59,8 @@ createRoot(document.getElementById('root')).render(
                 <Route path="/contests" element={<ContestPage />} />
                 <Route path="/settings" element={<SettingsPage />} />
                 <Route path="/shop/stats" element={<ShopStatsPage />} />
+                <Route path="/badges-info" element={<BadgesInfoPage />} />
+
               </Route>
 
               <Route path="/auth" element={<AuthPage />} />
@@ -69,6 +73,7 @@ createRoot(document.getElementById('root')).render(
                 <Route path="/admin/tags" element={<AdminTagsPage/>} />
                 <Route path="/admin/boards" element={<AdminBoardsPage/>} />
                 <Route path="/admin/stats" element={<AdminStats/>} />
+                <Route path="/admin/reports" element={<AdminReportsPage />} />
               </Route>
 
               {/* optional: fallback */}

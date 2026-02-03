@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import apiRequest from "../../utils/apiRequest";
 import { Link } from "react-router-dom";
 import "./adminPage.css";
@@ -28,6 +28,12 @@ const AdminPage = () => {
             <span className="statNumber">{counts.pendingShops}</span>
           </div>
         </Link>
+        <Link to="/admin/reports" className="statCard danger">
+          <div className="statInfo">
+            <h3>Raportări Noi</h3>
+            <span className="statNumber">{counts.pendingReports || 0}</span>
+          </div>
+        </Link>
         <Link to="/admin/stats" className="statCard money">
           <div className="statInfo">
             <h3>Monetizare & Top</h3>
@@ -54,6 +60,7 @@ const AdminPage = () => {
           </div>
         </Link>
       </div>
+
 
       <div className="recentSection">
         <h2>Cei mai noi utilizatori</h2>

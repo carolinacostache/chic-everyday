@@ -24,7 +24,6 @@ const NotificationMenu = ({ onClose }) => {
   const markAllReadMutation = useMutation({
     mutationFn: () => apiRequest.put("/notifications/read-all"),
     onSuccess: () => {
-      // Invalidăm query-ul pentru ca badge-ul din TopBar să se actualizeze la 0
       queryClient.invalidateQueries(["notifications"]);
     },
   });
@@ -41,10 +40,10 @@ const NotificationMenu = ({ onClose }) => {
   };
 
   const getLink = (n) => {
-      if (n.pin) return `/pin/${n.pin._id}`;
-      if (n.sender) return `/profile/${n.sender.username}`;
-      return "#"; // Dacă nu avem nici pin, nici user, nu ducem nicăieri
-    };
+    if (n.pin) return `/pin/${n.pin._id}`;
+    if (n.sender) return `/profile/${n.sender.username}`;
+    return "#"; 
+  };
 
   if (isLoading) return <div className="notifMenu loading">Se încarcă...</div>;
 
@@ -63,22 +62,33 @@ const NotificationMenu = ({ onClose }) => {
           <Link 
             to={getLink(n)}
             key={n._id} 
-            className={`notifItem ${!n.isRead ? "unread" : ""}`}
+            className={`notifItem ${!n.isRead ? "unread" : ""} ${n.type === "contest_win" ? "winnerNotif" : ""}`}
             onClick={() => handleNotificationClick(n)}
             style={{ pointerEvents: (!n.pin && !n.sender) ? "none" : "auto" }}
           >
             <div className="notifAvatar">
               <NImage src={n.sender?.img || "/general/noAvatar.jpg"} alt="" />
             </div>
+            
             <div className="notifContent">
               <p>
-                <strong>{n.sender?.displayName || "Utilizator Șters"}</strong>
-                {n.type === "like" && " ți-a apreciat postarea."}
-                {n.type === "comment" && " a comentat la postarea ta."}
-                {n.type === "follow" && " a început să te urmărească."}
+                {/* ✅ MODIFICARE AICI: Suport pentru text custom (Backend) sau logică standard */}
+                {n.text ? (
+                   <span dangerouslySetInnerHTML={{ __html: n.text.replace(/\n/g, '<br/>') }} />
+                ) : (
+                   <>
+                      <strong>{n.sender?.displayName || "Utilizator Șters"}</strong>
+                      {n.type === "like" && " ți-a apreciat postarea."}
+                      {n.type === "comment" && " a comentat la postarea ta."}
+                      {n.type === "follow" && " a început să te urmărească."}
+                      {/* Fallback dacă nu avem n.text setat în backend */}
+                      {n.type === "contest_win" && " te-a desemnat câștigătorul concursului! 🏆"}
+                   </>
+                )}
               </p>
               <span className="notifTime">{format(n.createdAt)}</span>
             </div>
+
             {n.pin && n.pin.media && (
               <div className="notifPinPreview">
                 <NImage src={n.pin.media} alt="" />

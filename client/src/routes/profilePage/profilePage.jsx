@@ -41,6 +41,24 @@ const Profilepage = () => {
   if (error) return "An error has occurred: " + error.message;
   if (!data) return "User not found!";
 
+  if (data.role === "BANNED") {
+    return (
+      <div className="profilePage bannedProfile">
+        <div className="bannedMessageCard">
+          <span className="bannedIcon">🚫</span>
+          <h1>Cont Suspendat</h1>
+          <p>Acest cont a fost restricționat pentru încălcarea regulamentului platformei.</p>
+          {data.banReason && (
+            <div className="banReasonBox">
+              <strong>Motiv:</strong> {data.banReason}
+            </div>
+          )}
+          <Link to="/" className="backHomeBtn">Înapoi la pagina principală</Link>
+        </div>
+      </div>
+    );
+  }
+
   const isOwnProfile = currentUser?._id === data._id;
 
   const gamification = normalizeGamification(data.gamification);
@@ -136,6 +154,9 @@ const Profilepage = () => {
             <div className="progressBar">
               <div className="progressFill" style={{ width: `${next.progress}%` }} />
             </div>
+            <Link to="/badges-info" className="gamificationInfoLink">
+              💡 Ce înseamnă fashion points și cum câștig insigne?
+            </Link>
           </div>
 
           <div className="badgesWrapper">

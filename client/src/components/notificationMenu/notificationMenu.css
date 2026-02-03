@@ -94,3 +94,8 @@
   color: #5ba8d4;
 }
 
+/* notificationMenu.css */
+.winnerNotif {
+  background-color: #f0fdf4; /* Verde foarte pal */
+  border-left: 3px solid #22c55e;
+}

@@ -46,6 +46,11 @@ const pinSchema = new Schema(
     prize: {
       type: String,
     },
+    winner: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User", // Spune-i că se leagă de colecția de Utilizatori
+      default: null
+    },
     deadline: {
       type: Date,
     },
@@ -56,6 +61,18 @@ const pinSchema = new Schema(
     linkClicks: {
       type: Number,
       default: 0
+    },
+    visibility: { 
+    type: String, 
+    default: "public", 
+    enum: ["public", "private", "banned"] // <--- NOU: suport pentru 'banned'
+    },
+    deletedAt: { 
+      type: Date 
+    },      // <--- NOU
+    deletedBy: { 
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: "User" 
     },
 
   },
