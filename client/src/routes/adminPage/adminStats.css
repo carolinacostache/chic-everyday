@@ -5,19 +5,19 @@
 }
 
 .headerSection h1 {
-  color: #670626;
+  color: #1f3a5f;
   margin-bottom: 5px;
 }
 
 /* Cardul mare cu banii */
 .revenueCard {
-  background: linear-gradient(135deg, #670626 0%, #8a0a33 100%);
+  background: linear-gradient(135deg, #1f3a5f 0%, #0a618a 100%);
   color: white;
   padding: 30px;
   border-radius: 15px;
   margin: 30px 0;
   text-align: center;
-  box-shadow: 0 10px 20px rgba(103, 6, 38, 0.2);
+  box-shadow: 0 10px 20px rgba(4, 190, 247, 0.616);
 }
 
 .bigMoney {
@@ -31,7 +31,7 @@
   background: white;
   padding: 20px;
   border-radius: 12px;
-  border: 1px solid #f8bbd0;
+  border: 1px solid #e6eef8;
 }
 
 .gamificationTable {
@@ -41,8 +41,8 @@
 }
 
 .gamificationTable th {
-  background-color: #f8bbd0;
-  color: #670626;
+  background-color: #e6eef8;
+  color: #1f3a5f;
   padding: 15px;
   text-align: left;
 }
@@ -84,3 +84,4 @@
   color: #2e7d32;
   font-size: 16px;
 }
+

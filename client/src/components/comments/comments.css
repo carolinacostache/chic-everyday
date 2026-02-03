@@ -12,8 +12,8 @@
   flex-direction: column;
   gap: 16px;
   overflow-y: auto;
-scrollbar-width: thin;
-  scrollbar-color: #f89cbc #fff8f0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(154, 26, 58, 0.4) transparent;
 }
 
 .commentList::-webkit-scrollbar {
@@ -23,16 +23,20 @@ scrollbar-width: thin;
   background: transparent;
 }
 .commentList::-webkit-scrollbar-thumb {
-  background-color: #f8bbd0;
+  background-color: rgba(41, 140, 197, 0.815);
   border-radius: 10px;
 }
 .commentList::-webkit-scrollbar-thumb:hover {
-  background-color: #f89cbc;
+  background-color: rgba(30, 130, 197, 0.815);
 }
 
 .comment {
   display: flex;
   gap: 16px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--border);
 }
 
 .comment img {
@@ -40,7 +44,7 @@ scrollbar-width: thin;
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid #f8bbd0; 
+  border: 1px solid var(--border);
 }
 
 .commentContent {
@@ -52,35 +56,35 @@ scrollbar-width: thin;
 .commentUsername {
   font-weight: 600;
   font-size: 14px;
-  color: #670626; 
+  color: var(--ink);
 }
 
 .commentText {
   font-size: 14px;
-  color: #670626;
+  color: var(--ink);
   line-height: 1.4;
 }
 
 .commentTime {
   font-size: 12px;
-  color: #8c6b74; 
+  color: var(--ink-soft);
 }
 
 .commentForm {
-  background-color: #ffffff; 
+  background-color: rgba(255, 255, 255, 0.9);
   padding: 12px 16px; 
-  border-radius: 32px;
+  border-radius: 999px;
   display: flex;
   align-items: center;
   gap: 16px;
-  border: 1px solid #f8bbd0; 
+  border: 1px solid var(--border);
   transition: all 0.2s ease;
 }
 
 .commentForm:focus-within {
-  border-color: #670626; 
-  background-color: #fffdf5; 
-  box-shadow: 0 4px 12px rgba(103, 6, 38, 0.1);
+  border-color: rgba(13, 149, 212, 0.671);
+  background-color: #fffdf8;
+  box-shadow: 0 6px 16px rgba(31, 77, 226, 0.685);
 }
 
 .commentForm input {
@@ -89,11 +93,11 @@ scrollbar-width: thin;
   outline: none;
   background-color: transparent;
   font-size: 14px;
-  color: #670626; 
+  color: var(--ink);
 }
 
 .commentForm input::placeholder {
-  color: #f89cbc;
+  color: rgba(31, 108, 209, 0.829);
 }
 
 .emoji {

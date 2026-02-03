@@ -45,11 +45,24 @@ const CreatePage = () => {
   const [prize, setPrize] = useState("");
   const [deadline, setDeadline] = useState("");
 
-  useEffect(() => {
-    if (!currentUser) {
-      navigate("/auth");
-    }
-  }, [navigate, currentUser]);
+  if (!currentUser) {
+    return (
+      <div className="createPage pageFadeIn createGate">
+        <div className="createGateCard">
+          <h1>Trebuie sa fii logat</h1>
+          <p>Ca sa creezi o postare, autentifica-te sau intoarce-te la pagina anterioara.</p>
+          <div className="createGateActions">
+            <button className="createGatePrimary" onClick={() => navigate("/auth")}>
+              Logheaza-te
+            </button>
+            <button className="createGateSecondary" onClick={() => navigate(-1)}>
+              Inapoi
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   useEffect(() => {
     if (file) {

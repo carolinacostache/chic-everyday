@@ -3,8 +3,8 @@
     align-items: center;
     gap: 16px;
     position: relative;
-    z-index: 100;
-    color: #670626;
+    z-index: 300;
+    color: #1f3a5f;
 }
 
 .userButton img {
@@ -12,7 +12,7 @@
     height: 36px;
     border-radius: 100%;
     object-fit: cover;
-    border: 2px solid #f8bbd0;
+    border: 2px solid #e6eef8;
 }
 
 .userButton .arrow {
@@ -32,13 +32,13 @@
     top: 120%;
     padding: 8px;
     border-radius: 16px;
-    background-color: #fff8f0;
-    z-index: 9999;
+    background-color: #fafaf8;
+    z-index: 1000;
     display: flex;
     flex-direction: column;
     font-size: 14px;
-    box-shadow: 0px 4px 15px rgba(103, 6, 38, 0.15);
-    border: 1px solid #f8bbd0;
+    box-shadow: 0px 4px 15px rgba(8, 99, 218, 0.74);
+    border: 1px solid #e6eef8;
     min-width: 150px;
 }
 
@@ -46,14 +46,14 @@
     cursor: pointer;
     padding: 10px 12px;
     border-radius: 8px;
-    color: #670626;
+    color: #1f3a5f;
     text-decoration: none;
     transition: background-color 0.2s;
 }
 
 .userOption:hover {
-    background-color: #f8bbd0;
-    color: #670626;
+    background-color: #e6eef8;
+    color: #1f3a5f;
 }
 
 .loginLink {
@@ -63,7 +63,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #670626;
+    color: #1f3a5f;
     font-weight: 600;
     text-decoration: none;
     transition: background-color 0.2s;
@@ -75,7 +75,7 @@
 }
 
 .loginLink:hover {
-    background-color: #f8bbd0;
+    background-color: #e6eef8;
 }
 
 @media(max-width: 475px){
@@ -97,12 +97,14 @@
 }
 
 .userOption.adminLink {
-  color: #670626;
+  color: #1f3a5f;
   font-weight: 800;
-  border-top: 1px solid #f8bbd0;
+  border-top: 1px solid #e6eef8;
   margin-top: 4px;
 }
 
 .userOption.adminLink:hover {
-  background-color: #fff185;
+  background-color: #e6eef8;
 }
+
+

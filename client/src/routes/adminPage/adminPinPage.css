@@ -8,12 +8,12 @@
   font-size: 28px;
   font-weight: 600;
   margin-bottom: 10px;
-  color: #670626;
+  color: #1f3a5f;
 }
 
 .adminPage p {
   font-size: 16px;
-  color: #8c6b74;
+  color: #4a95eb;
   margin-bottom: 32px;
 }
 
@@ -46,7 +46,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(103, 6, 38, 0.6);
+  background: rgba(20, 153, 206, 0.6);
   border-radius: 16px;
   display: none;
   flex-direction: column;
@@ -61,8 +61,8 @@
 }
 
 .adminDeleteBtn {
-  background-color: #fff8f0;
-  color: #670626;
+  background-color: #fafaf8;
+  color: #1f3a5f;
   border: none;
   padding: 8px 16px;
   border-radius: 20px;
@@ -72,19 +72,19 @@
 }
 
 .adminDeleteBtn:hover {
-  background-color: #fff185;
+  background-color: #e6eef8;
   transform: scale(1.05);
 }
 
 .adminViewLink {
-  color: #f8bbd0;
+  color: #e6eef8;
   text-decoration: underline;
   font-size: 14px;
   transition: color 0.2s;
 }
 
 .adminViewLink:hover {
-  color: #fff185;
+  color: #e6eef8;
 }
 
 .adminItemInfo {
@@ -97,10 +97,11 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #670626;
+  color: #1f3a5f;
 }
 
 .adminItemInfo small {
-  color: #8c6b74;
+  color: #6b7c8c;
   font-size: 12px;
 }
+

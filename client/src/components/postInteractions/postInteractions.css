@@ -2,75 +2,130 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-soft);
+    animation: slideUp 420ms ease both;
 }
 
 .interactionIcons {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     font-weight: 500;
-    color: #670626;
+    color: var(--ink);
 }
 
-.interactionIcons img, .interactionIcons svg {
+.iconButton {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
+    background: rgba(255, 255, 255, 0.9);
+    transition: all 0.2s ease;
+    padding: 0;
 }
 
-.postInteractions button {
-    background-color: #670626;
-    color: #fff8f0;
+.iconButton img {
+    width: 18px;
+    height: 18px;
+}
+
+.iconButton:hover {
+    border-color: rgba(37, 118, 209, 0.2);
+    background: rgba(185, 216, 245, 0.733);
+    transform: translateY(-1px);
+}
+
+.likeButton {
+    background: rgba(154, 26, 58, 0.08);
+    border-color: rgba(154, 26, 58, 0.2);
+}
+
+.likeButton.isActive {
+    background: rgba(18, 170, 230, 0.966);
+    border-color: rgba(208, 24, 82, 0.4);
+}
+
+.likeButton.isActive .likeIcon {
+    animation: likePop 0.25s ease;
+}
+
+.likeButton:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.likeCount {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--ink);
+    background: rgba(154, 26, 58, 0.08);
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+.likeCount.isActive {
+    color: var(--accent-strong);
+    background: rgba(208, 24, 82, 0.12);
+}
+
+.savePrimary {
+    background: var(--accent);
+    color: #fafaf8;
     border: none;
-    border-radius: 24px;
-    padding: 16px;
+    border-radius: 999px;
+    padding: 12px 20px;
     cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.2s;
+    font-weight: 700;
+    transition: all 0.2s ease;
+    box-shadow: 0 10px 20px rgba(49, 126, 177, 0.2);
 }
 
-.postInteractions button:hover {
-    background-color: #f89cbc;
-    color: #670626;
+.savePrimary:hover {
+    background: var(--accent-strong);
+    transform: translateY(-1px);
+}
+
+.savePrimary.isSaved {
+    background: linear-gradient(135deg, #b6c8e6, #e6eef8);
+    color: #1f3a5f;
+    box-shadow: 0 10px 20px rgba(246, 210, 124, 0.35);
 }
 
 .postHeader {
     display: flex;
     justify-content: flex-end;
-    height: 32px; 
-    position: relative; 
+    height: 32px;
+    position: relative;
 }
 
 .moreOptionsButton {
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    cursor: pointer;
     position: relative;
-    transition: background-color 0.2s;
 }
 
-.moreOptionsButton:hover {
-    background-color: #f8bbd0;
-}
-
-.moreOptionsButton img {
-    width: 20px;
-    height: 20px;
-    position: relative;
+.moreOptionsTrigger {
+    width: 34px;
+    height: 34px;
 }
 
 .optionsMenu {
     position: absolute;
-    top: 100%; 
+    top: 100%;
     right: 0;
-    background-color: #fff8f0;
-    border: 1px solid #f8bbd0;
+    background-color: #fafaf8;
+    border: 1px solid var(--border);
     border-radius: 16px;
-    box-shadow: 0px 4px 12px rgba(103, 6, 38, 0.15);
+    box-shadow: 0px 10px 24px rgba(104, 161, 207, 0.18);
     z-index: 101;
-    width: 200px; 
+    width: 200px;
     padding: 8px;
     display: flex;
     flex-direction: column;
@@ -81,23 +136,33 @@
     background: none;
     border: none;
     padding: 12px 16px;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
     cursor: pointer;
     border-radius: 8px;
     text-align: left;
-    color: #670626;
+    color: var(--ink);
     transition: background-color 0.2s;
 }
 
 .optionsMenu button:hover {
-    background-color: #f8bbd0;
-}
-
-.optionsMenu button.deleteOption {
-    color: #670626;
+    background-color: rgba(26, 107, 154, 0.1);
 }
 
 .optionsMenu button.deleteOption:hover {
-    background-color: #fff185;
+    background-color: rgba(124, 211, 246, 0.4);
 }
+
+@keyframes likePop {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+

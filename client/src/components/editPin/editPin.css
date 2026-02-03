@@ -4,7 +4,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(103, 6, 38, 0.6);
+  background-color: rgba(34, 58, 90, 0.55);
   backdrop-filter: blur(2px);
   display: flex;
   align-items: center;
@@ -13,7 +13,7 @@
 }
 
 .editModalContent {
-  background-color: #fff8f0;
+  background-color: #f8f9fa;
   border-radius: 16px;
   width: 90%;
   max-width: 500px;
@@ -21,22 +21,23 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(103, 6, 38, 0.2);
-  border: 1px solid #f8bbd0;
+  box-shadow: 0 10px 30px rgba(65, 143, 196, 0.2);
+  border: 1px solid #e6eef8;
+  position: relative;
 }
 
 .editModalHeader {
   padding: 16px 24px;
-  border-bottom: 1px solid #f8bbd0; 
+  border-bottom: 1px solid #e6eef8; 
   position: relative;
   text-align: center;
-  background-color: #fff8f0;
+  background-color: #fafaf8;
 }
 
 .editModalHeader h1 {
   font-size: 18px;
   font-weight: 600;
-  color: #670626; 
+  color: #1f3a5f; 
   margin: 0;
 }
 
@@ -45,13 +46,13 @@
   top: 12px;
   right: 16px;
   background: transparent;
-  border: 1px solid #f8bbd0;
+  border: 1px solid #e6eef8;
   border-radius: 50%;
   width: 32px;
   height: 32px;
   cursor: pointer;
   font-weight: bold;
-  color: #670626;
+  color: #1f3a5f;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -59,8 +60,8 @@
 }
 
 .editModalHeader .closeButton:hover {
-  background-color: #f8bbd0;
-  color: #670626;
+  background-color: #e6eef8;
+  color: #1f3a5f;
 }
 
 .editForm {
@@ -71,6 +72,7 @@
   overflow-y: auto;
   flex: 1; 
   min-height: 0;
+  padding-bottom: 96px;
 }
 
 .editForm .formGroup {
@@ -82,19 +84,19 @@
 .editForm label {
   font-size: 14px;
   font-weight: 600;
-  color: #670626; 
+  color: #1f3a5f; 
 }
 
 .editForm input[type="text"],
 .editForm textarea {
   width: 100%;
   padding: 12px;
-  border: 2px solid #f89cbc; 
+  border: 2px solid #dfe8f6; 
   border-radius: 8px;
   font-size: 16px;
   font-family: inherit;
   background-color: #ffffff;
-  color: #670626;
+  color: #1f3a5f;
   outline: none;
   transition: all 0.2s;
 }
@@ -105,8 +107,8 @@
 
 .editForm input[type="text"]:focus,
 .editForm textarea:focus {
-  background-color: #fff185;
-  border-color: #670626;
+  background-color: #e6eef8;
+  border-color: #1f3a5f;
 }
 
 .tagContainer {
@@ -118,8 +120,8 @@
 .tagItem {
   padding: 8px 16px;
   border-radius: 24px;
-  background-color: #f8bbd0; 
-  color: #670626; 
+  background-color: #e6eef8; 
+  color: #1f3a5f; 
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
@@ -128,36 +130,48 @@
 }
 
 .tagItem:hover {
-  background-color: #f89cbc; 
+  background-color: #dfe8f6; 
 }
 
 .tagItem.selected {
-  background-color: #670626; 
-  color: #fff8f0; 
-  border-color: #670626;
+  background-color: #1f3a5f; 
+  color: #f8f9fa; 
+  border-color: #1f3a5f;
 }
 
-.editForm .saveButton {
-  background-color: #670626;
-  color: #fff8f0;
+.editModalFooter {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 12px 24px 16px;
+  border-top: 1px solid #e6eef8;
+  background: #fafaf8;
+}
+
+
+.editModalFooter .saveButton {
+  background-color: #1f3a5f;
+  color: #f8f9fa;
   border: none;
   border-radius: 24px;
   padding: 16px;
   cursor: pointer;
   font-weight: bold;
   font-size: 16px;
-  margin-top: 16px;
+  width: 100%;
   transition: background-color 0.2s;
 }
 
-.editForm .saveButton:hover {
-  background-color: #f89cbc; 
-  color: #670626;
+.editModalFooter .saveButton:hover {
+  background-color: #dfe9f6; 
+  color: #1f3a5f;
 }
 
-.editForm .saveButton:disabled {
-  background-color: #f8bbd0; 
-  color: #fff;
+.editModalFooter .saveButton:disabled {
+  background-color: #e6ecf8; 
+  color: #ffffff;
   cursor: not-allowed;
   opacity: 0.7;
 }
+

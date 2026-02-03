@@ -3,7 +3,7 @@ import useAuthStore from "../../utils/authStore";
 import apiRequest from "../../utils/apiRequest";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import "./settingsPage.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import BecomeShopModal from "../../components/becomeShopModal/becomeShopModal"; 
 
 
@@ -13,7 +13,11 @@ const SettingsPage = () => {
   const [openShopModal, setOpenShopModal] = useState(false); 
   const queryClient = useQueryClient();
 
-  const DEFAULT_AVATAR = "https://ik.imagekit.io/carolina/general/noAvatar.jpg?updatedAt=1761775233364"
+  const DEFAULT_AVATAR = "https://ik.imagekit.io/carolina/general/noAvatar.jpg?updatedAt=1761775233364";
+
+  if (!currentUser) {
+    return <Navigate to="/auth" replace />;
+  }
 
   const [file, setFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(currentUser?.img || DEFAULT_AVATAR);

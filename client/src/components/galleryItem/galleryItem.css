@@ -3,110 +3,150 @@
     flex-direction: column;
     position: relative;
     break-inside: avoid;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
+    gap: 8px;
 }
 
 .galleryImageContainer {
-    position: relative; 
+    position: relative;
     width: 100%;
     line-height: 0;
+    border-radius: 18px;
+    overflow: visible;
+    background: var(--surface-strong);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .galleryImageContainer img {
     width: 100%;
     height: auto;
-    border-radius: 16px;
+    border-radius: 18px;
     display: block;
-    border: 1px solid #f8bbd0;
+    transition: transform 0.4s ease;
+}
+
+.galleryImageContainer:hover {
+    box-shadow: var(--shadow-pop);
+}
+
+.galleryImageContainer:hover img {
+    transform: scale(1.02);
 }
 
 .galleryTitleContainer {
-    padding: 10px 4px 4px 4px;
+    padding: 6px 4px 4px 4px;
 }
 
 .galleryTitleContainer h4 {
     font-size: 14px;
     font-weight: 600;
-    color: #670626;
+    color: var(--ink);
     margin: 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.overlay,
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(34, 58, 90, 0.06), rgba(34, 58, 90, 0.28));
+    border-radius: 18px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    opacity: 0;
+    z-index: 1;
+}
+
 .saveButton,
 .overlayIcons {
-    display: none;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .galleryImageContainer:hover .overlay {
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    background-color: rgba(103, 6, 38, 0.15);
-    border-radius: 16px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+    opacity: 1;
 }
 
 .galleryImageContainer:hover .saveButton {
-    display: block;
-    background-color: #670626; 
-    color: #fff8f0;
-    border-radius: 24px;
-    padding: 12px 16px;
-    font-weight: 600;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.galleryImageContainer:hover .overlayIcons {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.galleryItem .galleryImageContainer,
+.galleryItem .galleryTitleContainer {
+    animation: slideUp 420ms ease both;
+}
+
+.saveButton {
+    background: var(--accent-strong);
+    color: #ffffff;
+    border-radius: 999px;
+    padding: 10px 16px;
+    font-weight: 700;
     font-size: 14px;
     cursor: pointer;
     width: max-content;
     position: absolute;
-    top: 16px;
-    right: 16px;
+    top: 22px;
+    right: 14px;
     border: none;
-    z-index: 1;
-    transition: background-color 0.2s;
+    z-index: 2;
+    transition: all 0.2s ease;
+    transform: none;
+    box-shadow: 0 8px 16px rgba(10, 22, 35, 0.25);
 }
 
-.galleryImageContainer:hover .saveButton:hover {
-    background-color: #f89cbc; 
-    color: #670626;
+.saveButton:hover {
+    background: var(--accent);
+    color: #ffffff;
+    transform: none;
 }
 
-.galleryImageContainer:hover .overlayIcons {
+.overlayIcons {
     position: absolute;
-    bottom: 16px;
-    right: 16px;
+    bottom: 14px;
+    right: 14px;
     display: flex;
     align-items: center;
     gap: 8px;
-    z-index: 1;
+    z-index: 2;
+    transition: all 0.2s ease;
+    transform: translateY(6px);
 }
 
 .overlayIcons button {
-    background-color: #fff8f0; 
+    background-color: rgba(255, 255, 255, 0.9);
     border-radius: 100%;
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    border: none;
+    border: 1px solid rgba(34, 58, 90, 0.2);
     padding: 0;
-    transition: background-color 0.2s;
-    box-shadow: 0 2px 5px rgba(103, 6, 38, 0.1);
+    transition: background-color 0.2s, transform 0.2s;
+    box-shadow: 0 6px 14px rgba(47, 27, 34, 0.12);
 }
 
 .overlayIcons button img {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
 }
 
 .overlayIcons button:hover {
-    background-color: #f8bbd0;
+    background-color: rgba(226, 235, 246, 0.8);
+    transform: translateY(-1px);
 }
 
 .galleryMenuContainer {
@@ -118,27 +158,28 @@
   top: 100%;
   right: 0;
   width: 200px;
-  z-index: 101;
-  background-color: #fff8f0; 
+  z-index: 110;
+  background-color: #f8f9fa;
   border-radius: 16px;
-  box-shadow: 0px 4px 12px rgba(103, 6, 38, 0.15); 
+  box-shadow: 0px 10px 24px rgba(47, 27, 34, 0.18);
   padding: 8px;
   display: flex;
   flex-direction: column;
   gap: 4px;
-  border: 1px solid #f8bbd0;
+  border: 1px solid var(--border);
+  margin-top: 8px;
 }
 
 .galleryOverlayMenu button {
-  width: 100%;       
-  height: auto;     
-  border-radius: 8px;  
-  padding: 12px 16px; 
-  display: block;    
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  padding: 12px 16px;
+  display: block;
   background: none;
   border: none;
-  color: #670626; 
-  font-size: 16px;
+  color: var(--ink);
+  font-size: 15px;
   font-weight: 600;
   text-align: left;
   cursor: pointer;
@@ -146,27 +187,86 @@
 }
 
 .galleryOverlayMenu button:hover {
-  background-color: #f8bbd0;
+  background-color: rgba(226, 235, 246, 0.7);
 }
 
 .contestBadge {
   position: absolute;
   top: 12px;
   left: 12px;
-  background-color: #fff185; 
-  color: #670626; 
+  background: linear-gradient(120deg, #b7c8dd, #f5f7fa);
+  color: var(--accent);
   padding: 6px 10px;
-  border-radius: 4px;
+  border-radius: 999px;
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: 0.5px;
-  z-index: 2; 
-  box-shadow: 0 2px 4px rgba(103, 6, 38, 0.2);
+  letter-spacing: 0.6px;
+  z-index: 2;
+  box-shadow: 0 6px 12px rgba(47, 27, 34, 0.2);
+  border: 1px solid rgba(34, 58, 90, 0.2);
+}
+
+.contestCta {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 3;
+    max-width: 240px;
+}
+
+.contestJoinButton {
+    border: 1px solid rgba(34, 58, 90, 0.35);
+    padding: 10px 14px;
+    border-radius: 999px;
+    font-weight: 800;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--accent);
+    transition: all 0.2s ease;
+    box-shadow: 0 8px 16px rgba(10, 22, 35, 0.18);
+}
+
+.contestJoinButton:hover {
+    transform: translateY(-1px);
+    background: #f0f4f9;
+}
+
+.contestJoinButton.joined {
+    background: var(--accent);
+    color: #ffffff;
+    border-color: var(--accent);
+    box-shadow: 0 10px 18px rgba(10, 22, 35, 0.3);
+}
+
+.contestFeedback {
+    padding: 8px 10px;
+    border-radius: 12px;
+    background: rgba(124, 172, 204, 0.82);
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    animation: feedbackPop 0.2s ease;
 }
 
 .contestPrize {
-  font-size: 12px;
-  color: #8c6b74;
-  font-weight: 600;
-  margin: 2px 0 0 0;
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-weight: 600;
+    margin: 2px 0 0 0;
 }
+
+@keyframes feedbackPop {
+    0% {
+        transform: translateY(6px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+

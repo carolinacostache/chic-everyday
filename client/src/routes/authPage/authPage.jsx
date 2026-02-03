@@ -32,10 +32,12 @@ const Authpage = () => {
   return (
     <div className="authPage">
       <div className="authContainer">
-        <NImage src="/general/logo.png" w={36} h={36} alt="Logo-ul aplicației" />
         <h1>{isRegister ? "Create an Account" : "Login to your account"}</h1>
         {isRegister ? (
           <form key="register" onSubmit={handleSubmit}>
+            <div className="authLogo">
+              <NImage src="/general/chiceveryday.png" alt="Logo-ul aplicației" />
+            </div>
             <div className="formGroup">
               <label htmlFor="username">Username</label>
               <input
@@ -84,6 +86,9 @@ const Authpage = () => {
           </form>
         ) : (
           <form key="loginForm" onSubmit={handleSubmit}>
+            <div className="authLogo">
+              <NImage src="/general/chiceveryday.png" alt="Logo-ul aplicației" />
+            </div>
             <div className="formGroup">
               <label htmlFor="email">Email</label>
               <input

@@ -1,11 +1,34 @@
-.app{
+.app {
     display: flex;
-    gap: 16px;
+    gap: 20px;
     width: 100%;
-
+    min-height: 100vh;
+    padding: 18px 18px 32px;
+    color: var(--ink);
 }
 
-.content{
-    flex : 1;
-    margin-right: 16px;
+.content {
+    flex: 1;
+    margin-right: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+@media (max-width: 1024px) {
+    .app {
+        padding: 14px 14px 28px;
+        gap: 14px;
+    }
+
+    .content {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 900px) {
+    .app {
+        flex-direction: column;
+        padding: 12px 12px 24px;
+    }
 }

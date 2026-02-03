@@ -54,9 +54,11 @@ const LeftBar = () => {
         </Link>
         */}                          
       </div>
-        <Link to="/settings" className="menuIcon"> 
-        <NImage src="/general/settings.svg" alt="a" />
-        </Link>       
+      {currentUser && (
+        <Link to="/settings" className="menuIcon">
+          <NImage src="/general/settings.svg" alt="Setari" />
+        </Link>
+      )}
     </div>
   );
 };

@@ -1,25 +1,39 @@
 .topBar {
-    margin: 16px 0px;
+    width: 100%;
+    height: 80px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    padding: 10px 18px;
     gap: 16px;
+    border-radius: var(--radius-xl);
+    background: rgba(255, 255, 255, 0.76);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 18px;
+    z-index: 200;
+    overflow: visible;
 }
 
 .search {
     flex: 1;
-    background-color: #ffffff;
-    border: 2px solid #f8bbd0;
-    border-radius: 16px;
-    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(104, 142, 185, 0.18);
+    border-radius: 999px;
+    padding: 12px 18px;
     display: flex;
     align-items: center;
-    gap: 16px;
-    transition: all 0.2s;
+    gap: 12px;
+    transition: all 0.2s ease;
+    box-shadow: inset 0 0 0 1px #F0F4F8;
 }
 
 .search:focus-within {
-    background-color: #fff185;
-    border-color: #670626;
+    background: #fffefc;
+    border-color: rgba(87, 123, 223, 0.6);
+    box-shadow: 0 0 0 4px #93C5FD;
 }
 
 .search input {
@@ -27,30 +41,39 @@
     background-color: transparent;
     outline: none;
     flex: 1;
-    font-size: 18px;
-    color: #670626;
+    font-size: 16px;
+    color: var(--ink);
 }
 
 .search input::placeholder {
-    color: #f89cbc;
-}
-
-.topBar {
-    width: 100%;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 32px;
+    color: rgba(132, 176, 218, 0.6);
 }
 
 .topBarRight {
     display: flex;
     align-items: center;
-    gap: 24px; /* Spațiu între clopoțel și user */
+    gap: 18px;
 }
 
-/* Wrapper pentru iconiță și meniu */
+@media (max-width: 900px) {
+    .topBar {
+        position: static;
+        height: auto;
+        padding: 12px;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .search {
+        width: 100%;
+    }
+
+    .topBarRight {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
+
 .notificationWrapper {
     position: relative;
     display: flex;
@@ -58,21 +81,23 @@
     justify-content: center;
 }
 
-/* Iconița de notificare */
 .notificationIcon {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     border-radius: 50%;
-    transition: background 0.2s;
+    transition: background 0.2s, transform 0.2s;
     position: relative;
+    border: 1px solid transparent;
 }
 
 .notificationIcon:hover {
-    background-color: #f0f0f0;
+    background-color: #DBEAFE;
+    border-color: #DBEAFE;
+    transform: translateY(-1px);
 }
 
 .notificationIcon img {
@@ -80,28 +105,27 @@
     height: 24px;
 }
 
-/* Badge-ul Roșu */
 .topBarBadge {
     position: absolute;
-    top: 2px;
-    right: 2px;
-    background-color: #e50829;
+    top: 0;
+    right: 0;
+    background-color: var(--accent-strong);
     color: white;
     font-size: 10px;
     font-weight: bold;
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     border: 2px solid #ffffff;
+    box-shadow: 0 4px 10px #1D4ED8;
 }
 
-/* Poziționarea meniului dropdown */
 .topBarMenuContainer {
     position: absolute;
-    top: 50px; /* Imediat sub iconiță */
-    right: -10px; /* Aliniat spre dreapta */
+    top: 50px;
+    right: -10px;
     z-index: 1000;
 }

@@ -6,9 +6,9 @@ const ContestParticipatePage = () => {
   const navigate = useNavigate();
 
   return (
-    <div style={{ maxWidth: 600, margin: "40px auto", padding: "0 16px" }}>
-      <button onClick={() => navigate(-1)} style={{ marginBottom: 12 }}>
-        ← Inapoi
+    <div className="pcPageWrapper">
+      <button className="pcBackButton" onClick={() => navigate(-1)}>
+        ← Înapoi
       </button>
 
       <ParticipateContest pinId={id} />

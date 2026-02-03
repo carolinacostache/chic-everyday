@@ -7,12 +7,12 @@
 .boardsPage h1 {
   font-size: 28px;
   font-weight: 700;
-  color: #670626;
+  color: #1f3a5f;
   margin-bottom: 8px;
 }
 
 .boardsPage .subtitle {
-  color: #8c6b74;
+  color: #388edf;
   margin-bottom: 30px;
   font-size: 15px;
 }
@@ -20,8 +20,8 @@
 .adminBoardsContainer {
   background: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(103, 6, 38, 0.05);
-  border: 1px solid #f8bbd0;
+  box-shadow: 0 4px 12px rgba(10, 100, 184, 0.05);
+  border: 1px solid #e6eef8;
   overflow: hidden; 
   overflow-x: auto;
 }
@@ -33,7 +33,7 @@ table {
 }
 
 thead {
-  background-color: #f8bbd0;
+  background-color: #e6eef8;
 }
 
 th {
@@ -41,17 +41,17 @@ th {
   padding: 16px;
   font-size: 13px;
   font-weight: 700;
-  color: #670626;
+  color: #1f3a5f;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  border-bottom: 1px solid #f89cbc;
+  border-bottom: 1px solid #dfe8f6;
 }
 
 td {
   padding: 16px;
-  border-bottom: 1px solid #f8bbd0;
+  border-bottom: 1px solid #e6eef8;
   font-size: 14px;
-  color: #670626;
+  color: #1f3a5f;
   vertical-align: middle;
 }
 
@@ -60,12 +60,12 @@ tr:last-child td {
 }
 
 tr:hover {
-  background-color: #fff8f0;
+  background-color: #fafaf8;
 }
 
 .boardTitleCell strong {
   font-size: 15px;
-  color: #670626;
+  color: #1f3a5f;
 }
 
 .ownerInfo {
@@ -79,19 +79,19 @@ tr:hover {
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid #f8bbd0;
+  border: 1px solid #e6eef8;
 }
 
 .idCell {
   font-family: monospace;
-  color: #8c6b74;
+  color: #339ee6;
   font-size: 12px;
 }
 
 .deleteBoardBtn {
-  background-color: #fff8f0;
-  border: 1px solid #f8bbd0;
-  color: #670626;
+  background-color: #fafaf8;
+  border: 1px solid #e6eef8;
+  color: #1f3a5f;
   padding: 8px 16px;
   border-radius: 6px;
   font-weight: 600;
@@ -101,20 +101,21 @@ tr:hover {
 }
 
 .deleteBoardBtn:hover {
-  background-color: #fff185;
-  color: #670626;
-  border-color: #670626;
+  background-color: #e6eef8;
+  color: #1f3a5f;
+  border-color: #1f3a5f;
 }
 
 .deleteBoardBtn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  background-color: #f8bbd0;
+  background-color: #e6eef8;
 }
 
 .loadingMsg, .errorMsg {
   padding: 40px;
   text-align: center;
   font-size: 16px;
-  color: #8c6b74;
+  color: #279ee2;
 }
+

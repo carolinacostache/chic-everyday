@@ -1,6 +1,6 @@
 .createTop {
-  border-top: 1px solid #f8bbd0;
-  border-bottom: 1px solid #f8bbd0;
+  border-top: 1px solid #e6eef8;
+  border-bottom: 1px solid #e6eef8;
   padding: 16px 0px;
   display: flex;
   align-items: center;
@@ -10,12 +10,12 @@
 .createTop h1 {
   font-size: 20px;
   font-weight: 600;
-  color: #670626;
+  color: #1f3a5f;
 }
 
 .createTop button {
-  background-color: #670626;
-  color: #fff8f0;
+  background-color: #1f3a5f;
+  color: #fafaf8;
   font-weight: 600;
   border: none;
   outline: none;
@@ -27,8 +27,8 @@
 }
 
 .createTop button:hover {
-  background-color: #f89cbc;
-  color: #670626;
+  background-color: #dfe8f6;
+  color: #1f3a5f;
 }
 
 .createBottom {
@@ -46,18 +46,18 @@
   align-items: center;
   justify-content: center;
   border-radius: 32px;
-  border: 2px dashed #f8bbd0;
+  border: 2px dashed #e6eef8;
   width: 375px;
   height: 574px;
   padding: 16px;
   position: relative;
-  color: #670626;
+  color: #1f3a5f;
   transition: background-color 0.2s;
 }
 
 .upload:hover {
-  background-color: #f5b8cd;
-  border-color: #670626;
+  background-color: #b1e2ff;
+  border-color: #1f3a5f;
 }
 
 .uploadTitle {
@@ -83,14 +83,14 @@
 .preview img{
   border-radius: 32px;
   width: 100%;
-  border: 1px solid #f8bbd0;
+  border: 1px solid #e6eef8;
 }
 
 .editIcon{
   position: absolute;
   top: 16px;
   right: 16px;
-  background-color: #fff8f0;
+  background-color: #fafaf8;
   width: 40px;
   height: 40px;
   display: flex;
@@ -99,8 +99,8 @@
   padding: 6px;
   border-radius: 50%;
   cursor: pointer;
-  border: 1px solid #f8bbd0;
-  color: #670626;
+  border: 1px solid #e6eef8;
+  color: #1f3a5f;
 }
 
 .createForm {
@@ -118,36 +118,36 @@
 
 .createFormItem label {
   font-size: 13px;
-  color: #670626;
+  color: #1f3a5f;
   font-weight: 600;
 }
 
 .createFormItem input,
 textarea{
   font-size: 15px;
-  border: 2px solid #f89cbc;
+  border: 2px solid #dfe8f6;
   padding: 16px;
   border-radius: 16px;
   background-color: #ffffff;
-  color: #670626;
+  color: #1f3a5f;
   outline: none;
   transition: all 0.2s;
 }
 
 .createFormItem input:focus,
 textarea:focus {
-  border-color: #670626;
-  background-color: #fff185;
+  border-color: #1f3a5f;
+  background-color: #e6eef8;
 }
 
 .createFormItem select#board{
   width: 100%;
   padding: 16px;
   border-radius: 16px;
-  border: 2px solid #f89cbc;
+  border: 2px solid #dfe8f6;
   font-size: 15px;
   background-color: #ffffff;
-  color: #670626;
+  color: #1f3a5f;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -156,8 +156,8 @@ textarea:focus {
 }
 
 .createFormItem select#board:focus {
-  border-color: #670626;
-  background-color: #fff185;
+  border-color: #1f3a5f;
+  background-color: #e6eef8;
 }
 
 .createFormItem textarea {
@@ -179,17 +179,17 @@ textarea:focus {
 .newBoardItem {
   padding: 8px;
   border-radius: 12px;
-  background-color: #fff8f0;
-  border: 1px solid #f8bbd0;
+  background-color: #fafaf8;
+  border: 1px solid #e6eef8;
   font-size: 13px;
   cursor: pointer;
-  color: #670626;
+  color: #1f3a5f;
   font-weight: 500;
 }
 
 .createBoardButton {
-  background-color: #670626;
-  color: #fff8f0;
+  background-color: #1f3a5f;
+  color: #fafaf8;
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -202,8 +202,8 @@ textarea:focus {
 }
 
 .createBoardButton:hover {
-  background-color: #f89cbc;
-  color: #670626;
+  background-color: #dfe8f6;
+  color: #1f3a5f;
 }
 
 small {
@@ -239,8 +239,8 @@ small {
 .tagItem {
   padding: 8px 16px;
   border-radius: 24px;
-  background-color: #f8bbd0; 
-  color: #670626;
+  background-color: #e6eef8; 
+  color: #1f3a5f;
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
@@ -249,17 +249,85 @@ small {
 }
 
 .tagItem:hover {
-  background-color: #f89cbc;
+  background-color: #dfe8f6;
 }
 
 .tagItem.selected {
-  background-color: #670626;
-  color: #fff8f0;
-  border-color: #670626;
+  background-color: #1f3a5f;
+  color: #fafaf8;
+  border-color: #1f3a5f;
 }
 
 .createPage {
   position: relative;
+}
+
+.createGate {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.createGateCard {
+  max-width: 520px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: var(--shadow-pop);
+  text-align: center;
+}
+
+.createGateCard h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.createGateCard p {
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+}
+
+.createGateActions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.createGatePrimary {
+  background-color: #1f3a5f;
+  color: #fafaf8;
+  font-weight: 700;
+  border: none;
+  outline: none;
+  padding: 12px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.createGatePrimary:hover {
+  background-color: #dfe8f6;
+  color: #1f3a5f;
+}
+
+.createGateSecondary {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--ink);
+  font-weight: 700;
+  border: 1px solid var(--border);
+  padding: 12px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.createGateSecondary:hover {
+  background: rgba(245, 185, 201, 0.3);
 }
 
 .createPage.isLoading .createTop,
@@ -283,14 +351,14 @@ small {
   gap: 16px;
   font-size: 20px;
   font-weight: 600;
-  color: #670626;
+  color: #1f3a5f;
 }
 
 .spinner {
   width: 50px;
   height: 50px;
-  border: 5px solid #f8bbd0; 
-  border-top: 5px solid #670626; 
+  border: 5px solid #e6eef8; 
+  border-top: 5px solid #1f3a5f; 
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -315,7 +383,7 @@ small {
   gap: 12px;
   font-weight: 700;
   font-size: 16px;
-  color: #670626; 
+  color: #1f3a5f; 
   cursor: pointer;
   margin-bottom: 0;
 }
@@ -323,13 +391,13 @@ small {
 .contestCheckboxLabel input[type="checkbox"] {
   width: 18px;
   height: 18px;
-  accent-color: #670626;
+  accent-color: #1f3a5f;
 }
 
 .contestFields {
   margin-top: 16px;
   padding-top: 16px;
-  border-top: 1px dashed #670626;
+  border-top: 1px dashed #1f3a5f;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -339,25 +407,25 @@ small {
 .contestInput {
   width: 100%;
   padding: 12px;
-  border: 1px solid #670626;
+  border: 1px solid #1f3a5f;
   border-radius: 8px;
   background-color: #faf9f2;
   font-size: 14px;
-  color: #670626;
+  color: #1f3a5f;
 }
 
 .contestInput:focus {
-  border-color: #670626;
+  border-color: #1f3a5f;
   outline: none;
   background-color: #fbf5c2;
 }
 .useragentpart{
-  color:#670626
+  color:#1f3a5f
 }
 .dateLabel {
   font-size: 12px;
   font-weight: 600;
-  color: #670626;
+  color: #1f3a5f;
   margin-bottom: 4px;
   display: block;
 }
@@ -366,3 +434,5 @@ small {
   from { opacity: 0; transform: translateY(-5px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+

@@ -1,13 +1,16 @@
 .app {
     display: flex;
-    gap: 16px;
+    gap: 20px;
     width: 100%;
     min-height: 100vh;
-    background-color: #fff8f0;
-    color: #670626;
+    padding: 18px 18px 32px;
+    color: var(--ink);
 }
 
 .content {
     flex: 1;
-    margin-right: 16px;
+    margin-right: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }

@@ -23,7 +23,15 @@ const ContestPage = () => {
           <h1>Concursuri Active</h1>
           <p>Participă și câștigă premii!</p>
         </div>
-        <div className="bannerIcon">🏆</div>
+        <div className="bannerIcon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" role="img">
+            <path d="M20 10h24v6a12 12 0 0 1-24 0v-6z" className="trophyCup" />
+            <path d="M16 12H8c0 10 6 16 14 18" className="trophyHandle" />
+            <path d="M48 12h8c0 10-6 16-14 18" className="trophyHandle" />
+            <path d="M26 34h12v8H26z" className="trophyStem" />
+            <path d="M22 42h20v6H22z" className="trophyBase" />
+          </svg>
+        </div>
       </div>
 
       {/* --- GRIDUL DE POSTĂRI --- */}

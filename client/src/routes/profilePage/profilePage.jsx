@@ -1,6 +1,6 @@
 import "./profilePage.css";
 import Image from "../../components/image/image";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Collections from "../../components/collection/collections";
 import Gallery from "../../components/gallery/gallery";
 import { useQuery } from "@tanstack/react-query";
@@ -11,15 +11,13 @@ import FollowListModal from "../../components/followListModal/followListModal";
 import useAuthStore from "../../utils/authStore";
 import { Link } from "react-router-dom";
 
-// NEW: gamification rules helpers
-import {
-  getNextLevelInfo,
-  normalizeGamification,
-} from "../../utils/gamificationRules";
+import { getNextLevelInfo, normalizeGamification } from "../../utils/gamificationRules";
 
 const Profilepage = () => {
   const [type, setType] = useState("saved");
   const [modalType, setModalType] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef(null);
 
   const { username } = useParams();
   const { currentUser } = useAuthStore();
@@ -29,19 +27,28 @@ const Profilepage = () => {
     queryFn: () => apiRequest.get(`/users/${username}`).then((res) => res.data),
   });
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   if (isPending) return "Loading...";
   if (error) return "An error has occurred: " + error.message;
   if (!data) return "User not found!";
 
   const isOwnProfile = currentUser?._id === data._id;
 
-  // NEW: normalize gamification + compute progress to next level
   const gamification = normalizeGamification(data.gamification);
   const next = getNextLevelInfo(gamification.points);
 
   return (
     <>
-      <div className="profilePage">
+      <div className="profilePage pageFadeIn">
         <Image
           className="profileImg"
           w={100}
@@ -77,12 +84,30 @@ const Profilepage = () => {
               </>
             )}
           </div>
-          <Image src="/general/more.svg" alt="Mai multe opțiuni" />
+          <div className="profileMenuWrap" ref={menuRef}>
+            <button
+              type="button"
+              className="profileMenuTrigger"
+              onClick={() => setIsMenuOpen((prev) => !prev)}
+              aria-haspopup="menu"
+              aria-expanded={isMenuOpen}
+            >
+              <Image src="/general/more.svg" alt="Mai multe optiuni" />
+            </button>
+            {isMenuOpen && (
+              <div className="profileMenu" role="menu">
+                <button type="button" role="menuitem">
+                  Copiaza link profil
+                </button>
+                <button type="button" role="menuitem">
+                  Raporteaza
+                </button>
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* --- GAMIFICATION --- */}
         <div className="gamificationContainer">
-          {/* Nivel + Puncte */}
           <div className="levelWrapper">
             <div className="levelBadge">
               LVL <strong>{gamification.level}</strong>
@@ -91,43 +116,41 @@ const Profilepage = () => {
               <span className="pointsValue">{gamification.points}</span>
               <span className="pointsLabel">Fashion Points</span>
             </div>
+            <span className="tierBadge">
+              {gamification.level >= 15
+                ? "Diamond"
+                : gamification.level >= 10
+                ? "Gold"
+                : gamification.level >= 5
+                ? "Silver"
+                : "Bronze"}
+            </span>
           </div>
 
-          {/* NEW: progress to next level */}
           <div className="progressWrapper">
             <div className="progressTop">
-              <span>Progres către LVL {next.level + 1}</span>
-              <span>{next.remaining} puncte rămase</span>
+              <span>Progres catre LVL {next.level + 1}</span>
+              <span>{next.remaining} puncte ramase</span>
             </div>
 
             <div className="progressBar">
-              <div
-                className="progressFill"
-                style={{ width: `${next.progress}%` }}
-              />
+              <div className="progressFill" style={{ width: `${next.progress}%` }} />
             </div>
           </div>
 
-          {/* Badges */}
           <div className="badgesWrapper">
             {gamification.badges.length > 0 ? (
               gamification.badges.map((badge, index) => (
-                <div
-                  key={badge.key || index}
-                  className="badgeItem"
-                  title={badge.name}
-                >
+                <div key={badge.key || index} className="badgeItem" title={badge.name}>
                   <span className="badgeIcon">{badge.icon}</span>
-                  {/* optional: <span className="badgeName">{badge.name}</span> */}
                 </div>
               ))
             ) : (
-              <span className="noBadgesText">Încă nu ai insigne. Fii activ!</span>
+              <span className="noBadgesText">Inca nu ai insigne. Fii activ!</span>
             )}
           </div>
         </div>
 
-        {/* Tabs */}
         <div className="profileOptions">
           <span
             onClick={() => setType("created")}
@@ -148,7 +171,7 @@ const Profilepage = () => {
               onClick={() => setType("contests")}
               className={type === "contests" ? "active" : ""}
             >
-              Concursuri 🏆
+              Concursuri
             </span>
           )}
         </div>

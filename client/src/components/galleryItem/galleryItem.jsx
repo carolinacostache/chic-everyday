@@ -7,32 +7,17 @@ import useAuthStore from "../../utils/authStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import apiRequest from "../../utils/apiRequest";
 
-// NEW: gamification helpers
-import {
-  ACTION_POINTS,
-  applyPointsAndBadges,
-  normalizeGamification,
-} from "../../utils/gamificationRules";
+// contest join is handled by navigation to participate page
 
 const GalleryItem = ({ item }) => {
   const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
 
-  // Zustand store: luam si updateCurrentUser
-  const { currentUser, updateCurrentUser } = useAuthStore();
+  const { currentUser } = useAuthStore();
 
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  // NEW: contest join state + feedback message
-  const [isJoined, setIsJoined] = useState(false);
-  const [feedbackMsg, setFeedbackMsg] = useState("");
-
-  // daca ai deja vreo logica de join in DB, aici ai putea initializa isJoined
-  useEffect(() => {
-    // keep simple: reset when item changes
-    setIsJoined(false);
-    setFeedbackMsg("");
-  }, [item?._id]);
+  // no local join state; handled in participate page
 
   const deleteMutation = useMutation({
     mutationFn: (pinId) => apiRequest.delete(`/pins/${pinId}`),
@@ -91,7 +76,6 @@ const GalleryItem = ({ item }) => {
     setIsMenuOpen(false);
   };
 
-  // NEW: join contest (frontend-only demo, can be wired to backend later)
   const handleJoinContest = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -101,49 +85,7 @@ const GalleryItem = ({ item }) => {
       return;
     }
 
-    if (isJoined) {
-      setFeedbackMsg("Ești deja înscris la acest concurs.");
-      setTimeout(() => setFeedbackMsg(""), 1800);
-      return;
-    }
-
-    // apply points + badges
-    const oldG = normalizeGamification(currentUser.gamification);
-    const updatedG = applyPointsAndBadges(
-      oldG,
-      ACTION_POINTS.CONTEST_JOIN,
-      {
-        contestJoins: (oldG.contestJoins ?? 0) + 1,
-      }
-    );
-
-    // update user in store (instant UI)
-    const updatedUser = {
-      ...currentUser,
-      gamification: {
-        ...updatedG,
-      },
-    };
-    // remove helper field before storing
-    delete updatedUser.gamification._newBadges;
-
-    updateCurrentUser(updatedUser);
-
-    // set join state + feedback
-    setIsJoined(true);
-
-    const unlocked = updatedG._newBadges || [];
-    if (unlocked.length > 0) {
-      setFeedbackMsg(
-        `+${ACTION_POINTS.CONTEST_JOIN} puncte! Badge nou: ${unlocked
-          .map((b) => b.icon)
-          .join(" ")}`
-      );
-    } else {
-      setFeedbackMsg(`+${ACTION_POINTS.CONTEST_JOIN} puncte! Te-ai înscris.`);
-    }
-
-    setTimeout(() => setFeedbackMsg(""), 2200);
+    navigate(`/contest/${item._id}/participate`);
   };
 
   return (
@@ -160,7 +102,7 @@ const GalleryItem = ({ item }) => {
         <Link to={`/pin/${item._id}`} className="overlay" />
 
         <button className="saveButton" onClick={handleSaveClick}>
-          Save
+          Salvează
         </button>
 
         <div className="overlayIcons">
@@ -185,49 +127,11 @@ const GalleryItem = ({ item }) => {
           </div>
         </div>
 
-        {/* NEW: contest CTA + feedback overlay (only for contest items) */}
         {item.type === "contest" && (
-          <div
-            style={{
-              position: "absolute",
-              left: 12,
-              bottom: 12,
-              display: "flex",
-              flexDirection: "column",
-              gap: 8,
-              zIndex: 5,
-            }}
-          >
-            <button
-              onClick={handleJoinContest}
-              style={{
-                border: "none",
-                padding: "10px 14px",
-                borderRadius: 999,
-                fontWeight: 800,
-                cursor: "pointer",
-                background: isJoined ? "#670626" : "#f8bbd0",
-                color: isJoined ? "#fff8f0" : "#670626",
-              }}
-            >
-              {isJoined ? "Înscris ✅" : "Participă"}
+          <div className="contestCta">
+            <button onClick={handleJoinContest} className="contestJoinButton">
+              Participă
             </button>
-
-            {feedbackMsg && (
-              <div
-                style={{
-                  padding: "8px 10px",
-                  borderRadius: 12,
-                  background: "rgba(0,0,0,0.65)",
-                  color: "white",
-                  fontSize: 12,
-                  fontWeight: 700,
-                  maxWidth: 220,
-                }}
-              >
-                {feedbackMsg}
-              </div>
-            )}
           </div>
         )}
       </div>

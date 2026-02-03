@@ -3,13 +3,16 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 72px;
-  height: 100vh;
+  width: 78px;
+  height: calc(100vh - 36px);
   position: sticky;
-  top: 0;
+  top: 18px;
   padding: 16px 0px;
-  background-color: white;
-  border-right: 1px solid #f8bbd0; 
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(10px);
   z-index: 9999;
 }
 
@@ -17,7 +20,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
 }
 
 .menuIcon {
@@ -26,24 +29,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px; 
-  transition: background-color 0.2s;
+  border-radius: 16px;
+  transition: background-color 0.2s, transform 0.2s;
+  border: 1px solid transparent;
 }
 
 .menuIcon:hover {
-  background-color: #f8bbd0; 
+  background-color: #cfeeff;
 }
 
 .menuIcon img {
-    width: 24px !important;  /* Forțează lățimea */
-    height: 24px !important; /* Forțează înălțimea */
-    object-fit: contain;     /* Asigură-te că nu se turtește */
-    display: block;          /* Elimină spațiile nedorite */
+  width: 24px !important;
+  height: 24px !important;
+  object-fit: contain;
+  display: block;
 }
 
 .logo {
-  width: 25px;
-  height: 25px;
+  width: 26px;
+  height: 26px;
 }
 
 .notificationWrapper {
@@ -52,28 +56,30 @@
   align-items: center;
   justify-content: center;
 }
+
 .badgeSidebar {
   position: absolute;
-  top: 5px;   
-  right: 5px; 
-  background-color: #670626; 
-  color: #fff8f0; 
+  top: 5px;
+  right: 5px;
+  background-color: var(--accent);
+  color: #fff;
   font-size: 10px;
   font-weight: bold;
-  min-width: 16px;
-  height: 16px;
+  min-width: 18px;
+  height: 18px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #fff8f0; 
+  border: 2px solid #fafaf8;
   z-index: 10;
+  box-shadow: 0 4px 10px rgba(26, 113, 154, 0.25);
 }
 
 .sidebarMenuContainer {
   position: absolute;
   top: 0;
-  left: 70px; 
+  left: 70px;
   z-index: 1000;
   width: 320px;
 }
@@ -83,9 +89,28 @@
   position: absolute;
   top: 20px;
   left: -8px;
-  width: 0; 
-  height: 0; 
+  width: 0;
+  height: 0;
   border-top: 8px solid transparent;
-  border-bottom: 8px solid transparent; 
-  border-right: 8px solid #fff8f0;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid #fafaf8;
 }
+
+@media (max-width: 900px) {
+  .leftBar {
+    position: static;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    padding: 10px 14px;
+    border-radius: 18px;
+  }
+
+  .menuIcons {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+

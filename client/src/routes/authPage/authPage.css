@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fff8f0;
+  background-color: #fafaf8;
 }
 
 .authContainer {
@@ -16,14 +16,14 @@
   padding: 32px;
   border-radius: 32px;
   background-color: #ffffff;
-  border: 1px solid #f8bbd0;
-  box-shadow: 0px 10px 30px rgba(103, 6, 38, 0.1);
-  color: #670626;
+  border: 1px solid #e6eef8;
+  box-shadow: 0px 10px 30px rgba(11, 158, 226, 0.726);
+  color: #1f3a5f;
 }
 
 .authContainer h1 {
   font-weight: 600;
-  color: #670626;
+  color: #1f3a5f;
 }
 
 .authContainer form {
@@ -31,6 +31,17 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.authLogo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.authLogo img {
+  width: 48px;
+  height: 48px;
 }
 
 .formGroup {
@@ -42,31 +53,31 @@
 .formGroup label {
   font-size: 14px;
   font-weight: 600;
-  color: #670626;
+  color: #1f3a5f;
 }
 
 .formGroup input {
   padding: 16px;
-  border: 2px solid #f89cbc;
+  border: 2px solid #dfe8f6;
   border-radius: 16px;
   font-size: 16px;
   background-color: #ffffff;
-  color: #670626;
+  color: #1f3a5f;
   outline: none;
   transition: all 0.2s;
 }
 
 .formGroup input:focus {
-  border-color: #670626;
-  background-color: #fff185;
+  border-color: #1f3a5f;
+  background-color: #e6eef8;
 }
 
 .authContainer button {
-  background-color: #670626;
+  background-color: #1f3a5f;
   padding: 16px;
   border: none;
   border-radius: 32px;
-  color: #fff8f0;
+  color: #fafaf8;
   cursor: pointer;
   font-weight: bold;
   font-size: 16px;
@@ -74,25 +85,25 @@
 }
 
 .authContainer button:hover {
-  background-color: #f89cbc;
-  color: #670626;
+  background-color: #dfe8f6;
+  color: #1f3a5f;
 }
 
 .authContainer p {
   font-size: 14px;
   text-align: center;
   cursor: pointer;
-  color: #8c6b74;
+  color: #37aefd;
   text-decoration: underline;
 }
 
 .authContainer p:hover {
-  color: #670626;
+  color: #1f3a5f;
 }
 
 .error {
-  color: #670626;
-  background-color: #fff185;
+  color: #1f3a5f;
+  background-color: #e6eef8;
   padding: 8px 16px;
   border-radius: 8px;
   font-size: 14px;
@@ -100,3 +111,4 @@
   text-align: center;
   width: 100%;
 }
+

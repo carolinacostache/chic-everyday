@@ -1,12 +1,22 @@
 .my-masonry-grid {
   display: flex;
   width: auto;
-  
-  margin-left: -16px;
+  margin-left: -20px;
+  align-items: flex-start;
 }
 
 .my-masonry-grid_column {
-  padding-left: 16px; 
+  padding-left: 20px; 
   background-clip: padding-box;
+}
+
+@media (max-width: 640px) {
+  .my-masonry-grid {
+    margin-left: -12px;
+  }
+
+  .my-masonry-grid_column {
+    padding-left: 12px;
+  }
 }
 

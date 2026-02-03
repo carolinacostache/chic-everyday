@@ -12,7 +12,7 @@
 .statsHeader h1 {
   font-size: 32px;
   margin-bottom: 10px;
-  color: #670626;
+  color: #1f3a5f;
 }
 
 .statsHeader p {
@@ -34,7 +34,7 @@
   display: flex;
   align-items: center;
   gap: 20px;
-  border: 1px solid #f8bbd0;
+  border: 1px solid #e6eef8;
   transition: transform 0.2s;
 }
 
@@ -44,7 +44,7 @@
 }
 
 .statCard.highlight {
-  border-color: #fff185;
+  border-color: #e6eef8;
   background-color: #fffdf5;
 }
 
@@ -52,8 +52,8 @@
   font-size: 32px;
   width: 60px;
   height: 60px;
-  background: #f8bbd0;
-  color: #670626;
+  background: #e6eef8;
+  color: #1f3a5f;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -71,7 +71,7 @@
 .statNumber {
   font-size: 36px;
   font-weight: 800;
-  color: #670626;
+  color: #1f3a5f;
   line-height: 1;
 }
 
@@ -85,12 +85,12 @@
 .billingSection h2 {
   font-size: 22px;
   margin-bottom: 20px;
-  color: #670626;
+  color: #1f3a5f;
 }
 
 .billCard {
   background: #ffffff;
-  border: 1px solid #f8bbd0;
+  border: 1px solid #e6eef8;
   border-radius: 12px;
   padding: 30px;
   max-width: 500px;
@@ -101,22 +101,22 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 12px;
-  color: #670626;
+  color: #1f3a5f;
 }
 
 .billRow.total {
   font-weight: 800;
   font-size: 20px;
-  color: #670626;
+  color: #1f3a5f;
   margin-top: 10px;
-  border-top: 1px solid #f8bbd0;
+  border-top: 1px solid #e6eef8;
   padding-top: 12px;
 }
 
 .payBtn {
   width: 100%;
-  background-color: #670626;
-  color: #fff8f0;
+  background-color: #1f3a5f;
+  color: #fafaf8;
   padding: 15px;
   border: none;
   border-radius: 30px;
@@ -128,8 +128,8 @@
 }
 
 .payBtn:hover {
-  background-color: #fff185;
-  color: #670626;
+  background-color: #e6eef8;
+  color: #1f3a5f;
 }
 
 .statCard.clickable {
@@ -140,19 +140,19 @@
 
 .statCard.clickable:hover {
   transform: translateY(-5px);
-  border-color: #670626;
-  background-color: #fff8f0;
+  border-color: #1f3a5f;
+  background-color: #fafaf8;
 }
 
 .statCard.active {
-  background-color: #fff8f0;
-  border: 2px solid #670626;
+  background-color: #fafaf8;
+  border: 2px solid #1f3a5f;
 }
 
 .clickHint {
   display: block;
   font-size: 12px;
-  color: #670626;
+  color: #1f3a5f;
   margin-top: 5px;
   font-weight: bold;
 }
@@ -171,7 +171,7 @@
   font-size: 18px;
   color: #333;
   margin-bottom: 15px;
-  border-bottom: 2px solid #f8bbd0;
+  border-bottom: 2px solid #e6eef8;
   padding-bottom: 10px;
 }
 
@@ -185,8 +185,8 @@
 }
 
 .statsTable th {
-  background-color: #f8bbd0;
-  color: #670626;
+  background-color: #e6eef8;
+  color: #1f3a5f;
   padding: 12px;
   text-align: left;
   border-radius: 4px;
@@ -219,3 +219,4 @@
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+

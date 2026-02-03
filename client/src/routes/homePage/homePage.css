@@ -1,114 +1,187 @@
-/* --- CONTAINER PRINCIPAL --- */
 .homePageContainer {
-    padding: 20px;
-    max-width: 1600px; 
-    margin: 0 auto;
+    padding: 20px 18px 28px;
+    max-width: none;
+    margin: 0;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
 
-/* --- BANNERUL TĂU (Design Gradient) --- */
 .homeBanner {
-    background: linear-gradient(105deg, #670626 0%, #a01a45 100%);
-    border-radius: 20px;
-    padding: 30px 40px;
-    margin-bottom: 30px;
-    display: flex;
+    background: linear-gradient(120deg, #1f3652 0%, #2d4a64 50%, #5f788c 75%, #a7b5c1 100%);
+    border-radius: 26px;
+    padding: 28px 36px;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
     align-items: center;
-    justify-content: space-between;
     color: white;
-    box-shadow: 0 8px 20px rgba(103, 6, 38, 0.15);
+    box-shadow: var(--shadow-pop);
     position: relative;
     overflow: hidden;
+    animation: slideUp 420ms ease both;
+}
+
+.homeBanner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 20%, rgba(74, 183, 255, 0.514), transparent 40%),
+        radial-gradient(circle at 80% 10%, rgba(17, 171, 218, 0.1), transparent 45%);
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.bannerContent {
+    position: relative;
+    z-index: 1;
 }
 
 .bannerContent h2 {
-    font-size: 28px;
-    font-weight: 800;
-    margin-bottom: 8px;
+    font-size: 32px;
+    font-weight: 700;
+    font-family: var(--font-display);
+    margin-bottom: 10px;
+}
+
+.bannerTitle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bannerTrophy {
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 6px 12px rgba(10, 22, 35, 0.35));
+}
+
+.bannerTrophy svg {
+    width: 100%;
+    height: 100%;
+}
+
+.bannerTrophy .trophyCup,
+.bannerTrophy .trophyStem,
+.bannerTrophy .trophyBase {
+    fill: #e6eef8;
+}
+
+.bannerTrophy .trophyHandle {
+    fill: none;
+    stroke: #e6eef8;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 .bannerContent p {
     font-size: 16px;
-    opacity: 0.9;
+    opacity: 0.92;
     margin-bottom: 20px;
+    max-width: 420px;
 }
 
 .bannerBtn {
-    background-color: white;
-    color: #670626;
+    background: #ffffff;
+    color: #1f3a5f;
     border: none;
-    padding: 10px 24px;
-    border-radius: 25px;
-    font-weight: bold;
+    padding: 12px 26px;
+    border-radius: 999px;
+    font-weight: 700;
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
 .bannerBtn:hover {
-    transform: scale(1.05);
+    transform: translateY(-2px);
+    box-shadow: 0 16px 30px rgba(9, 177, 219, 0.2);
+}
+
+.bannerVisual {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    z-index: 1;
 }
 
 .trophyImg {
-    width: 120px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
     object-fit: contain;
-    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+    filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.2));
 }
 
-/* --- STILURI NOI PENTRU TOGGLE (Noutăți / Pentru Tine) --- */
 .feedToggleContainer {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px;
-    margin: 0 auto 30px auto;
+    gap: 10px;
+    margin: 0 auto;
+    padding: 6px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-soft);
+    animation: slideUp 520ms ease both;
 }
   
 .feedTab {
-    padding: 10px 24px;
-    border: 1px solid #ddd; /* Bordură subtilă inactivă */
+    padding: 10px 22px;
+    border: none;
     background-color: transparent;
-    border-radius: 30px;
+    border-radius: 999px;
     cursor: pointer;
     font-weight: 600;
-    font-size: 15px;
-    color: #666;
+    font-size: 14px;
+    color: var(--ink-soft);
     transition: all 0.2s ease;
-    min-width: 140px;
+    min-width: 130px;
 }
   
 .feedTab:hover {
-    background-color: #fff0f5;
-    color: #670626;
-    border-color: #670626;
+    background-color: rgba(107, 145, 189, 0.1);
+    color: var(--accent);
 }
   
-/* Starea activă (Butonul selectat) */
 .feedTab.active {
-    background-color: #670626; /* Aceeași culoare ca bannerul tău */
+    background-color: var(--accent);
     color: white;
-    border-color: #670626;
-    box-shadow: 0 4px 12px rgba(103, 6, 38, 0.2);
-    transform: scale(1.05);
+    box-shadow: 0 8px 18px rgba(87, 152, 206, 0.25);
+    transform: translateY(-1px);
 }
 
-/* --- RESPONSIVE --- */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .homeBanner {
-        flex-direction: column;
-        text-align: center;
+        grid-template-columns: 1fr;
         gap: 20px;
-        padding: 20px;
+        text-align: center;
     }
-    
+
+    .bannerVisual {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .homePageContainer {
+        padding: 16px 12px 22px;
+    }
+
     .trophyImg {
-        width: 80px;
-        height: 80px;
+        width: 110px;
+        height: 110px;
     }
 
     .feedTab {
-        padding: 8px 16px;
-        font-size: 14px;
-        min-width: auto; /* Pe mobil le lăsăm să fie mai mici */
+        padding: 8px 14px;
+        font-size: 13px;
+        min-width: auto;
     }
 }
+
+

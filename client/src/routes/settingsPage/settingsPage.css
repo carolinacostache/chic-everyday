@@ -8,15 +8,15 @@
   font-size: 28px;
   font-weight: 700;
   margin-bottom: 30px;
-  color: #670626;
+  color: #1f3a5f;
 }
 
 .settingsContainer {
   background: #ffffff;
-  border: 1px solid #f8bbd0;
+  border: 1px solid #e6eef8;
   border-radius: 16px;
   padding: 32px;
-  box-shadow: 0 4px 12px rgba(103, 6, 38, 0.05);
+  box-shadow: 0 4px 12px rgba(6, 48, 103, 0.05);
 }
 
 .settingsSection {
@@ -27,7 +27,7 @@
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 16px;
-  color: #670626;
+  color: #1f3a5f;
 }
 
 .settingsForm {
@@ -45,35 +45,35 @@
 .formGroup label {
   font-size: 14px;
   font-weight: 600;
-  color: #670626;
+  color: #1f3a5f;
 }
 
 .formGroup input {
   padding: 12px;
-  border: 2px solid #f89cbc;
+  border: 2px solid #dfe8f6;
   border-radius: 8px;
   font-size: 16px;
   background-color: #ffffff;
-  color: #670626;
+  color: #1f3a5f;
   outline: none;
   transition: all 0.2s;
 }
 
 .formGroup input:focus {
-  border-color: #670626;
+  border-color: #1f3a5f;
   background-color: #ffe8f1;
 }
 
 .disabledInput {
-  background-color: #fff8f0;
-  color: #8c6b74;
+  background-color: #fafaf8;
+  color: #6b7c8c;
   cursor: not-allowed;
-  border-color: #f8bbd0;
+  border-color: #e6eef8;
 }
 
 .saveBtn {
-  background-color: #670626;
-  color: #fff8f0;
+  background-color: #1f3a5f;
+  color: #fafaf8;
   border: none;
   padding: 12px 24px;
   border-radius: 24px;
@@ -85,16 +85,16 @@
 }
 
 .saveBtn:hover {
-  background-color: #f8bbd0;
-  color: #670626;
+  background-color: #e6eef8;
+  color: #1f3a5f;
 }
 
 .successMessage {
-  color: #670626;
+  color: #1f3a5f;
   font-size: 14px;
   margin-top: 10px;
   font-weight: 600;
-  background-color: #f8bbd0;
+  background-color: #e6eef8;
   padding: 8px;
   border-radius: 8px;
   width: fit-content;
@@ -102,13 +102,13 @@
 
 hr {
   border: none;
-  border-top: 1px solid #f8bbd0;
+  border-top: 1px solid #e6eef8;
   margin: 32px 0;
 }
 
 .shopSection ul {
   margin: 10px 0 20px 20px;
-  color: #8c6b74;
+  color: #6b838c;
 }
 
 .shopSection li {
@@ -116,8 +116,8 @@ hr {
 }
 
 .upgradeBtn {
-  background-color: #670626;
-  color: #fff8f0;
+  background-color: #1f3a5f;
+  color: #fafaf8;
   border: none;
   padding: 12px 24px;
   border-radius: 24px;
@@ -127,14 +127,14 @@ hr {
 }
 
 .upgradeBtn:hover {
-  background-color: #f8bbd0;
-  color: #670626;
+  background-color: #e6eef8;
+  color: #1f3a5f;
 }
 
 
 .shopStatus.active {
     background-color: #fbf9fb; 
-    border: 2px solid #f8bbd0;
+    border: 2px solid #e6eef8;
     border-radius: 16px;
     padding: 20px 24px;
     display: flex;
@@ -148,7 +148,7 @@ hr {
 .shopStatus p {
     font-size: 16px;
     font-weight: 700;
-    color: #670626;
+    color: #1f3a5f;
     margin: 0;
     display: flex;
     align-items: center;
@@ -156,8 +156,8 @@ hr {
 }
 
 .shopDashboardBtn {
-    background-color: #670626;
-    color: #fff8f0;
+    background-color: #1f3a5f;
+    color: #fafaf8;
     border: none;
     padding: 12px 24px;
     border-radius: 24px;
@@ -166,12 +166,12 @@ hr {
     cursor: pointer;
     transition: all 0.2s;
     white-space: nowrap;
-    box-shadow: 0 4px 10px rgba(103, 6, 38, 0.15);
+    box-shadow: 0 4px 10px rgba(12, 136, 194, 0.15);
 }
 
 .shopDashboardBtn:hover {
-    background-color: #f89cbc; 
-    color: #670626;
+    background-color: #dfe8f6; 
+    color: #1f3a5f;
     transform: translateY(-2px);
 }
 
@@ -218,7 +218,7 @@ hr {
 }
 
 .shopStatus.pending p {
-  color: #8c6b74;
+  color: #6b838c;
   font-size: 14px;
   margin: 0;
   line-height: 1.4;
@@ -226,8 +226,8 @@ hr {
 
 /* --- STIL PENTRU REJECTED (Respins) --- */
 .shopStatus.rejected {
-  background-color: #fff8f0; /* Cream */
-  border: 1px solid #ef9a9a; /* Roșu deschis */
+  background-color: #fafaf8; /* Cream */
+  border: 1px solid #9ac9ef; /* Roșu deschis */
 }
 
 .shopStatus.rejected .statusIcon {
@@ -260,7 +260,7 @@ hr {
 }
 
 .retryBtn:hover {
-  background-color: #b71c1c;
+  background-color: #1c71b7;
 }
 
 /* --- STIL PENTRU ACTIVE (Deja Magazin) --- */
@@ -290,8 +290,8 @@ hr {
     height: 100px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid #ddd;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border: 3px solid #dddddd;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .changePhotoBtn {
@@ -308,3 +308,4 @@ hr {
     background-color: #e0e0e0;
     transform: scale(1.05);
 }
+

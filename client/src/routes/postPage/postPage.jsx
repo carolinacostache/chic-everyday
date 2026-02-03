@@ -1,13 +1,13 @@
-import './postPage.css';
-import NImage from '../../components/image/image';
-import PostInteractions from '../../components/postInteractions/postInteractions';
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import Comments from '../../components/comments/comments';
+import "./postPage.css";
+import NImage from "../../components/image/image";
+import PostInteractions from "../../components/postInteractions/postInteractions";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import Comments from "../../components/comments/comments";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import apiRequest from "../../utils/apiRequest";
-import { useState, useEffect } from 'react';
-import useAuthStore from '../../utils/authStore';
-import EditPin from '../../components/editPin/editPin';
+import { useState, useEffect } from "react";
+import useAuthStore from "../../utils/authStore";
+import EditPin from "../../components/editPin/editPin";
 
 const Postpage = () => {
   const { id } = useParams();
@@ -31,12 +31,12 @@ const Postpage = () => {
     },
     onError: (err) => {
       alert("Ștergerea a eșuat: " + (err.response?.data?.message || err.message));
-    }
+    },
   });
 
   useEffect(() => {
     if (id) {
-      apiRequest.put(`/pins/${id}/view`).catch(err => console.error(err));
+      apiRequest.put(`/pins/${id}/view`).catch((err) => console.error(err));
     }
   }, [id]);
 
@@ -58,7 +58,7 @@ const Postpage = () => {
   };
 
   const handleLinkClick = () => {
-    apiRequest.put(`/pins/${id}/click`).catch(err => console.error(err));
+    apiRequest.put(`/pins/${id}/click`).catch((err) => console.error(err));
   };
 
   const handleParticipate = () => {
@@ -71,20 +71,21 @@ const Postpage = () => {
 
   return (
     <>
-      <div className="postPage">
-        <svg
-          height="20"
-          viewBox="0 0 24 24"
-          width="20"
-          style={{ cursor: "pointer" }}
+      <div className="postPage pageFadeIn">
+        <button
+          className="postBackButton"
+          type="button"
           onClick={() => navigate(-1)}
+          aria-label="Înapoi"
         >
-          <path d="M8.41 4.59a2 2 0 1 1 2.83 2.82L8.66 10H21a2 2 0 0 1 0 4H8.66l2.58 2.59a2 2 0 1 1-2.82 2.82L1 12z"></path>
-        </svg>
+          <svg height="20" viewBox="0 0 24 24" width="20">
+            <path d="M8.41 4.59a2 2 0 1 1 2.83 2.82L8.66 10H21a2 2 0 0 1 0 4H8.66l2.58 2.59a2 2 0 1 1-2.82 2.82L1 12z"></path>
+          </svg>
+        </button>
 
         <div className="postContainer">
           <div className="postImg">
-            <NImage src={data.media} alt={data.title || "Imaginea postării"} w={736} />
+            <NImage src={data.media} alt={data.title || "Imaginea postării"} />
           </div>
 
           <div className="postDetails">
@@ -105,34 +106,23 @@ const Postpage = () => {
             </div>
 
             <div className="postInfo">
-              {data.type === 'contest' && (
+              {data.type === "contest" && (
                 <div className="contestHighlight">
                   <div className="contestHeader">
                     <span>🏆 CONCURS ACTIV</span>
+                    {data.deadline && (
+                      <span className="contestDeadline">
+                        ⏳ {new Date(data.deadline).toLocaleDateString("ro-RO")}
+                      </span>
+                    )}
                   </div>
 
                   <div className="contestBody">
-                    <p><strong>Premiu:</strong> {data.prize || "Nespecificat"}</p>
+                    <p className="prizeText">
+                      <strong>Premiu:</strong> {data.prize || "Nespecificat"}
+                    </p>
 
-                    {data.deadline && (
-                      <p>
-                        ⏳ Deadline: {new Date(data.deadline).toLocaleDateString('ro-RO')}
-                      </p>
-                    )}
-
-                    <button
-                      onClick={handleParticipate}
-                      style={{
-                        marginTop: 10,
-                        background: "#e60023",
-                        color: "white",
-                        border: "none",
-                        padding: "12px 16px",
-                        borderRadius: 999,
-                        fontWeight: 700,
-                        cursor: "pointer"
-                      }}
-                    >
+                    <button className="contestAction" onClick={handleParticipate}>
                       📸 Participă la concurs
                     </button>
                   </div>
@@ -141,12 +131,13 @@ const Postpage = () => {
 
               {data.link && (
                 <a
-                  href={data.link.startsWith('http') ? data.link : `https://${data.link}`}
+                  className="postLink"
+                  href={data.link.startsWith("http") ? data.link : `https://${data.link}`}
                   target="_blank"
                   rel="noreferrer"
                   onClick={handleLinkClick}
                 >
-                  🛒 Vezi produsul
+                  🛍️ Vezi produsul
                 </a>
               )}
 

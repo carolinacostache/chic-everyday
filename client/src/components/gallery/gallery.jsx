@@ -37,13 +37,13 @@ const Gallery = ({ search, userId, boardId, tag , renderItem, type, feedType }) 
   });
 
   const breakpointColumnsObj = {
-    default: 7,
-    1746: 6,
-    1509: 5,
-    1272: 4,
-    1035: 3,
-    798: 2,
-    480: 1
+    default: 6,
+    1700: 5,
+    1450: 4,
+    1200: 3,
+    1024: 2,
+    640: 2,
+    520: 1
   };
 
   if (status === "pending") return <Skeleton/>;

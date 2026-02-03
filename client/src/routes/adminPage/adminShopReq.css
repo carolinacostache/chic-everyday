@@ -1,31 +1,31 @@
 .requestCard {
   background: #ffffff;
-  border: 1px solid #f8bbd0;
+  border: 1px solid #e6eef8;
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 12px rgba(103, 6, 38, 0.05);
+  box-shadow: 0 4px 12px rgba(39, 119, 223, 0.678);
 }
 
 .requestHeader h3 { 
   margin: 0 0 5px 0; 
-  color: #670626;
+  color: #1f3a5f;
 }
 
 .username { 
-  color: #670626; 
+  color: #1f3a5f; 
   font-weight: 500; 
   font-size: 14px; 
 }
 
 .email { 
-  color: #8c6b74; 
+  color: #2797d8; 
   font-size: 14px; 
 }
 
 .requestDetails { 
   margin: 15px 0; 
-  color: #670626;
+  color: #1f3a5f;
 }
 
 .docPreview { 
@@ -33,21 +33,21 @@
 }
 
 .docPreview a { 
-  color: #670626; 
+  color: #1f3a5f; 
   font-weight: bold; 
   text-decoration: underline;
   transition: color 0.2s;
 }
 
 .docPreview a:hover {
-  color: #f89cbc;
+  color: #dfe8f6;
 }
 
 .docImg { 
   display: block; 
   margin-top: 10px; 
   max-width: 200px; 
-  border: 1px solid #f8bbd0; 
+  border: 1px solid #e6eef8; 
   border-radius: 8px; 
 }
 
@@ -58,8 +58,8 @@
 }
 
 .approveBtn { 
-  background-color: #670626; 
-  color: #fff8f0; 
+  background-color: #1f3a5f; 
+  color: #fafaf8; 
   border: none; 
   padding: 10px 20px; 
   border-radius: 24px; 
@@ -69,14 +69,14 @@
 }
 
 .approveBtn:hover {
-  background-color: #f89cbc;
-  color: #670626;
+  background-color: #dfe8f6;
+  color: #1f3a5f;
 }
 
 .rejectBtn { 
-  background-color: #fff8f0; 
-  color: #670626; 
-  border: 1px solid #f8bbd0; 
+  background-color: #fafaf8; 
+  color: #1f3a5f; 
+  border: 1px solid #e6eef8; 
   padding: 10px 20px; 
   border-radius: 24px; 
   cursor: pointer; 
@@ -85,6 +85,7 @@
 }
 
 .rejectBtn:hover {
-  background-color: #fff185;
-  border-color: #670626;
+  background-color: #e6eef8;
+  border-color: #1f3a5f;
 }
+

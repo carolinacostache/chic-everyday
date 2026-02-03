@@ -74,7 +74,7 @@ const EditPin = ({ pin, onClose }) => {
           <h1>Editează acest Pin</h1>
           <button className="closeButton" onClick={onClose}>X</button>
         </div>
-        <form className="editForm" onSubmit={handleSubmit}>
+        <form id="editPinForm" className="editForm" onSubmit={handleSubmit}>
           
           <div className="formGroup">
             <label htmlFor="title">Titlu</label>
@@ -122,10 +122,12 @@ const EditPin = ({ pin, onClose }) => {
             />
           </div>
 
-          <button type="submit" className="saveButton" disabled={mutation.isPending}>
+        </form>
+        <div className="editModalFooter">
+          <button type="submit" form="editPinForm" className="saveButton" disabled={mutation.isPending}>
             {mutation.isPending ? "Se salvează..." : "Salvează"}
           </button>
-        </form>
+        </div>
       </div>
     </div>
   );

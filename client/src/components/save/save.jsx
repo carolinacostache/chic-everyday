@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import apiRequest from '../../utils/apiRequest';
 import BoardForm from '../../routes/createPage/BoardForm';
 import useAuthStore from '../../utils/authStore';
@@ -64,10 +65,20 @@ const Save = ({ pinId, onClose }) => {
     handleSave(newBoard._id);
   };
 
-  if (isPending) return <div className="saveModalOverlay">Loading boards...</div>;
-  if (error) return <div className="saveModalOverlay">Error loading boards.</div>;
+  if (isPending) {
+    return createPortal(
+      <div className="saveModalOverlay">Loading boards...</div>,
+      document.body
+    );
+  }
+  if (error) {
+    return createPortal(
+      <div className="saveModalOverlay">Error loading boards.</div>,
+      document.body
+    );
+  }
 
-  return (
+  return createPortal(
     <div className="saveModalOverlay" onClick={onClose}>
       <div className="saveModalContent" onClick={(e) => e.stopPropagation()}>
         
@@ -118,7 +129,8 @@ const Save = ({ pinId, onClose }) => {
 
       
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

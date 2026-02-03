@@ -8,14 +8,14 @@
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 20px;
-  color: #670626;
+  color: #1f3a5f;
 }
 
 .adminUserList {
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(103, 6, 38, 0.05);
-  border: 1px solid #f8bbd0;
+  border: 1px solid #e6eef8;
   overflow: visible; /* Modificat din hidden in visible ca sa nu taie dropdown-ul daca e lung */
 }
 
@@ -25,19 +25,19 @@
 }
 
 .adminUserList th {
-  background-color: #f8bbd0;
-  color: #670626;
+  background-color: #e6eef8;
+  color: #1f3a5f;
   font-weight: 700;
   padding: 12px 16px;
   text-align: left;
-  border-bottom: 1px solid #f89cbc;
+  border-bottom: 1px solid #dfe8f6;
 }
 
 .adminUserList td {
-  border-bottom: 1px solid #f8bbd0;
+  border-bottom: 1px solid #e6eef8;
   padding: 12px 16px;
   text-align: left;
-  color: #670626;
+  color: #1f3a5f;
   vertical-align: middle; /* Aliniere verticală */
 }
 
@@ -46,7 +46,7 @@
 }
 
 .adminUserList tr:hover {
-  background-color: #fff8f0;
+  background-color: #fafaf8;
 }
 
 .adminUserList img {
@@ -54,14 +54,14 @@
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid #f8bbd0;
+  border: 1px solid #e6eef8;
   display: block; /* Ajută la aliniere */
 }
 
 .deleteButton {
-  background-color: #fff8f0;
-  color: #670626;
-  border: 1px solid #f8bbd0;
+  background-color: #fafaf8;
+  color: #1f3a5f;
+  border: 1px solid #e6eef8;
   padding: 6px 12px;
   border-radius: 6px;
   cursor: pointer;
@@ -70,12 +70,12 @@
 }
 
 .deleteButton:hover {
-  background-color: #fff185;
-  border-color: #670626;
+  background-color: #e6eef8;
+  border-color: #1f3a5f;
 }
 
 .deleteButton:disabled {
-  background-color: #f8bbd0;
+  background-color: #e6eef8;
   color: #ffffff;
   cursor: not-allowed;
   border-color: transparent;
@@ -89,7 +89,7 @@
   -moz-appearance: none;
   appearance: none;
 
-  /* 2. Săgeata Custom (Vișinie #670626) */
+  /* 2. Săgeata Custom (Vișinie #1f3a5f) */
   background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23670626%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
   background-repeat: no-repeat;
   background-position: right 10px center;
@@ -98,7 +98,7 @@
   /* 3. Design General */
   padding: 6px 30px 6px 12px;
   border-radius: 8px;
-  border: 1px solid #f8bbd0; /* Bordură rozalie din tema ta */
+  border: 1px solid #e6eef8; /* Bordură rozalie din tema ta */
   font-weight: 600;
   cursor: pointer;
   outline: none;
@@ -108,11 +108,11 @@
 }
 
 .roleSelect:hover {
-  border-color: #670626;
+  border-color: #1f3a5f;
 }
 
 .roleSelect:focus {
-  border-color: #670626;
+  border-color: #1f3a5f;
   box-shadow: 0 0 0 2px rgba(103, 6, 38, 0.1);
 }
 
@@ -123,9 +123,9 @@
 }
 
 .roleSelect.admin {
-  color: #c62828;
-  background-color: #ffebee;
-  border-color: #ef9a9a;
+  color: #28aec6;
+  background-color: #52d1f8;
+  border-color: #9ac2ef;
 }
 
 .roleSelect.shop {
@@ -133,3 +133,4 @@
   background-color: #e3f2fd;
   border-color: #90caf9;
 }
+
