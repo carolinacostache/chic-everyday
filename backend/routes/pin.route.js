@@ -13,7 +13,8 @@ import {
   participateContest,
   getContestEntries,
   toggleContestEntryLike, // ✅ NOU
-  getContestWinner,       // ✅ NOU
+  getContestWinner,
+  finalizeContestWinner,
 } from "../controllers/pin.controller.js";
 
 import { verifyToken, verifyTokenOptional } from "../middlewares/verifyToken.js";
@@ -32,6 +33,9 @@ router.get("/:id/entries", getContestEntries);
 router.post("/:id/entries/:entryId/like", verifyToken, toggleContestEntryLike);
 
 // ✅ winner (cea mai votata inscriere)
+router.post("/:id/finalize-winner", verifyToken, finalizeContestWinner);
+
+// Ruta read-only pentru a vedea cine conduce (opțional)
 router.get("/:id/winner", getContestWinner);
 
 router.get("/:id", getPin);

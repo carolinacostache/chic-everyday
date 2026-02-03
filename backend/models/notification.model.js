@@ -13,13 +13,16 @@ const notificationSchema = new mongoose.Schema({
   },
   type: { 
     type: String, 
-    enum: ["follow", "like", "comment"], 
+    enum: ["follow", "like", "comment", "contest_win"], 
     required: true 
   },
   pin: { 
     type: mongoose.Schema.Types.ObjectId, 
     ref: "Pin" 
   },
+  text: {
+      type: String, // Asigură-te că ai și acest câmp pentru mesajul personalizat
+    },
   isRead: { 
     type: Boolean, 
     default: false 

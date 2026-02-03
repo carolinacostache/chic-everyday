@@ -648,6 +648,9 @@ export const participateContest = async (req, res) => {
     if (pin.type !== "contest") {
       return res.status(400).json({ message: "Pin is not a contest" });
     }
+    if (pin.winner) {
+      return res.status(400).json({ message: "Acest concurs s-a încheiat!" });
+    }
 
     if (pin.deadline && new Date(pin.deadline) < new Date()) {
       return res.status(400).json({ message: "Contest ended" });
@@ -694,27 +697,6 @@ export const participateContest = async (req, res) => {
   }
 };
 
-/* ====================== getContestEntries (lista inscrieri) ====================== */
-export const getContestEntries = async (req, res) => {
-  try {
-    const pinId = req.params.id;
-
-    const pin = await Pin.findById(pinId);
-    if (!pin) return res.status(404).json({ message: "Pin not found" });
-    if (pin.type !== "contest") {
-      return res.status(400).json({ message: "Pin is not a contest" });
-    }
-
-    const entries = await ContestEntry.find({ contest: pinId })
-      .populate("user", "username img displayName")
-      .sort({ createdAt: -1 });
-
-    return res.status(200).json(entries);
-  } catch (err) {
-    console.error("EROARE in getContestEntries:", err);
-    return res.status(500).json({ message: "Server error" });
-  }
-};
 
 /* ====================== LIKE / UNLIKE pe CONTEST ENTRY ====================== */
 export const toggleContestEntryLike = async (req, res) => {
@@ -727,6 +709,9 @@ export const toggleContestEntryLike = async (req, res) => {
     if (!pin) return res.status(404).json({ message: "Pin not found" });
     if (pin.type !== "contest") {
       return res.status(400).json({ message: "Pin is not a contest" });
+    }
+    if (pin.winner) {
+      return res.status(400).json({ message: "Acest concurs s-a încheiat!" });
     }
 
     const entry = await ContestEntry.findOne({ _id: entryId, contest: pinId });
@@ -751,7 +736,99 @@ export const toggleContestEntryLike = async (req, res) => {
   }
 };
 
-/* ====================== WINNER (cea mai votata inscriere) ====================== */
+export const finalizeContestWinner = async (req, res) => {
+  try {
+    const { id } = req.params; // ID-ul concursului
+    const userId = req.userId; // ID-ul tău
+
+    const pin = await Pin.findById(id);
+    if (!pin) return res.status(404).json({ message: "Concursul nu a fost găsit!" });
+
+    // Validare: Doar proprietarul alege câștigătorul
+    if (pin.user.toString() !== userId) {
+      return res.status(403).json({ message: "Nu ai permisiunea de a alege câștigătorul!" });
+    }
+
+    // AGREGARE: Găsim câștigătorul
+    const winningEntries = await ContestEntry.aggregate([
+      { 
+        $match: { 
+          contest: new mongoose.Types.ObjectId(id) // Doar intrările acestui concurs
+        } 
+      },
+      { 
+        $addFields: { 
+          likeCount: { $size: { $ifNull: ["$likes", []] } } // Calculăm nr. like-uri
+        } 
+      },
+      { 
+        $sort: { 
+          likeCount: -1,   // PRIMUL CRITERIU: Cele mai multe like-uri
+          createdAt: -1    // AL DOILEA CRITERIU: Cel mai recent (data cea mai mare)
+        } 
+      },
+      { $limit: 1 } // Îl luăm pe primul din listă
+    ]);
+
+    if (winningEntries.length === 0) {
+      return res.status(400).json({ message: "Nu există înscrieri în acest concurs." });
+    }
+
+    const winnerEntry = winningEntries[0];
+    const winnerUser = await User.findById(winnerEntry.user);
+
+    // 1. Salvăm câștigătorul în Pin
+    pin.winner = winnerUser._id;
+    await pin.save();
+
+    // 2. Acordăm puncte de gamification (ex: 200 puncte)
+    await User.findByIdAndUpdate(winnerUser._id, {
+      $inc: { "gamification.points": 200 }
+    });
+    
+    // Verificăm dacă a câștigat vreo insignă nouă
+    checkBadges(winnerUser._id, "contest_win");
+
+    // 3. Trimitem notificare câștigătorului
+    await Notification.create({
+      recipient: winnerUser._id,
+      sender: userId,
+      type: "contest_win", // Asigură-te că frontend-ul știe să afișeze acest tip
+      text: `Felicitări! Ai câștigat concursul "${pin.title}"! 🏆`,
+      pin: pin._id,
+      isRead: false
+    });
+
+    res.status(200).json({ 
+      message: `Câștigător: ${winnerUser.displayName || winnerUser.username} (${winnerEntry.likeCount} voturi).`, 
+      winner: winnerUser 
+    });
+
+  } catch (err) {
+    console.error("Eroare la finalizare concurs:", err);
+    res.status(500).json({ message: "Eroare server." });
+  }
+};
+
+/* ====================== GET CONTEST ENTRIES ====================== */
+// (Rămâne neschimbată, doar pentru afișarea listei)
+export const getContestEntries = async (req, res) => {
+    // ... codul tău existent
+    try {
+        const pinId = req.params.id;
+        const entries = await ContestEntry.find({ contest: pinId })
+          .populate("user", "username img displayName")
+          .sort({ createdAt: -1 });
+    
+        return res.status(200).json(entries);
+      } catch (err) {
+        console.error("EROARE in getContestEntries:", err);
+        return res.status(500).json({ message: "Server error" });
+      }
+};
+
+/* ====================== GET CONTEST WINNER (Read-Only) ====================== */
+// Aceasta funcție doar returnează cine conduce momentan, fără să închidă concursul
 export const getContestWinner = async (req, res) => {
   try {
     const pinId = req.params.id;
@@ -762,17 +839,32 @@ export const getContestWinner = async (req, res) => {
       return res.status(400).json({ message: "Pin is not a contest" });
     }
 
+    // Aceeași logică de sortare ca la finalizare, pentru consistență
     const entries = await ContestEntry.find({ contest: pinId })
       .populate("user", "username img displayName")
+      .sort({ createdAt: -1 }) // Sortăm după dată (desc) pentru a aplica logica în JS
       .lean();
 
-    if (!entries.length) return res.status(200).json(null);
+    if (!entries.length) {
+      return res.status(200).json({ winner: null, message: "No entries yet" });
+    }
 
-    entries.sort((a, b) => (b.likes?.length || 0) - (a.likes?.length || 0));
+    // Sortare manuală în JS pentru a respecta regula: Max Like-uri, apoi Cel Mai Recent
+    entries.sort((a, b) => {
+        const likesA = a.likes?.length || 0;
+        const likesB = b.likes?.length || 0;
+        if (likesB !== likesA) {
+            return likesB - likesA; // Descrescător după like-uri
+        }
+        return new Date(b.createdAt) - new Date(a.createdAt); // Descrescător după dată (cel mai recent primul)
+    });
+
+    const winner = entries[0];
+    const bestLikes = winner.likes?.length || 0;
 
     return res.status(200).json({
-      ...entries[0],
-      likeCount: entries[0].likes?.length || 0,
+      winner,
+      likeCount: bestLikes,
     });
   } catch (err) {
     console.error("getContestWinner error:", err);
