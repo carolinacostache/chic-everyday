@@ -21,6 +21,8 @@ const SettingsPage = () => {
 
   const [file, setFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(currentUser?.img || DEFAULT_AVATAR);
+  const [successMsg, setSuccessMsg] = useState("");
+  
 
   const [formData, setFormData] = useState({
     displayName: currentUser?.displayName || "",
@@ -28,9 +30,15 @@ const SettingsPage = () => {
     newPassword: ""
   });
 
-  const [successMsg, setSuccessMsg] = useState("");
+
 
   const [showShopModal, setShowShopModal] = useState(false);
+
+  const isShop = currentUser.role === "SHOP";
+  const isPending = currentUser.role === "USER" && currentUser.shopDetails?.status === "PENDING";
+  const isRejected = currentUser.role === "USER" && currentUser.shopDetails?.status === "REJECTED";
+  // Poți aplica dacă ești USER și nu ești nici Pending, nici Rejected
+  const canApply = currentUser.role === "USER" && !isPending && !isRejected;
 
   const updateMutation = useMutation({
     mutationFn: (data) => {
@@ -160,7 +168,7 @@ const SettingsPage = () => {
         {/* CAZ 1: Ești deja Magazin */}
         {currentUser.role === "SHOP" && (
           <div className="shopStatus active">
-            <p>✅ Ești înregistrat ca Magazin Verificat.</p>
+            <p> Ești înregistrat ca Magazin Verificat.</p>
             <Link to="/shop/stats">
               <button className="shopDashboardBtn">Mergi la Statistici</button>
             </Link>
@@ -181,7 +189,6 @@ const SettingsPage = () => {
         {/* CAZ 3: Cererea a fost respinsă (REJECTED) */}
         {currentUser.role === "USER" && currentUser.shopDetails?.status === "REJECTED" && (
           <div className="shopStatus rejected">
-            <div className="statusIcon">❌</div>
             <div className="statusText">
               <h3>Cerere Respinsă</h3>
               <p>Din păcate, documentele tale nu au fost aprobate. Te rugăm să verifici condițiile și să aplici din nou.</p>
@@ -198,9 +205,9 @@ const SettingsPage = () => {
           <div className="shopSection">
             <p>Transformă-ți contul în Magazin Verificat și accesează funcții premium.</p>
             <ul>
-              <li>📈 Statistici avansate</li>
-              <li>🏷️ Etichetare produse</li>
-              <li>✅ Insignă pe profil</li>
+              <li>Statistici avansate</li>
+              <li>Etichetare produse</li>
+              <li>Insignă pe profil</li>
             </ul>
             <button className="upgradeBtn" onClick={() => setOpenShopModal(true)}>
               Devino Magazin Verificat
