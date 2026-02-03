@@ -12,7 +12,7 @@ const BecomeShopModal = ({ onClose }) => {
 
   const mutation = useMutation({
     mutationFn: (formData) => apiRequest.post("/users/apply-shop", formData),
-    onSuccess: () => {
+    onSuccess: (res) => {
       updateUser(res.data);
       alert("Aplicația ta a fost trimisă! Un administrator o va revizui curând.");
       onClose();
