@@ -284,3 +284,38 @@
 .backHomeBtn:hover {
   transform: scale(1.05);
 }
+
+.gamificationInfoLink {
+  display: block;
+  margin-top: 10px;
+  font-size: 13px;
+  color: #6a6a6a;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.gamificationInfoLink:hover {
+  color: #000;
+}
+
+/* Stiluri pentru pagina de info */
+.badgesInfoPage {
+  padding: 40px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.infoBadgeCard {
+  border: 1px solid #eee;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  background: #fafafa;
+}
+
+.infoBadgeIcon {
+  font-size: 30px;
+  display: block;
+  margin-bottom: 10px;
+}

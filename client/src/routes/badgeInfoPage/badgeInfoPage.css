@@ -1,0 +1,67 @@
+.badgesInfoPage {
+  padding: 40px 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: 'Inter', sans-serif;
+  color: #333;
+}
+
+.badgesInfoPage h1 {
+  color: #670626; /* Culoare matură, de brand */
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.badgesInfoPage p {
+  text-align: center;
+  color: #666;
+  margin-bottom: 40px;
+}
+
+.badgesInfoPage section {
+  margin-bottom: 40px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05); /* Design modern */
+}
+
+.badgesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.infoBadgeCard {
+  border: 1px solid #f0f0f0;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.infoBadgeCard:hover {
+  transform: translateY(-5px); /* Feedback vizual la interacțiune */
+}
+
+.infoBadgeIcon {
+  font-size: 45px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.levelsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.levelRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  background: #fdf2f5; /* Tonuri de roz pal pentru publicul feminin */
+  border-radius: 8px;
+  font-weight: 600;
+}

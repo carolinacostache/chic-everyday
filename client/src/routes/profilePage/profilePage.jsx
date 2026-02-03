@@ -124,6 +124,9 @@ const Profilepage = () => {
                 style={{ width: `${next.progress}%` }}
               />
             </div>
+            <Link to="/badges-info" className="gamificationInfoLink">
+              💡 Ce înseamnă fashion points și cum câștig insigne?
+            </Link>
           </div>
 
           {/* Badges */}
