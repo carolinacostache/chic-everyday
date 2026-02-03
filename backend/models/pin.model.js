@@ -57,6 +57,18 @@ const pinSchema = new Schema(
       type: Number,
       default: 0
     },
+    visibility: { 
+    type: String, 
+    default: "public", 
+    enum: ["public", "private", "banned"] // <--- NOU: suport pentru 'banned'
+    },
+    deletedAt: { 
+      type: Date 
+    },      // <--- NOU
+    deletedBy: { 
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: "User" 
+    },
 
   },
   { timestamps: true }

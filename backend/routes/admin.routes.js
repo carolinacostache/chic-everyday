@@ -1,4 +1,5 @@
 import express from "express";
+import { verifyToken } from "../middlewares/verifyToken.js";
 import { verifyAdmin } from "../middlewares/verifyAdmin.js";
 import { 
   getAdminStats,
@@ -15,16 +16,19 @@ import {
   approveShop,
   rejectShop,
   adminUpdateUserRole,
+  createReport,
+  getReports,
+  resolveReport,
 } from "../controllers/admin.controller.js";
 
 const router = express.Router();
 
-router.use(verifyAdmin);
+router.use(verifyToken, verifyAdmin);
 
 router.get("/stats", getAdminStats);
 
 router.get("/users", getAllUsers);
-router.delete("/users/:id", adminDeleteUser);
+router.put("/user/:id/ban", verifyToken, verifyAdmin, adminDeleteUser);
 router.put("/users/:id", adminUpdateUserRole);
 
 router.delete("/pins/:id", adminDeletePin);
@@ -42,5 +46,8 @@ router.delete("/boards/:id", adminDeleteBoard);
 router.put("/shops/approve/:id", approveShop);
 router.put("/shops/reject/:id", rejectShop);
 
+router.post("/reports", verifyToken, createReport);
+router.get("/reports", verifyToken, verifyAdmin, getReports);
+router.put("/reports/:id/resolve", verifyToken, verifyAdmin, resolveReport);
 
 export default router;

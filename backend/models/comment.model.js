@@ -25,6 +25,10 @@ const commentSchema = new Schema(
       ref: "User",
       required: true,
     },
+    isVisible: { 
+      type: Boolean, 
+      default: true 
+    },
   },
   { timestamps: true }
 );

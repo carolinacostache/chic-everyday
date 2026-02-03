@@ -27,6 +27,8 @@ export const getPins = async (req, res) => {
 
     const LIMIT = 18;
     const skip = pageNumber * LIMIT;
+    const visibilityFilter = { visibility: { $nin: ["banned", "hidden"] } };
+
 
     if (search || userId || boardId || tag || type) {
       let query = {};
@@ -52,7 +54,7 @@ export const getPins = async (req, res) => {
         totalPinsInQuery = allPinIds.length;
         const paginatedPinIds = allPinIds.slice(skip, skip + LIMIT);
 
-        pins = await Pin.find({ _id: { $in: paginatedPinIds } }).populate(
+        pins = await Pin.find({ _id: { $in: paginatedPinIds }, ...visibilityFilter }).populate(
           "user",
           "username img displayName"
         );
@@ -71,16 +73,17 @@ export const getPins = async (req, res) => {
         const uniqueTags = [...new Set(tagsList)];
 
         let recommendedQuery = {
-          $and: [
-            {
-              $or: [
-                { tags: { $in: uniqueTags } },
-                { user: { $in: followingIds } },
-              ],
-            },
-            { _id: { $nin: likedPinIds } },
-            { type: { $ne: "contest" } },
-          ],
+            $and: [
+                {
+                    $or: [
+                        { tags: { $in: uniqueTags } },        // Criteriul 1: Are tag-uri care îmi plac
+                        { user: { $in: followingIds } }       // Criteriul 2: Este postat de un prieten
+                    ]
+                },
+                { _id: { $nin: likedPinIds } }, // Excludem ce am văzut deja (like)
+                { type: { $ne: 'contest' } },
+                visibilityFilter    // Excludem concursurile (opțional)
+            ]
         };
 
         pins = await Pin.find(recommendedQuery)
@@ -110,10 +113,11 @@ export const getPins = async (req, res) => {
           pins = [];
           totalPinsInQuery = 0;
         } else {
-          const followingQuery = {
-            user: { $in: currentUser.following },
-            type: { $ne: "contest" },
-          };
+            const followingQuery = {
+                user: { $in: currentUser.following },
+                type: { $ne: 'contest' },
+                ...visibilityFilter
+            };
 
           const count = await Pin.countDocuments(followingQuery);
           totalPinsInQuery = count;
@@ -132,8 +136,9 @@ export const getPins = async (req, res) => {
         }
 
         let weatherQuery = {
-          tags: { $regex: rawTag, $options: "i" },
-          type: { $ne: "contest" },
+            tags: { $regex: rawTag, $options: "i" }, 
+            type: { $ne: 'contest' },
+            ...visibilityFilter
         };
 
         pins = await Pin.find(weatherQuery)
@@ -194,7 +199,7 @@ export const getPins = async (req, res) => {
           }).select("_id");
           const boardIds = matchingBoards.map((b) => b._id);
 
-          query.$or = [
+          query.$or = [ visibilityFilter,
             { title: { $regex: search, $options: "i" } },
             { tags: { $in: [search] } },
             { user: { $in: userIds } },
@@ -230,7 +235,7 @@ export const getPins = async (req, res) => {
         .skip(skip);
 
       const contestPins = await Pin.aggregate([
-        { $match: { type: "contest" } },
+        { $match: { type: "contest", visibility: { $nin: ["banned", "hidden"] } } },
         { $sample: { size: 3 } },
       ]);
 

@@ -2,6 +2,7 @@ import express from "express";
 import {
   getUser,
   registerUser,
+  updateUser,
   submitShopApplication,
   loginUser,
   logoutUser,
@@ -21,6 +22,8 @@ const router = express.Router();
 router.get("/search", searchUsers);
 
 router.get("/:username", getUser);
+router.put("/:id", verifyToken, updateUser);
+
 router.post("/auth/register", registerUser);
 router.post("/apply-shop", verifyToken, submitShopApplication);
 router.get("/admin/pending-shops", verifyToken, verifyAdmin, getPendingApplications);

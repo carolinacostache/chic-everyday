@@ -39,6 +39,16 @@ useEffect(() => {
   };
 }, [menuRef]);
 
+const reportMutation = useMutation({
+  mutationFn: (reportData) => apiRequest.post("/admin/reports", reportData),
+  onSuccess: () => {
+    alert("Mulțumim! Raportul a fost trimis și va fi analizat de un admin.");
+  },
+  onError: (err) => {
+    alert(err.response?.data?.message || "Eroare la trimiterea raportului.");
+  }
+});
+
   const { isPending, error, data } = useQuery({
     queryKey: queryKey,
     queryFn: () =>
@@ -108,8 +118,21 @@ useEffect(() => {
   }; 
 
   const handleReport = () => {
-    alert("Pin-ul a fost raportat (funcționalitate de implementat).");
-    setIsMenuOpen(false);
+    if (!currentUser) {
+      navigate("/auth");
+      return;
+    }
+
+    const reason = window.prompt("De ce raportezi acest Pin? (Ex: Spam, Conținut inadecvat, etc.)");
+    
+    if (reason && reason.trim() !== "") {
+      reportMutation.mutate({
+        targetId: postId,
+        targetType: "pin",
+        reason: reason
+      });
+      setIsMenuOpen(false); // Închidem meniul după trimitere
+    }
   };
 
   return (

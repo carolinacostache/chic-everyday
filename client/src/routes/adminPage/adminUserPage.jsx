@@ -1,33 +1,39 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import apiRequest from "../../utils/apiRequest";
 import "./adminUserPage.css";
-import { Link } from "react-router-dom";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 const AdminUserPage = () => {
   const queryClient = useQueryClient();
-
   const [searchParams] = useSearchParams();
   const search = searchParams.get("search") || "";
 
+  // 1. Fetch Users
   const { isPending, error, data: users } = useQuery({
     queryKey: ["adminUsers", search],
     queryFn: () => apiRequest.get(`/admin/users?search=${search}`).then((res) => res.data),
   });
 
-  const deleteUserMutation = useMutation({
-    mutationFn: (userId) => apiRequest.delete(`/admin/users/${userId}`),
+  // 2. Mutație BAN (Aceasta înlocuiește DELETE)
+  // Ruta backend este acum: router.put("/user/:id/ban", ...)
+  const banUserMutation = useMutation({
+    mutationFn: ({ userId, reason }) => 
+      apiRequest.put(`/admin/user/${userId}/ban`, { reason }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["adminUsers"] });
+      alert("Utilizator Banat cu succes!");
     },
+    onError: (err) => {
+      alert(err.response?.data?.message || "Eroare la banare!");
+    }
   });
 
+  // 3. Mutație Schimbare Rol
   const updateRoleMutation = useMutation({
     mutationFn: ({ userId, newRole }) => 
       apiRequest.put(`/admin/users/${userId}`, { role: newRole }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["adminUsers"] });
-      // Opțional: alert("Rol actualizat cu succes!");
     },
     onError: (err) => {
       alert(err.response?.data?.message || "Eroare la actualizarea rolului!");
@@ -36,9 +42,13 @@ const AdminUserPage = () => {
 
   const pendingCount = users?.filter(u => u.shopDetails?.status === "PENDING").length || 0;
 
-  const handleDeleteUser = (userId) => {
-    if (window.confirm("Ești sigur că vrei să ștergi acest utilizator?")) {
-      deleteUserMutation.mutate(userId);
+  // 4. Handler BAN (cere motivul)
+  const handleBanUser = (userId) => {
+    const reason = window.prompt("Introduceți motivul banării:", "Încălcarea termenilor");
+    
+    if (reason) {
+      // Trimitem ID-ul și Motivul către backend
+      banUserMutation.mutate({ userId, reason });
     }
   };
 
@@ -49,7 +59,7 @@ const AdminUserPage = () => {
   };
 
   if (isPending) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.response.data.message}</div>;
+  if (error) return <div>Error: {error.response?.data?.message || "Error fetching users"}</div>;
 
   return (
     <div className="adminPage">
@@ -95,12 +105,12 @@ const AdminUserPage = () => {
                   <img 
                     src={user.img || "/general/noAvatar.jpg"} 
                     alt={user.username} 
+                    style={{ width: "40px", height: "40px", borderRadius: "50%", objectFit: "cover" }}
                   />
                 </td>
                 <td>{user.username}</td>
                 <td>{user.email}</td>
                 <td>
-                  {/* --- AICI AM SCHIMBAT TEXTUL CU UN SELECT --- */}
                   <select 
                     value={user.role}
                     onChange={(e) => handleRoleChange(user._id, e.target.value)}
@@ -110,16 +120,24 @@ const AdminUserPage = () => {
                     <option value="USER">USER</option>
                     <option value="ADMIN">ADMIN</option>
                     <option value="SHOP">SHOP</option>
+                    <option value="BANNED">BANNED</option>
                   </select>
                 </td>
                 <td>
-                  <button 
-                    className="deleteButton"
-                    onClick={() => handleDeleteUser(user._id)}
-                    disabled={deleteUserMutation.isPending}
-                  >
-                    Șterge
-                  </button>
+                  {/* Ascundem butonul dacă e deja banat sau e admin */}
+                  {user.role !== "BANNED" && user.role !== "ADMIN" && (
+                    <button 
+                      className="deleteButton"
+                      onClick={() => handleBanUser(user._id)}
+                      disabled={banUserMutation.isPending}
+                      style={{ backgroundColor: "#d32f2f", color: "white" }}
+                    >
+                      BAN 🚫
+                    </button>
+                  )}
+                  {user.role === "BANNED" && (
+                     <span style={{ color: "red", fontWeight: "bold" }}>BANAT</span>
+                  )}
                 </td>
               </tr>
             ))}

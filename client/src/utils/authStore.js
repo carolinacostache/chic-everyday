@@ -6,7 +6,7 @@ const useAuthStore = create(
     currentUser: null,
     setCurrentUser: (newUser) => set({ currentUser: newUser }),
     removeCurrentUser: () => set({ currentUser: null }),
-    updateCurrentUser: (updatedUser) => set({ currentUser: updatedUser }),
+    updateUser: (updatedUser) => set({ currentUser: updatedUser }),
   }))
 );
 

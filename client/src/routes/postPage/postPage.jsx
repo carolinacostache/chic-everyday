@@ -34,6 +34,8 @@ const Postpage = () => {
     }
   });
 
+    
+
   useEffect(() => {
     if (id) {
       apiRequest.put(`/pins/${id}/view`).catch(err => console.error(err));
@@ -68,7 +70,7 @@ const Postpage = () => {
     }
     navigate(`/contest/${data._id}/participate`);
   };
-
+  
   return (
     <>
       <div className="postPage">
@@ -88,6 +90,7 @@ const Postpage = () => {
           </div>
 
           <div className="postDetails">
+            
             <PostInteractions
               postId={id}
               isOwner={isOwner}
