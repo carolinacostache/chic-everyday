@@ -106,7 +106,7 @@ const BoardForm = ({ setIsNewBoardOpen, setSelectedBoard, setNewBoard, onBoardCr
             />
           </div>
 
-          {/* --- SECȚIUNEA COLABORATORI --- */}
+          {/* --- SECȚIUNEA COLABORATORI --- 
           <div className="formGroup">
             <label>Collaborators</label>
             <div className="collabInputWrapper">
@@ -117,7 +117,7 @@ const BoardForm = ({ setIsNewBoardOpen, setSelectedBoard, setNewBoard, onBoardCr
                 onChange={(e) => setCollabSearch(e.target.value)}
               />
               
-              {/* Dropdown cu Rezultate */}
+              
               {searchResults.length > 0 && (
                 <div className="collabDropdown">
                   {searchResults.map(user => (
@@ -134,7 +134,7 @@ const BoardForm = ({ setIsNewBoardOpen, setSelectedBoard, setNewBoard, onBoardCr
               )}
             </div>
 
-            {/* Lista Userilor Selectați (Chips) */}
+             
             <div className="selectedCollabsList">
               {selectedCollabs.map(user => (
                 <div key={user._id} className="collabChip">
@@ -145,9 +145,9 @@ const BoardForm = ({ setIsNewBoardOpen, setSelectedBoard, setNewBoard, onBoardCr
               ))}
             </div>
           </div>
-          {/* ----------------------------- */}
+           ----------------------------- */}
 
-          {/* ZONA DE SELECTARE SECRET */}
+          {/* ZONA DE SELECTARE SECRET 
           <div className="formGroup checkboxGroup">
             <div className="checkboxLabel">
               <label htmlFor="secretBoard" style={{ fontWeight: 'bold' }}>Keep this board secret</label>
@@ -164,7 +164,7 @@ const BoardForm = ({ setIsNewBoardOpen, setSelectedBoard, setNewBoard, onBoardCr
               <span className="slider round"></span>
             </label>
           </div>
-
+*/}
           <button type="submit" className="createButton" disabled={!title.trim()}>
             Create
           </button>

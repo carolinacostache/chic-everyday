@@ -154,9 +154,6 @@ const GalleryItem = ({ item }) => {
         </button>
 
         <div className="overlayIcons">
-          <button>
-            <NImage src="/general/share.svg" alt="" />
-          </button>
 
           <div className="galleryMenuContainer" ref={menuRef}>
             <button onClick={handleMenuToggle}>
@@ -171,36 +168,7 @@ const GalleryItem = ({ item }) => {
           </div>
         </div>
 
-        {/* ✅ 2. AICI E MODIFICAREA PRINCIPALĂ */}
-        {/* Afișăm butonul DOAR dacă e concurs ȘI NU este încheiat */}
-        {item.type === "contest" && !isContestEnded && (
-          <div
-            style={{
-              position: "absolute",
-              left: 12,
-              bottom: 12,
-              display: "flex",
-              flexDirection: "column",
-              gap: 8,
-              zIndex: 5,
-            }}
-          >
-            <button
-              onClick={handleJoinContest}
-              style={{
-                border: "none",
-                padding: "10px 14px",
-                borderRadius: 999,
-                fontWeight: 800,
-                cursor: "pointer",
-                background: isJoined ? "#670626" : "#f8bbd0",
-                color: isJoined ? "#fff8f0" : "#670626",
-              }}
-            >
-              {isJoined ? "Înscris ✅" : "Participă"}
-            </button>
-          </div>
-        )}
+        
       </div>
 
       <div className="galleryTitleContainer">

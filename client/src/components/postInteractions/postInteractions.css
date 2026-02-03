@@ -78,7 +78,7 @@
 }
 
 .savePrimary {
-    background: var(--accent);
+    background: #3a2d28;
     color: #fafaf8;
     border: none;
     border-radius: 999px;
@@ -90,7 +90,7 @@
 }
 
 .savePrimary:hover {
-    background: var(--accent-strong);
+    background: #a48374;
     transform: translateY(-1px);
 }
 

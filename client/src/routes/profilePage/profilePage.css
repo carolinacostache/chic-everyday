@@ -1,3 +1,4 @@
+/* --- CONTAINER PRINCIPAL --- */
 .profilePage {
     display: flex;
     flex-direction: column;
@@ -5,86 +6,135 @@
     gap: 12px;
     position: relative;
     z-index: 1;
-    padding: 8px 12px 32px;
+    /* Eliminăm padding-ul lateral pentru a permite galeriei să fie full-width */
+    padding: 20px 0 60px 0; 
+    width: 100%;
+    min-height: 100vh;
+    /* Fundalul vine din body, lăsăm transparent aici */
+    background: transparent;
 }
 
+/* --- HEADER PROFIL --- */
 .profileImg {
     border-radius: 50%;
     object-fit: cover;
-    width: 80px;
-    height: 80px;
-    border: 2px solid #ebe3db;
+    width: 120px;
+    height: 120px;
+    /* Border alb pentru a se distinge de fundal */
+    border: 4px solid #ffffff;
+    box-shadow: 0 4px 15px rgba(58, 45, 40, 0.1);
 }
 
 .profileName {
-    font-size: 24px;
-    font-weight: 600;
+    font-size: 28px;
+    font-weight: 700;
     color: #3a2d28;
+    margin-top: 8px;
+    text-align: center;
 }
 
 .profileUsername {
     font-weight: 500;
     color: #a48374;
+    font-size: 16px;
 }
 
 .followCount {
     font-weight: 600;
     color: #3a2d28;
+    margin-top: 4px;
+    display: flex;
+    gap: 8px;
 }
 
+.followCount .followLink {
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.followCount .followLink:hover {
+    color: #a48374;
+    text-decoration: underline;
+}
+
+/* --- INTERACȚIUNI ȘI BUTOANE --- */
 .profileInteractions {
     display: flex;
     align-items: center;
-    gap: 32px;
-    position: relative;
-    z-index: 2;
+    gap: 16px;
+    margin-top: 10px;
     flex-wrap: wrap;
     justify-content: center;
 }
 
 .profileButtons {
     display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    justify-content: center;
+    gap: 12px;
 }
 
+.profileButtons button {
+    border: none;
+    padding: 12px 24px;
+    border-radius: 32px;
+    font-weight: 700;
+    cursor: pointer;
+    /* Buton secundar: Bej deschis */
+    background-color: #ebe3db;
+    color: #3a2d28;
+    transition: all 0.2s ease;
+}
+
+.profileButtons button:hover {
+    background-color: #d1c7bd;
+    transform: translateY(-1px);
+}
+
+/* Butonul principal (ultimul din listă, de obicei Follow sau Edit) */
+.profileButtons button:last-child {
+    background-color: #3a2d28;
+    color: #ffffff;
+}
+
+.profileButtons button:last-child:hover {
+    background-color: #5d4840;
+}
+
+/* --- MENIU (OPȚIUNI ...) --- */
 .profileMenuWrap {
     position: relative;
-    z-index: 10;
+    z-index: 100;
 }
 
 .profileMenuTrigger {
-    width: 38px;
-    height: 38px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
-    border: 1px solid var(--border);
-    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #d1c7bd;
+    background: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    color: #3a2d28;
     transition: all 0.2s ease;
 }
 
 .profileMenuTrigger:hover {
     transform: translateY(-1px);
-    border-color: rgba(58, 45, 40, 0.3);
+    border-color: #3a2d28;
 }
 
 .profileMenu {
     position: absolute;
-    top: 46px;
-    right: 0;
+    top: 50px;
+    right: -10px; /* Ajustat să nu iasă din ecran pe mobil */
     background: #3a2d28;
-    border: 1px solid var(--border);
     border-radius: 16px;
-    box-shadow: 0 14px 30px rgba(164, 131, 116, 0.18);
+    box-shadow: 0 10px 30px rgba(58, 45, 40, 0.2);
     padding: 8px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    min-width: 200px;
+    min-width: 180px;
     z-index: 999;
 }
 
@@ -92,325 +142,306 @@
     background: none;
     border: none;
     padding: 12px 16px;
-    font-size: 15px;
+    color: #f1ede6; /* Text deschis pe fundal închis */
     font-weight: 600;
-    cursor: pointer;
-    border-radius: 10px;
     text-align: left;
-    color: var(--ink);
-    transition: background-color 0.2s;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 100%;
 }
 
 .profileMenu button:hover {
-    background-color: rgba(164, 131, 116, 0.1);
+    background-color: rgba(255, 255, 255, 0.15);
 }
 
-.profileButtons button {
-    border: none;
-    padding: 16px;
-    border-radius: 32px;
-    font-weight: 700;
-    cursor: pointer;
-    background-color: #ebe3db;
-    color: #3a2d28;
-    transition: background-color 0.2s;
-}
-
-.profileButtons button:hover {
-    background-color: #ebe3db;
-}
-
-.profileButtons button:last-child {
-    background-color: #3a2d28;
-    color: #ebe3db;
-}
-
-.profileButtons button:last-child:hover {
-    background-color: #ebe3db;
-    color: #3a2d28;
-}
-
-.profileOptions {
-    display: flex;
-    gap: 16px;
-    margin-top: 32px;
-    margin-bottom: 32px;
-    font-weight: 600;
-    color: #d1c7bd;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-/* Gallery layout on profile: centered and larger cards */
-.profilePage .my-masonry-grid {
-    max-width: 1600px;
-    margin: 0;
-    padding-left: 8px;
-}
-
-.profilePage .my-masonry-grid_column {
-    padding-left: 18px;
-}
-
-.profilePage .galleryItem {
-    margin-bottom: 24px;
-}
-
-.profileOptions span {
-    cursor: pointer;
-    padding: 8px 0px;
-    transition: color 0.2s;
-}
-
-.profileOptions span:hover {
-    color: #3a2d28;
-}
-
-.active {
-    border-bottom: 3px solid #3a2d28;
-    color: #3a2d28;
-}
-
-.followCount .followLink {
-    cursor: pointer;
-    font-weight: 600;
-    color: #3a2d28;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.followCount .followLink:hover {
-    text-decoration: underline;
-    color: #ebe3db;
-}
-
+/* --- GAMIFICATION (Lățime Mare) --- */
 .gamificationContainer {
-    width: 100%;
-    max-width: 640px;
-    margin: 18px 0;
-    padding: 18px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: var(--radius-lg);
+    width: 90%;
+    max-width: 1000px; /* Lățime generoasă */
+    margin: 24px 0;
+    padding: 24px;
+    background: #ffffff;
+    border-radius: 24px;
+    border: 1px solid #d1c7bd;
+    box-shadow: 0 8px 25px rgba(58, 45, 40, 0.05);
     display: flex;
     flex-direction: column;
+    gap: 16px;
     align-items: center;
-    gap: 15px;
-    box-shadow: var(--shadow-soft);
-    border: 1px solid var(--border);
 }
 
 .levelWrapper {
     display: flex;
     align-items: center;
-    gap: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #e0e0e0;
-    width: 100%;
     justify-content: center;
+    gap: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f1ede6;
+    width: 100%;
     flex-wrap: wrap;
 }
 
 .levelBadge {
     background: linear-gradient(120deg, #3a2d28, #a48374);
-    color: white;
-    padding: 6px 12px;
+    color: #ffffff;
+    padding: 8px 16px;
     border-radius: 999px;
-    font-size: 13px;
     font-weight: 700;
-    letter-spacing: 0.4px;
-}
-
-.levelBadge strong {
-    font-size: 16px;
-    margin-left: 4px;
+    font-size: 14px;
 }
 
 .pointsInfo {
     display: flex;
     flex-direction: column;
-    line-height: 1.2;
+    align-items: center;
 }
 
 .pointsValue {
     font-weight: 800;
-    font-size: 20px;
-    color: var(--ink);
+    font-size: 22px;
+    color: #3a2d28;
 }
 
 .pointsLabel {
     font-size: 12px;
-    color: var(--ink-soft);
+    color: #a48374;
     text-transform: uppercase;
 }
 
 .tierBadge {
-    background: linear-gradient(135deg, #ebe3db, #ebe3db);
+    background: #ebe3db;
     color: #3a2d28;
     padding: 6px 12px;
     border-radius: 999px;
-    font-size: 12px;
     font-weight: 800;
+    font-size: 12px;
     text-transform: uppercase;
-    letter-spacing: 0.6px;
-    box-shadow: 0 8px 16px rgba(203, 173, 141, 0.35);
 }
 
 .progressWrapper {
     width: 100%;
+    max-width: 600px;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
 }
 
 .progressTop {
-    width: 100%;
     display: flex;
     justify-content: space-between;
-    font-size: 12px;
-    color: var(--ink-soft);
+    font-size: 13px;
+    color: #a48374;
     font-weight: 600;
-    gap: 12px;
-    flex-wrap: wrap;
 }
 
 .progressBar {
     width: 100%;
-    height: 10px;
-    background: #ebe3db;
+    height: 12px;
+    background: #f1ede6;
     border-radius: 999px;
     overflow: hidden;
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.06);
 }
 
 .progressFill {
     height: 100%;
-    width: 0%;
     background: linear-gradient(90deg, #a48374, #cbad8d);
     border-radius: 999px;
-    transition: width 300ms ease;
+    transition: width 0.3s ease;
+}
+
+.gamificationInfoLink {
+    text-align: center;
+    font-size: 13px;
+    color: #a48374;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 5px;
 }
 
 .badgesWrapper {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
+    margin-top: 10px;
 }
 
 .badgeItem {
-    width: 54px;
-    height: 54px;
+    width: 60px;
+    height: 60px;
     background-color: #fff;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    box-shadow: 0 10px 18px rgba(58, 45, 40, 0.12);
-    border: 1px solid var(--border);
+    font-size: 28px;
+    box-shadow: 0 8px 16px rgba(58, 45, 40, 0.1);
+    border: 1px solid #d1c7bd;
     cursor: help;
     transition: transform 0.2s;
 }
 
 .badgeItem:hover {
-    transform: translateY(-2px) scale(1.05);
+    transform: translateY(-3px) scale(1.05);
 }
 
 .noBadgesText {
-    font-size: 13px;
-    color: var(--ink-soft);
+    color: #a48374;
     font-style: italic;
+    font-size: 14px;
 }
 
+/* --- TABS (Created / Saved) --- */
+.profileOptions {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 40px auto 20px auto;
+    font-weight: 700;
+    font-size: 18px;
+    color: #d1c7bd;
+    border-bottom: 1px solid #f1ede6;
+}
+
+.profileOptions span {
+    cursor: pointer;
+    padding: 12px 24px;
+    transition: all 0.2s;
+    position: relative;
+    top: 1px;
+}
+
+.profileOptions span:hover {
+    color: #3a2d28;
+}
+
+.profileOptions span.active {
+    color: #3a2d28;
+    border-bottom: 3px solid #3a2d28;
+}
+
+/* --- FIX PENTRU GALERIE (Masonry Full Width) --- */
+
+/* 1. Wrapper-ul din JSX care ocupă tot spațiul */
+.profileGalleryWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+/* 2. Grid-ul Masonry forțat să se întindă */
+.profilePage .my-masonry-grid {
+    display: flex !important;
+    width: 100% !important;
+    max-width: 2000px !important; /* Limită foarte largă */
+    margin: 0 auto !important;
+    padding: 0 20px; /* Spațiu lateral */
+    box-sizing: border-box;
+}
+
+/* 3. Coloanele grid-ului */
+.profilePage .my-masonry-grid_column {
+    padding-left: 24px !important; /* Spațiu între poze */
+    background-clip: padding-box;
+}
+
+/* 4. Cardurile individuale */
+.profilePage .galleryItem {
+    width: 100% !important;
+    margin-bottom: 24px;
+    background: #ffffff;
+    border-radius: 16px;
+    /* Opțional: border fin pentru contrast pe fundal alb */
+    border: 1px solid #f1ede6; 
+}
+
+/* 5. Imaginile */
+.profilePage .galleryImageContainer {
+    width: 100%;
+}
+
+.profilePage .galleryImageContainer img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+}
+
+/* --- STARE DE BAN (BANNED) --- */
 .bannedProfile {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
 }
 
 .bannedMessageCard {
-  background: #fff8f0;
-  border: 2px solid #3a2d28;
-  padding: 40px;
-  border-radius: 24px;
-  text-align: center;
-  max-width: 500px;
-  box-shadow: 0 10px 30px rgba(103, 51, 6, 0.1);
+    background: #ffffff;
+    border: 2px solid #3a2d28;
+    padding: 40px;
+    border-radius: 24px;
+    text-align: center;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(58, 45, 40, 0.1);
 }
 
 .bannedIcon {
-  font-size: 60px;
-  display: block;
-  margin-bottom: 20px;
+    font-size: 60px;
+    display: block;
+    margin-bottom: 20px;
 }
 
 .bannedMessageCard h1 {
-  color: #3a2d28;
-  margin-bottom: 10px;
+    color: #3a2d28;
+    margin-bottom: 10px;
 }
 
 .bannedMessageCard p {
-  color: #8c6b74;
-  font-size: 16px;
-  margin-bottom: 20px;
+    color: #a48374;
+    font-size: 16px;
+    margin-bottom: 20px;
 }
 
 .banReasonBox {
-  background: #f1ede6;
-  padding: 15px;
-  border-radius: 12px;
-  color: #3a2d28;
-  font-style: italic;
-  margin-bottom: 25px;
+    background: #f1ede6;
+    padding: 15px;
+    border-radius: 12px;
+    color: #3a2d28;
+    font-style: italic;
+    margin-bottom: 25px;
+    border: 1px solid #d1c7bd;
 }
 
 .backHomeBtn {
-  display: inline-block;
-  background: #3a2d28;
-  color: white;
-  padding: 12px 24px;
-  border-radius: 25px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: transform 0.2s;
+    display: inline-block;
+    background: #3a2d28;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: transform 0.2s;
 }
 
 .backHomeBtn:hover {
-  transform: scale(1.05);
+    transform: scale(1.05);
 }
 
-.gamificationInfoLink {
-  display: block;
-  margin-top: 10px;
-  font-size: 13px;
-  color: #6a6a6a;
-  text-decoration: underline;
-  cursor: pointer;
-  transition: color 0.2s;
-}
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .profileOptions {
+        gap: 20px;
+        font-size: 16px;
+    }
 
-.gamificationInfoLink:hover {
-  color: #000;
-}
-
-/* Stiluri pentru pagina de info */
-.badgesInfoPage {
-  padding: 40px 20px;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.infoBadgeCard {
-  border: 1px solid #eee;
-  padding: 20px;
-  border-radius: 12px;
-  text-align: center;
-  background: #fafafa;
-}
-
-.infoBadgeIcon {
-  font-size: 30px;
-  display: block;
-  margin-bottom: 10px;
+    .profilePage .my-masonry-grid {
+        padding: 0 10px;
+    }
+    
+    .profilePage .my-masonry-grid_column {
+        padding-left: 10px !important;
+    }
 }

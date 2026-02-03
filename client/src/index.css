@@ -3,23 +3,31 @@
 :root {
   --font-display: "Fraunces", serif;
   --font-body: "Space Grotesk", sans-serif;
-  --ink: #0c1b2a;
-  --ink-soft: #30445c;
-  --accent: #223a5a;
-  --accent-strong: #2b4f7a;
-  --accent-soft: #e2ebf6;
-  --accent-muted: #f0f4f9;
-  --sun: #b7c8dd;
-  --surface: #f8f9fb;
-  --surface-strong: #ffffff;
-  --border: rgba(34, 58, 90, 0.18);
-  --shadow-soft: 0 12px 30px rgba(10, 22, 35, 0.12);
-  --shadow-pop: 0 22px 48px rgba(10, 22, 35, 0.18);
+  
+  /* Paleta ta de culori */
+  --ink: #3a2d28;            /* Maro închis */
+  --ink-soft: #a48374;       /* Maro mediu */
+  --accent: #3a2d28;         /* Maro închis */
+  --accent-strong: #5d4840;  /* Maro profund */
+  
+  /* --- CULORI MULT MAI DESCHISE AICI --- */
+  --accent-soft: #f9f7f5;    /* Aproape alb */
+  --accent-muted: #f0ece6;   /* Bej foarte pal */
+  --sun: #cbad8d;            /* Cupru */
+  
+  /* Suprafețe - Trecere la ALB */
+  --surface: #ffffff;        /* Fundal ALB pur */
+  --surface-strong: #ffffff; /* Alb pur */
+  --border: #e6e0d9;         /* Margine mult mai deschisă */
+  
+  /* Umbre și Efecte */
+  --shadow-soft: 0 12px 30px rgba(58, 45, 40, 0.06); /* Umbră mai fină pe alb */
+  --shadow-pop: 0 22px 48px rgba(58, 45, 40, 0.12);
   --radius-xl: 28px;
   --radius-lg: 20px;
   --radius-md: 14px;
   --radius-sm: 10px;
-  --ring: 0 0 0 4px rgba(34, 58, 90, 0.14);
+  --ring: 0 0 0 4px rgba(164, 131, 116, 0.1);
 }
 
 * {
@@ -29,11 +37,18 @@
 }
 
 body {
-  font-family: var(--font-body);
-  color: var(--ink);
-  background: radial-gradient(circle at 10% -10%, rgba(226, 235, 246, 0.9), transparent 48%),
-    radial-gradient(circle at 90% 0%, rgba(226, 235, 246, 0.55), transparent 46%),
-    linear-gradient(180deg, #f8f9fb 0%, #f5f7fa 60%, #ffffff 100%);
+  font-family: "Space Grotesk", sans-serif;
+  color: #3a2d28; 
+  
+  /* Gradient MULT mai deschis, aproape invizibil, doar o tentă caldă */
+  background: 
+    /* Spot de lumină stânga sus - foarte subtil */
+    radial-gradient(circle at 10% -10%, rgba(255, 252, 248, 1), transparent 48%),
+    /* Spot dreapta - bej foarte palid */
+    radial-gradient(circle at 90% 0%, rgba(245, 240, 235, 0.5), transparent 46%),
+    /* Fundal general - Alb spre un alb "hârtie" foarte deschis */
+    linear-gradient(180deg, #ffffff 0%, #fdfcfb 100%);
+    
   min-height: 100vh;
 }
 
@@ -42,9 +57,10 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background-image: radial-gradient(rgba(34, 58, 90, 0.06) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(58, 45, 40, 0.06) 1px, transparent 1px);
   background-size: 18px 18px;
-  opacity: 0.4;
+  /* Opacitate redusă pentru a nu murdări albul */
+  opacity: 0.25; 
   z-index: -1;
 }
 
@@ -68,62 +84,19 @@ button {
   transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
-.pageFadeIn {
-  animation: pageFade 320ms ease both;
-}
-
-.staggerIn {
-  animation: slideUp 420ms ease both;
-}
-
-.pulseGlow {
-  animation: pulseGlow 1.6s ease-in-out infinite;
-}
-
-@keyframes pageFade {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+::selection {
+  background: rgba(209, 199, 189, 0.3); 
+  color: #3a2d28; 
 }
 
 @keyframes pulseGlow {
   0% {
-    box-shadow: 0 0 0 0 rgba(43, 79, 122, 0.25);
+    box-shadow: 0 0 0 0 rgba(164, 131, 116, 0.25);
   }
   70% {
-    box-shadow: 0 0 0 10px rgba(43, 79, 122, 0);
+    box-shadow: 0 0 0 10px rgba(164, 131, 116, 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(43, 79, 122, 0);
+    box-shadow: 0 0 0 0 rgba(164, 131, 116, 0);
   }
 }
-
-@media (max-width: 960px) {
-  :root {
-    --radius-xl: 22px;
-    --radius-lg: 18px;
-  }
-}
-
-::selection {
-  background: rgba(226, 235, 246, 0.85);
-  color: var(--ink);
-}
-
-

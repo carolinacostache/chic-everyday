@@ -19,7 +19,7 @@ const ShopStats = () => {
   return (
     <div className="shopStatsPage">
       <div className="statsHeader">
-        <h1>📊 Statistici Magazin</h1>
+        <h1>Statistici Magazin</h1>
         <p>Performanța conținutului tău și costurile de vizibilitate.</p>
       </div>
 
@@ -55,7 +55,7 @@ const ShopStats = () => {
           </div>
         </div>
 
-        <div className="statCard highlight">
+        <div className="statCard">
           <div className="iconContainer">🖱️</div>
           <div className="statInfo">
             <h3>Click-uri pe Link</h3>
@@ -101,7 +101,7 @@ const ShopStats = () => {
       )}
 
       <div className="billingSection">
-        <h2>💰 Estimare Costuri (Vizibilitate)</h2>
+        <h2>Estimare Costuri (Vizibilitate)</h2>
         <div className="billCard">
           <div className="billRow">
             <span>Cost din Vizualizări ({totalViews} x {monetization?.costPerView})</span>

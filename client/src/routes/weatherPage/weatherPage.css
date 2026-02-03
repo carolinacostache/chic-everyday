@@ -1,31 +1,74 @@
 .weatherPage {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+  /* Dimensiuni pentru tot ecranul */
+  width: 100%;
+  min-height: 100vh; 
+  margin: 0;
+  padding: 40px;
+  box-sizing: border-box;
+  
+  /* Eliminăm limitarea de lățime pentru a fi full-screen */
+  max-width: none; 
+  
+  /* Fundalul crem principal al temei tale */
+  background-color: #f1ede6; 
+  
+  /* Flexbox pentru a aranja conținutul */
+  display: flex;
+  flex-direction: column;
 }
 
 .weatherPage h2 {
   font-weight: 700;
-  font-size: 24px;
-  margin-bottom: 8px;
-  color: #a48374;
+  font-size: 32px; /* Mărit puțin pentru impact pe ecran mare */
+  margin-bottom: 12px;
+  /* Maro închis 3a2d28 pentru contrast bun */
+  color: #3a2d28;
+  text-align: center;
 }
 
 .weatherPage p {
-  font-size: 16px;
-  color: #cbad8d;
-  margin-bottom: 24px;
+  font-size: 18px;
+  /* Maro mediu a48374 */
+  color: #a48374;
+  margin-bottom: 40px;
+  text-align: center;
 }
 
+/* Stiluri pentru stările de Încărcare și Eroare */
 .weatherLoading,
 .weatherError {
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: 600;
   text-align: center;
   padding: 40px;
-  color: #cbad8d;
-  background-color: #f1ede6;
-  border-radius: 16px;
-  border: 1px solid #ebe3db;
+  
+  /* Culori asortate */
+  color: #a48374;
+  background-color: #ebe3db; /* Fundal bej/crem puțin mai închis */
+  border: 1px solid #d1c7bd; /* Border bej */
+  border-radius: 24px;
+  
+  /* Facem acest container să ocupe restul spațiului disponibil și să centreze textul */
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 20px;
+  
+  /* Umbră discretă maro */
+  box-shadow: 0 10px 30px rgba(58, 45, 40, 0.08);
 }
 
+.weatherCurrentInfo {
+  display: flex;
+  justify-content: center; /* Le centrează pe orizontală */
+  align-items: center;     /* Le centrează pe verticală */
+  gap: 4px;               /* Spațiu între temperatură și text */
+  width: 100%;
+  margin: 20px 0;
+}
+
+/* Stilurile pentru text */
+.tempDisplay, .condDisplay {
+  line-height: 1;
+}

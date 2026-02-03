@@ -172,6 +172,7 @@ const Profilepage = () => {
             </span>
           )}
         </div>
+        <div className="profileGalleryWrapper">
 
         {type === "created" ? (
           <Gallery userId={data._id} />
@@ -180,6 +181,7 @@ const Profilepage = () => {
         ) : (
           <Gallery userId={data._id} type="contest" />
         )}
+        </div>
       </div>
 
       {modalType && (

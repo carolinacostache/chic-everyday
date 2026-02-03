@@ -1,12 +1,32 @@
 .contestPage {
-    height: 100%;
+    /* Setări pentru a acoperi tot ecranul */
+    width: 100%;
+    min-height: 100vh; /* Ocupă minim toată înălțimea vizibilă */
+    margin: 0;
+    padding: 20px 20px 50px 20px;
+    box-sizing: border-box; /* Include padding-ul în dimensiuni */
+    
+    /* Eliminăm limita de pe containerul principal pentru ca fundalul să fie peste tot */
+    max-width: none; 
+    
     overflow-y: auto;
-    padding: 20px;
-    padding-bottom: 50px;
-    max-width: 1400px;
-    margin: 0 auto;
+    
     /* Fundalul tău f1ede6 */
     background: #f1ede6;
+}
+
+/* --- Ajustări pentru a centra conținutul în pagină --- */
+/* Aplicăm limita de lățime și centrarea doar pe conținutul efectiv */
+.contestBanner, 
+.sectionTitle, 
+.contestGrid,
+.divider,
+.centerMsg,
+.loadMoreContainer {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
 }
 
 /* Participate page layout */

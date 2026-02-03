@@ -77,7 +77,7 @@ const ContestPage = () => {
 
       {/* ================= SECȚIUNEA 1: ACTIVE ================= */}
       <div className="contestSection">
-        <h2 className="sectionTitle activeTitle">🔥 Concursuri Active</h2>
+        <h2 className="sectionTitle activeTitle">Concursuri Active</h2>
         
         {activeContests.length === 0 ? (
            <div className="noContests">
@@ -110,7 +110,7 @@ const ContestPage = () => {
 
       {/* ================= SECȚIUNEA 2: ÎNCHEIATE ================= */}
       <div className="contestSection">
-        <h2 className="sectionTitle endedTitle">🏁 Concursuri Încheiate</h2>
+        <h2 className="sectionTitle endedTitle">Concursuri Încheiate</h2>
         
         {endedContests.length === 0 ? (
            <p className="noData">Niciun concurs finalizat încă.</p>

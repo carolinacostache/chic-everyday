@@ -1,7 +1,20 @@
 .shopStatsPage {
-  max-width: 1000px;
-  margin: 40px auto;
-  padding: 0 20px;
+  /* Setări pentru Full Screen */
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 40px; /* Padding mai generos pentru ecrane mari */
+  box-sizing: border-box;
+  
+  /* Eliminăm limitarea de lățime */
+  max-width: none;
+  
+  /* Fundalul crem al temei */
+  background-color: #f1ede6;
+  
+  /* Flexbox pentru a structura conținutul dacă e nevoie */
+  display: flex;
+  flex-direction: column;
 }
 
 .statsHeader {
@@ -21,7 +34,9 @@
 
 .statsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  /* Grid-ul se va extinde pe toată lățimea. 
+     Mărim minmax la 250px pentru a nu fi cardurile prea înguste pe ecrane wide */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 24px;
   margin-bottom: 60px;
 }
@@ -34,7 +49,7 @@
   display: flex;
   align-items: center;
   gap: 20px;
-  border: 1px solid #ebe3db;
+  border: 1px solid #d1c7bd; /* Border bej */
   transition: transform 0.2s;
 }
 
@@ -62,7 +77,7 @@
 
 .statInfo h3 {
   font-size: 14px;
-  color: #cbad8d;
+  color: #a48374; /* Maro mediu */
   margin: 0 0 5px 0;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -78,8 +93,16 @@
 .statSubtext {
   display: block;
   margin-top: 5px;
-  color: #cbad8d;
+  color: #a48374;
   font-size: 12px;
+}
+
+.billingSection {
+  /* Centram secțiunea de billing pe pagina mare */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .billingSection h2 {
@@ -90,11 +113,13 @@
 
 .billCard {
   background: #ffffff;
-  border: 1px solid #ebe3db;
+  border: 1px solid #d1c7bd;
   border-radius: 12px;
   padding: 30px;
-  max-width: 500px;
-  box-shadow: 0 4px 12px rgba(103, 6, 38, 0.05);
+  /* Pe full screen, cardul de plată arată mai bine dacă e mai lat sau centrat */
+  width: 100%;
+  max-width: 600px; 
+  box-shadow: 0 4px 12px rgba(58, 45, 40, 0.05);
 }
 
 .billRow {
@@ -128,8 +153,8 @@
 }
 
 .payBtn:hover {
-  background-color: #ebe3db;
-  color: #3a2d28;
+  background-color: #a48374;
+  color: #ffffff;
 }
 
 .statCard.clickable {
@@ -162,21 +187,23 @@
   background: white;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 15px rgba(58, 45, 40, 0.05);
   margin-bottom: 30px;
+  border: 1px solid #d1c7bd;
   animation: slideDown 0.3s ease-out;
+  width: 100%; /* Full width in container */
 }
 
 .detailsSection h2 {
   font-size: 18px;
-  color: #333;
+  color: #3a2d28;
   margin-bottom: 15px;
   border-bottom: 2px solid #ebe3db;
   padding-bottom: 10px;
 }
 
 .tableWrapper {
-  overflow-x: auto; /* Pentru mobil */
+  overflow-x: auto;
 }
 
 .statsTable {
@@ -194,8 +221,8 @@
 
 .statsTable td {
   padding: 10px 12px;
-  border-bottom: 1px solid #eee;
-  color: #555;
+  border-bottom: 1px solid #f1ede6;
+  color: #3a2d28;
 }
 
 .statsTable tr:last-child td {
@@ -207,7 +234,7 @@
   height: 50px;
   border-radius: 8px;
   object-fit: cover;
-  border: 1px solid #ddd;
+  border: 1px solid #d1c7bd;
 }
 
 .tableTitle {
@@ -219,4 +246,3 @@
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
 }
-

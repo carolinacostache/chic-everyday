@@ -13,9 +13,12 @@
     line-height: 0;
     border-radius: 18px;
     overflow: visible;
-    background: var(--surface-strong);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-soft);
+    /* var(--surface-strong) -> #f1ede6 */
+    background: #f1ede6;
+    /* var(--border) -> #d1c7bd */
+    border: 1px solid #d1c7bd;
+    /* var(--shadow-soft) -> umbră maro discretă */
+    box-shadow: 0 4px 12px rgba(58, 45, 40, 0.08);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -28,7 +31,8 @@
 }
 
 .galleryImageContainer:hover {
-    box-shadow: var(--shadow-pop);
+    /* var(--shadow-pop) -> umbră maro accentuată */
+    box-shadow: 0 10px 24px rgba(58, 45, 40, 0.15);
 }
 
 .galleryImageContainer:hover img {
@@ -42,7 +46,8 @@
 .galleryTitleContainer h4 {
     font-size: 14px;
     font-weight: 600;
-    color: var(--ink);
+    /* var(--ink) -> #3a2d28 */
+    color: #3a2d28;
     margin: 0;
     white-space: nowrap;
     overflow: hidden;
@@ -88,7 +93,8 @@
 }
 
 .saveButton {
-    background: var(--accent-strong);
+    /* var(--accent-strong) -> #3a2d28 */
+    background: #3a2d28;
     color: #ffffff;
     border-radius: 999px;
     padding: 10px 16px;
@@ -107,7 +113,8 @@
 }
 
 .saveButton:hover {
-    background: var(--accent);
+    /* var(--accent) -> #a48374 */
+    background: #a48374;
     color: #ffffff;
     transform: none;
 }
@@ -166,7 +173,8 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  border: 1px solid var(--border);
+  /* var(--border) -> #d1c7bd */
+  border: 1px solid #d1c7bd;
   margin-top: 8px;
 }
 
@@ -178,7 +186,8 @@
   display: block;
   background: none;
   border: none;
-  color: var(--ink);
+  /* var(--ink) -> #3a2d28 */
+  color: #3a2d28;
   font-size: 15px;
   font-weight: 600;
   text-align: left;
@@ -195,7 +204,8 @@
   top: 12px;
   left: 12px;
   background: linear-gradient(120deg, #ebe3db, #f1ede6);
-  color: var(--accent);
+  /* var(--accent) -> #a48374 */
+  color: #a48374;
   padding: 6px 10px;
   border-radius: 999px;
   font-size: 11px;
@@ -224,20 +234,22 @@
     font-weight: 800;
     cursor: pointer;
     background: rgba(255, 255, 255, 0.92);
-    color: var(--accent);
+    /* var(--accent) -> #a48374 */
+    color: #a48374;
     transition: all 0.2s ease;
     box-shadow: 0 8px 16px rgba(35, 17, 10, 0.18);
 }
 
 .contestJoinButton:hover {
-    transform: translateY(-1px);
     background: #f0f4f9;
 }
 
 .contestJoinButton.joined {
-    background: var(--accent);
+    /* var(--accent) -> #a48374 */
+    background: #a48374;
     color: #ffffff;
-    border-color: var(--accent);
+    /* var(--accent) -> #a48374 */
+    border-color: #a48374;
     box-shadow: 0 10px 18px rgba(35, 18, 10, 0.3);
 }
 
@@ -253,7 +265,8 @@
 
 .contestPrize {
     font-size: 12px;
-    color: var(--ink-soft);
+    /* var(--ink-soft) -> #a48374 */
+    color: #a48374;
     font-weight: 600;
     margin: 2px 0 0 0;
 }
