@@ -1,6 +1,6 @@
 .adminBar {
-  background-color: #fafaf8;
-  border-bottom: 1px solid #e6eef8;
+  background-color: #f1ede6;
+  border-bottom: 1px solid #ebe3db;
   padding: 0 20px;
   margin-bottom: 20px;
 }
@@ -8,7 +8,7 @@
 .adminContainer {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Distribuie: Stânga - Mijloc - Dreapta */
+  justify-content: space-between;
   height: 60px;
   max-width: 1200px;
   margin: 0 auto;
@@ -27,7 +27,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #1f3a5f; /* Am schimbat în culoarea temei (era #333) */
+  color: #3a2d28; /* Am schimbat în culoarea temei (era #333) */
   transition: transform 0.2s ease, background-color 0.2s;
   padding: 8px; /* Zonă de click mai mare */
   border-radius: 50%;
@@ -35,13 +35,13 @@
 
 .backArrow:hover {
   transform: translateX(-3px);
-  background-color: #e6eef8; /* Fundal rozaliu la hover */
+  background-color: #ebe3db; /* Fundal rozaliu la hover */
 }
 
 /* Titlul */
 .adminTitle {
   text-decoration: none;
-  color: #1f3a5f;
+  color: #3a2d28;
 }
 
 .adminTitle h1 {
@@ -59,7 +59,7 @@
 
 .adminLinks a {
   text-decoration: none;
-  color: #1f3a5f;
+  color: #3a2d28;
   font-weight: 600;
   padding: 8px 12px;
   border-radius: 8px;
@@ -68,13 +68,13 @@
 }
 
 .adminLinks a:hover {
-  background-color: #e6eef8;
-  color: #1f3a5f;
+  background-color: #ebe3db;
+  color: #3a2d28;
 }
 
 .adminLinks a.active {
-  background-color: #1f3a5f; /* Activ mai închis */
-  color: #fff;
+  background-color: #3a2d28; /* Activ mai închis */
+  color: #f1ede6;
 }
 
 /* --- SEARCH (MIJLOC) --- */
@@ -89,21 +89,21 @@
   padding: 8px 16px;
   width: 100%;
   max-width: 400px;
-  border: 1px solid #dfe8f6;
+  border: 1px solid #d1c7bd;
   border-radius: 20px;
   background-color: #fff; /* Alb curat pe fundal */
   font-size: 14px;
-  color: #1f3a5f;
+  color: #3a2d28;
 }
 
 .adminNavSearch::placeholder {
-  color: #dfe8f6;
+  color: #d1c7bd;
 }
 
 .adminNavSearch:focus {
   background-color: #fff;
-  border-color: #1f3a5f;
+  border-color: #3a2d28;
   outline: none;
-  box-shadow: 0 0 0 2px rgba(103, 6, 38, 0.1);
+  
 }
 

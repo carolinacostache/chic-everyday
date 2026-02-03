@@ -9,7 +9,7 @@
 }
 
 .homeBanner {
-    background: linear-gradient(120deg, #1f3652 0%, #2d4a64 50%, #5f788c 75%, #a7b5c1 100%);
+    background: linear-gradient(120deg, #3a2d28 0%, #a48374 50%, #cbad8d 75%, #d1c7bd 100%);
     border-radius: 26px;
     padding: 28px 36px;
     display: grid;
@@ -26,8 +26,8 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 20% 20%, rgba(74, 183, 255, 0.514), transparent 40%),
-        radial-gradient(circle at 80% 10%, rgba(17, 171, 218, 0.1), transparent 45%);
+    background: radial-gradient(circle at 20% 20%, #3a2d28, transparent 40%),
+        radial-gradient(circle at 80% 10%, #a48374, transparent 45%);
     opacity: 0.8;
     pointer-events: none;
 }
@@ -48,7 +48,9 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    color:#d1c7bd;
 }
+
 
 .bannerTrophy {
     width: 28px;
@@ -56,7 +58,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    filter: drop-shadow(0 6px 12px rgba(10, 22, 35, 0.35));
+    filter: drop-shadow(0 6px 12px rgba(35, 26, 10, 0.35));
 }
 
 .bannerTrophy svg {
@@ -67,12 +69,12 @@
 .bannerTrophy .trophyCup,
 .bannerTrophy .trophyStem,
 .bannerTrophy .trophyBase {
-    fill: #e6eef8;
+    fill: #d1c7bd;
 }
 
 .bannerTrophy .trophyHandle {
     fill: none;
-    stroke: #e6eef8;
+    stroke: #d1c7bd;
     stroke-width: 4;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -80,14 +82,14 @@
 
 .bannerContent p {
     font-size: 16px;
-    opacity: 0.92;
     margin-bottom: 20px;
     max-width: 420px;
+    color: #d1c7bd;
 }
 
 .bannerBtn {
     background: #ffffff;
-    color: #1f3a5f;
+    color: #3a2d28;
     border: none;
     padding: 12px 26px;
     border-radius: 999px;
@@ -99,7 +101,7 @@
 
 .bannerBtn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 16px 30px rgba(9, 177, 219, 0.2);
+    box-shadow: 0 16px 30px #d1c7bd;
 }
 
 .bannerVisual {
@@ -113,7 +115,7 @@
     width: 150px;
     height: 150px;
     object-fit: contain;
-    filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(0 10px 16px #3a2d28);
 }
 
 .feedToggleContainer {
@@ -138,20 +140,20 @@
     cursor: pointer;
     font-weight: 600;
     font-size: 14px;
-    color: var(--ink-soft);
+    color: #3a2d28;
     transition: all 0.2s ease;
     min-width: 130px;
 }
   
 .feedTab:hover {
-    background-color: rgba(107, 145, 189, 0.1);
-    color: var(--accent);
+    background-color: #cbad8d;
+    color: #3a2d28;
 }
   
 .feedTab.active {
-    background-color: var(--accent);
+    background-color: #3a2d28;
     color: white;
-    box-shadow: 0 8px 18px rgba(87, 152, 206, 0.25);
+    box-shadow: 0 8px 18px #a48374;
     transform: translateY(-1px);
 }
 

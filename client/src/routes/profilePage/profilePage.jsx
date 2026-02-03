@@ -89,7 +89,6 @@ const Profilepage = () => {
         </div>
 
         <div className="profileInteractions">
-          <Image src="/general/share.svg" alt="Distribuie profilul" />
           <div className="profileButtons">
             {isOwnProfile ? (
               <Link to="/settings">
@@ -97,34 +96,11 @@ const Profilepage = () => {
               </Link>
             ) : (
               <>
-                <button>Message</button>
                 <FollowButton username={data.username} />
               </>
             )}
           </div>
-          <div className="profileMenuWrap" ref={menuRef}>
-            <button
-              type="button"
-              className="profileMenuTrigger"
-              onClick={() => setIsMenuOpen((prev) => !prev)}
-              aria-haspopup="menu"
-              aria-expanded={isMenuOpen}
-            >
-              <Image src="/general/more.svg" alt="Mai multe optiuni" />
-            </button>
-            {isMenuOpen && (
-              <div className="profileMenu" role="menu">
-                <button type="button" role="menuitem">
-                  Copiaza link profil
-                </button>
-                <button type="button" role="menuitem">
-                  Raporteaza
-                </button>
-              </div>
-            )}
-          </div>
         </div>
-
         <div className="gamificationContainer">
           <div className="levelWrapper">
             <div className="levelBadge">

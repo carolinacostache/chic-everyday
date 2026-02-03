@@ -233,7 +233,7 @@ const Postpage = () => {
                   rel="noreferrer"
                   onClick={handleLinkClick}
                 >
-                  🛍️ Vezi produsul
+                  Vezi produsul
                 </a>
               )}
 
