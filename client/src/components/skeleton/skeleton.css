@@ -5,11 +5,11 @@
   gap: 16px;
   padding: 20px;
   grid-auto-flow: dense;
-  background-color: #fafaf8;
+  background-color: #ebe3db;
 }
 
 .skeleton-item {
-  background: linear-gradient(90deg, #e6eef8 25%, #fafaf8 50%, #e6eef8 75%);
+  background: linear-gradient(90deg, #f1ede6 25%, #ebe3db 50%, #f1ede6 75%);
   background-size: 200% 100%;
   animation: loadingAnimation 1.5s infinite linear;
   border-radius: 16px;

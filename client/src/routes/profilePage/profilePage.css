@@ -13,23 +13,23 @@
     object-fit: cover;
     width: 80px;
     height: 80px;
-    border: 2px solid #e6eef8;
+    border: 2px solid #ebe3db;
 }
 
 .profileName {
     font-size: 24px;
     font-weight: 600;
-    color: #1f3a5f;
+    color: #3a2d28;
 }
 
 .profileUsername {
     font-weight: 500;
-    color: #66a2c5;
+    color: #a48374;
 }
 
 .followCount {
     font-weight: 600;
-    color: #1f3a5f;
+    color: #3a2d28;
 }
 
 .profileInteractions {
@@ -69,17 +69,17 @@
 
 .profileMenuTrigger:hover {
     transform: translateY(-1px);
-    border-color: rgba(27, 132, 202, 0.3);
+    border-color: rgba(58, 45, 40, 0.3);
 }
 
 .profileMenu {
     position: absolute;
     top: 46px;
     right: 0;
-    background: #fafaf8;
+    background: #3a2d28;
     border: 1px solid var(--border);
     border-radius: 16px;
-    box-shadow: 0 14px 30px rgba(71, 152, 199, 0.18);
+    box-shadow: 0 14px 30px rgba(164, 131, 116, 0.18);
     padding: 8px;
     display: flex;
     flex-direction: column;
@@ -102,7 +102,7 @@
 }
 
 .profileMenu button:hover {
-    background-color: rgba(154, 26, 58, 0.1);
+    background-color: rgba(164, 131, 116, 0.1);
 }
 
 .profileButtons button {
@@ -111,23 +111,23 @@
     border-radius: 32px;
     font-weight: 700;
     cursor: pointer;
-    background-color: #e6eef8;
-    color: #1f3a5f;
+    background-color: #ebe3db;
+    color: #3a2d28;
     transition: background-color 0.2s;
 }
 
 .profileButtons button:hover {
-    background-color: #dfe8f6;
+    background-color: #ebe3db;
 }
 
 .profileButtons button:last-child {
-    background-color: #1f3a5f;
-    color: #fafaf8;
+    background-color: #3a2d28;
+    color: #ebe3db;
 }
 
 .profileButtons button:last-child:hover {
-    background-color: #dfe8f6;
-    color: #1f3a5f;
+    background-color: #ebe3db;
+    color: #3a2d28;
 }
 
 .profileOptions {
@@ -136,7 +136,7 @@
     margin-top: 32px;
     margin-bottom: 32px;
     font-weight: 600;
-    color: #7eb0da;
+    color: #d1c7bd;
     flex-wrap: wrap;
     justify-content: center;
 }
@@ -163,25 +163,25 @@
 }
 
 .profileOptions span:hover {
-    color: #1f3a5f;
+    color: #3a2d28;
 }
 
 .active {
-    border-bottom: 3px solid #1f3a5f;
-    color: #1f3a5f;
+    border-bottom: 3px solid #3a2d28;
+    color: #3a2d28;
 }
 
 .followCount .followLink {
     cursor: pointer;
     font-weight: 600;
-    color: #1f3a5f;
+    color: #3a2d28;
     text-decoration: none;
     transition: color 0.2s;
 }
 
 .followCount .followLink:hover {
     text-decoration: underline;
-    color: #dfe8f6;
+    color: #ebe3db;
 }
 
 .gamificationContainer {
@@ -211,7 +211,7 @@
 }
 
 .levelBadge {
-    background: linear-gradient(120deg, #1f3a5f, #274b7a);
+    background: linear-gradient(120deg, #3a2d28, #a48374);
     color: white;
     padding: 6px 12px;
     border-radius: 999px;
@@ -244,15 +244,15 @@
 }
 
 .tierBadge {
-    background: linear-gradient(135deg, #b6c8e6, #e6eef8);
-    color: #1f3a5f;
+    background: linear-gradient(135deg, #ebe3db, #ebe3db);
+    color: #3a2d28;
     padding: 6px 12px;
     border-radius: 999px;
     font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.6px;
-    box-shadow: 0 8px 16px rgba(124, 211, 246, 0.35);
+    box-shadow: 0 8px 16px rgba(203, 173, 141, 0.35);
 }
 
 .progressWrapper {
@@ -276,7 +276,7 @@
 .progressBar {
     width: 100%;
     height: 10px;
-    background: #dfe8f6;
+    background: #ebe3db;
     border-radius: 999px;
     overflow: hidden;
     box-shadow: inset 0 1px 2px rgba(0,0,0,0.06);
@@ -285,7 +285,7 @@
 .progressFill {
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg, #274b7a, #6f8aa6);
+    background: linear-gradient(90deg, #a48374, #cbad8d);
     border-radius: 999px;
     transition: width 300ms ease;
 }
@@ -306,7 +306,7 @@
     align-items: center;
     justify-content: center;
     font-size: 24px;
-    box-shadow: 0 10px 18px rgba(27, 38, 47, 0.12);
+    box-shadow: 0 10px 18px rgba(58, 45, 40, 0.12);
     border: 1px solid var(--border);
     cursor: help;
     transition: transform 0.2s;
@@ -331,12 +331,12 @@
 
 .bannedMessageCard {
   background: #fff8f0;
-  border: 2px solid #670626;
+  border: 2px solid #3a2d28;
   padding: 40px;
   border-radius: 24px;
   text-align: center;
   max-width: 500px;
-  box-shadow: 0 10px 30px rgba(103, 6, 38, 0.1);
+  box-shadow: 0 10px 30px rgba(103, 51, 6, 0.1);
 }
 
 .bannedIcon {
@@ -346,7 +346,7 @@
 }
 
 .bannedMessageCard h1 {
-  color: #670626;
+  color: #3a2d28;
   margin-bottom: 10px;
 }
 
@@ -357,17 +357,17 @@
 }
 
 .banReasonBox {
-  background: #f8bbd0;
+  background: #f1ede6;
   padding: 15px;
   border-radius: 12px;
-  color: #670626;
+  color: #3a2d28;
   font-style: italic;
   margin-bottom: 25px;
 }
 
 .backHomeBtn {
   display: inline-block;
-  background: #670626;
+  background: #3a2d28;
   color: white;
   padding: 12px 24px;
   border-radius: 25px;

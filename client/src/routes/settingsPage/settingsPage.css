@@ -8,15 +8,15 @@
   font-size: 28px;
   font-weight: 700;
   margin-bottom: 30px;
-  color: #1f3a5f;
+  color: #3a2d28;
 }
 
 .settingsContainer {
   background: #ffffff;
-  border: 1px solid #e6eef8;
+  border: 1px solid #ebe3db;
   border-radius: 16px;
   padding: 32px;
-  box-shadow: 0 4px 12px rgba(6, 48, 103, 0.05);
+  box-shadow: 0 4px 12px rgba(58, 45, 40, 0.05);
 }
 
 .settingsSection {
@@ -27,7 +27,7 @@
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 16px;
-  color: #1f3a5f;
+  color: #3a2d28;
 }
 
 .settingsForm {
@@ -45,35 +45,35 @@
 .formGroup label {
   font-size: 14px;
   font-weight: 600;
-  color: #1f3a5f;
+  color: #3a2d28;
 }
 
 .formGroup input {
   padding: 12px;
-  border: 2px solid #dfe8f6;
+  border: 2px solid #d1c7bd;
   border-radius: 8px;
   font-size: 16px;
   background-color: #ffffff;
-  color: #1f3a5f;
+  color: #3a2d28;
   outline: none;
   transition: all 0.2s;
 }
 
 .formGroup input:focus {
-  border-color: #1f3a5f;
+  border-color: #3a2d28;
   background-color: #ffe8f1;
 }
 
 .disabledInput {
-  background-color: #fafaf8;
-  color: #6b7c8c;
+  background-color: #f1ede6;
+  color: #cbad8d;
   cursor: not-allowed;
-  border-color: #e6eef8;
+  border-color: #ebe3db;
 }
 
 .saveBtn {
-  background-color: #1f3a5f;
-  color: #fafaf8;
+  background-color: #3a2d28;
+  color: #f1ede6;
   border: none;
   padding: 12px 24px;
   border-radius: 24px;
@@ -85,16 +85,16 @@
 }
 
 .saveBtn:hover {
-  background-color: #e6eef8;
-  color: #1f3a5f;
+  background-color: #ebe3db;
+  color: #3a2d28;
 }
 
 .successMessage {
-  color: #1f3a5f;
+  color: #3a2d28;
   font-size: 14px;
   margin-top: 10px;
   font-weight: 600;
-  background-color: #e6eef8;
+  background-color: #ebe3db;
   padding: 8px;
   border-radius: 8px;
   width: fit-content;
@@ -102,13 +102,13 @@
 
 hr {
   border: none;
-  border-top: 1px solid #e6eef8;
+  border-top: 1px solid #ebe3db;
   margin: 32px 0;
 }
 
 .shopSection ul {
   margin: 10px 0 20px 20px;
-  color: #6b838c;
+  color: #d1c7bd;
 }
 
 .shopSection li {
@@ -116,8 +116,8 @@ hr {
 }
 
 .upgradeBtn {
-  background-color: #1f3a5f;
-  color: #fafaf8;
+  background-color: #3a2d28;
+  color: #f1ede6;
   border: none;
   padding: 12px 24px;
   border-radius: 24px;
@@ -127,14 +127,14 @@ hr {
 }
 
 .upgradeBtn:hover {
-  background-color: #e6eef8;
-  color: #1f3a5f;
+  background-color: #ebe3db;
+  color: #3a2d28;
 }
 
 
 .shopStatus.active {
     background-color: #fbf9fb; 
-    border: 2px solid #e6eef8;
+    border: 2px solid #ebe3db;
     border-radius: 16px;
     padding: 20px 24px;
     display: flex;
@@ -148,7 +148,7 @@ hr {
 .shopStatus p {
     font-size: 16px;
     font-weight: 700;
-    color: #1f3a5f;
+    color: #3a2d28;
     margin: 0;
     display: flex;
     align-items: center;
@@ -156,8 +156,8 @@ hr {
 }
 
 .shopDashboardBtn {
-    background-color: #1f3a5f;
-    color: #fafaf8;
+    background-color: #3a2d28;
+    color: #f1ede6;
     border: none;
     padding: 12px 24px;
     border-radius: 24px;
@@ -170,8 +170,8 @@ hr {
 }
 
 .shopDashboardBtn:hover {
-    background-color: #dfe8f6; 
-    color: #1f3a5f;
+    background-color: #d1c7bd; 
+    color: #3a2d28;
     transform: translateY(-2px);
 }
 
@@ -218,7 +218,7 @@ hr {
 }
 
 .shopStatus.pending p {
-  color: #6b838c;
+  color: #d1c7bd;
   font-size: 14px;
   margin: 0;
   line-height: 1.4;
@@ -226,8 +226,8 @@ hr {
 
 /* --- STIL PENTRU REJECTED (Respins) --- */
 .shopStatus.rejected {
-  background-color: #fafaf8; /* Cream */
-  border: 1px solid #9ac9ef; /* Roșu deschis */
+  background-color: #f1ede6; /* Cream */
+  border: 1px solid #ef9b9a; /* Roșu deschis */
 }
 
 .shopStatus.rejected .statusIcon {
@@ -260,7 +260,7 @@ hr {
 }
 
 .retryBtn:hover {
-  background-color: #1c71b7;
+  background-color: #cbad8d;
 }
 
 /* --- STIL PENTRU ACTIVE (Deja Magazin) --- */

@@ -13,7 +13,7 @@
   gap: 16px;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: rgba(154, 26, 58, 0.4) transparent;
+  scrollbar-color: #a48374 transparent;
 }
 
 .commentList::-webkit-scrollbar {
@@ -23,11 +23,11 @@
   background: transparent;
 }
 .commentList::-webkit-scrollbar-thumb {
-  background-color: rgba(41, 140, 197, 0.815);
+  background-color: #a48374;
   border-radius: 10px;
 }
 .commentList::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(30, 130, 197, 0.815);
+  background-color: #a48374 ;
 }
 
 .comment {
@@ -42,7 +42,7 @@
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid #f8bbd0;
+  border: 1px solid #f1ede6;
   display: block;
 }
 
@@ -57,7 +57,7 @@
 .commentUsername {
   font-weight: 600;
   font-size: 14px;
-  color: #670626;
+  color: #3a2d28;
 }
 
 .commentText {
@@ -74,14 +74,14 @@
   height: auto;
   border-radius: 12px;
   object-fit: cover;
-  border: 1px solid #f8bbd0;
+  border: 1px solid #f1ede6;
   margin-top: 8px;
   display: block;
 }
 
 .commentTime {
   font-size: 12px;
-  color: #8c6b74;
+  color: #d1c7bd;
   margin-top: 2px;
 }
 
@@ -92,14 +92,14 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  border: 1px solid #f8bbd0;
+  border: 1px solid #f1ede6;
   transition: all 0.2s ease;
 }
 
 .commentForm:focus-within {
-  border-color: rgba(13, 149, 212, 0.671);
+  border-color: #a48374;
   background-color: #fffdf8;
-  box-shadow: 0 6px 16px rgba(31, 77, 226, 0.685);
+  box-shadow: 0 6px 16px #3a2d28;
 }
 
 /* input text */
@@ -109,11 +109,11 @@
   outline: none;
   background-color: transparent;
   font-size: 14px;
-  color: #670626;
+  color: #3a2d28;
 }
 
 .commentForm input::placeholder {
-  color: rgba(31, 108, 209, 0.829);
+  color: #a48374;
 }
 
 .emoji {
@@ -129,7 +129,7 @@
 /* buton send */
 .commentForm button {
   border: none;
-  background: #f89cbc;
+  background: #cbad8d;
   color: white;
   font-weight: 700;
   padding: 8px 14px;

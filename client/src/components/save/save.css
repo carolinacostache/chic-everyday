@@ -4,7 +4,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(34, 58, 90, 0.65);
+  background-color: rgba(58, 45, 40, 0.65);
   backdrop-filter: blur(6px) saturate(110%);
   display: flex;
   align-items: center;
@@ -14,21 +14,21 @@
 }
 
 .saveModalContent {
-  background-color: #fafaf8;
+  background-color: #ebe3db;
   border-radius: 16px;
   width: 500px;
   max-height: 70vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(13, 120, 221, 0.774);
-  border: 1px solid #e2ebf6;
+  box-shadow: 0 10px 30px rgba(164, 120, 116, 0.774);
+  border: 1px solid #ebe3db;
   animation: slideUp 320ms ease both;
 }
 
 .saveModalHeader {
   padding: 16px 24px;
-  border-bottom: 1px solid #e6eef8;
+  border-bottom: 1px solid #f1ede6;
   position: relative;
   text-align: center;
 }
@@ -36,7 +36,7 @@
 .saveModalHeader h1 {
   font-size: 18px;
   font-weight: 600;
-  color: #1f3a5f;
+  color: #a48374;
 }
 
 .closeButton {
@@ -44,13 +44,13 @@
   top: 12px;
   right: 16px;
   background: transparent;
-  border: 1px solid #e6eef8;
+  border: 1px solid #f1ede6;
   border-radius: 50%;
   width: 32px;
   height: 32px;
   cursor: pointer;
   font-weight: bold;
-  color: #1f3a5f;
+  color: #a48374;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -58,7 +58,7 @@
 }
 
 .closeButton:hover {
-  background-color: #e6eef8;
+  background-color: #f1ede6;
 }
 
 .backButton {
@@ -66,13 +66,13 @@
   top: 12px;
   left: 16px;
   background: transparent;
-  border: 1px solid #e6eef8;
+  border: 1px solid #f1ede6;
   border-radius: 50%;
   width: 32px;
   height: 32px;
   cursor: pointer;
   font-weight: bold;
-  color: #1f3a5f;
+  color: #a48374;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -80,7 +80,7 @@
 }
 
 .backButton:hover {
-  background-color: #e6eef8;
+  background-color: #f1ede6;
 }
 
 .boardList {
@@ -90,7 +90,7 @@
   flex-direction: column;
   gap: 8px;
   scrollbar-width: thin;
-  scrollbar-color: #dfe8f6 #fafaf8;
+  scrollbar-color: #dfe8f6 #ebe3db;
 }
 
 .boardList::-webkit-scrollbar {
@@ -100,7 +100,7 @@
   background: transparent;
 }
 .boardList::-webkit-scrollbar-thumb {
-  background-color: #e6eef8;
+  background-color: #f1ede6;
   border-radius: 10px;
 }
 
@@ -112,11 +112,11 @@
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.2s;
-  color: #1f3a5f;
+  color: #a48374;
 }
 
 .boardItem:hover {
-  background-color: #e6eef8;
+  background-color: #f1ede6;
 }
 
 .boardItem img {
@@ -124,7 +124,7 @@
   height: 50px;
   border-radius: 8px;
   object-fit: cover;
-  border: 1px solid #e6eef8;
+  border: 1px solid #f1ede6;
 }
 
 .boardItem span {
@@ -133,8 +133,8 @@
 }
 
 .saveButtonModal {
-  background-color: #1f3a5f;
-  color: #fafaf8;
+  background-color: #a48374;
+  color: #ebe3db;
   border: none;
   border-radius: 24px;
   padding: 12px 16px;
@@ -145,12 +145,12 @@
 
 .saveButtonModal:hover {
   background-color: #dfe8f6;
-  color: #1f3a5f;
+  color: #a48374;
 }
 
 .saveButtonModal.saved {
   background-color: #dfe8f6; 
-  color: #1f3a5f;
+  color: #a48374;
   cursor: default;
 }
 
@@ -160,27 +160,27 @@
   gap: 12px;
   padding: 16px 24px;
   cursor: pointer;
-  border-top: 1px solid #e6eef8;
+  border-top: 1px solid #f1ede6;
   transition: background-color 0.2s;
-  color: #1f3a5f;
+  color: #a48374;
   font-weight: 600;
 }
 
 .createBoardToggle:hover {
-  background-color: #e6eef8;
+  background-color: #f1ede6;
 }
 
 .createBoardPlus {
   width: 50px;
   height: 50px;
   border-radius: 8px;
-  background-color: #e6eef8;
+  background-color: #f1ede6;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 24px;
   font-weight: bold;
-  color: #1f3a5f;
+  color: #a48374;
 }
 
 .createBoardForm {
@@ -196,7 +196,7 @@
 
 .createBoardForm label {
   font-size: 14px;
-  color: #1f3a5f;
+  color: #a48374;
   font-weight: 600;
 }
 
@@ -206,19 +206,19 @@
   border-radius: 8px;
   font-size: 16px;
   background-color: #ffffff;
-  color: #1f3a5f;
+  color: #a48374;
   outline: none;
   transition: all 0.2s;
 }
 
 .createBoardForm input:focus {
-  border-color: #1f3a5f;
-  background-color: #e6eef8;
+  border-color: #a48374;
+  background-color: #f1ede6;
 }
 
 .createBoardForm .createButton {
-  background-color: #1f3a5f;
-  color: #fafaf8;
+  background-color: #a48374;
+  color: #ebe3db;
   border: none;
   border-radius: 24px;
   padding: 12px 16px;
@@ -230,11 +230,11 @@
 
 .createBoardForm .createButton:hover {
   background-color: #dfe8f6;
-  color: #1f3a5f;
+  color: #a48374;
 }
 
 .createBoardForm .createButton:disabled {
-  background-color: #e6eef8;
+  background-color: #f1ede6;
   color: #ffffff;
   cursor: not-allowed;
 }

@@ -8,12 +8,12 @@
   font-weight: 700;
   font-size: 24px;
   margin-bottom: 8px;
-  color: #1f3a5f;
+  color: #a48374;
 }
 
 .weatherPage p {
   font-size: 16px;
-  color: #55b6e2;
+  color: #cbad8d;
   margin-bottom: 24px;
 }
 
@@ -22,10 +22,10 @@
   font-size: 18px;
   text-align: center;
   padding: 40px;
-  color: #4193c2;
-  background-color: #fafaf8;
+  color: #cbad8d;
+  background-color: #f1ede6;
   border-radius: 16px;
-  border: 1px solid #e6eef8;
+  border: 1px solid #ebe3db;
   margin-top: 20px;
 }
 

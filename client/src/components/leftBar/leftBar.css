@@ -35,7 +35,7 @@
 }
 
 .menuIcon:hover {
-  background-color: #cfeeff; 
+  background-color: #cbad8d; 
 }
 
 .menuIcon img {
@@ -71,9 +71,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #fafaf8;
+  border: 2px solid #f1ede6;
   z-index: 10;
-  box-shadow: 0 4px 10px rgba(26, 113, 154, 0.25);
+  box-shadow: 0 4px 10px rgba(58, 45, 40, 0.25);
 }
 
 .sidebarMenuContainer {
@@ -93,7 +93,7 @@
   height: 0;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
-  border-right: 8px solid #fafaf8;
+  border-right: 8px solid #f1ede6;
 }
 
 @media (max-width: 900px) {

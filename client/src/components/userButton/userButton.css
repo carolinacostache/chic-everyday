@@ -4,7 +4,7 @@
     gap: 16px;
     position: relative;
     z-index: 300;
-    color: #1f3a5f;
+    color: #3a2d28;
 }
 
 .userButton img {
@@ -12,7 +12,7 @@
     height: 36px;
     border-radius: 100%;
     object-fit: cover;
-    border: 2px solid #e6eef8;
+    border: 2px solid #ebe3db;
 }
 
 .userButton .arrow {
@@ -37,8 +37,8 @@
     display: flex;
     flex-direction: column;
     font-size: 14px;
-    box-shadow: 0px 4px 15px rgba(8, 99, 218, 0.74);
-    border: 1px solid #e6eef8;
+    box-shadow: 0px 4px 15px rgba(203, 173, 141, 0.74);
+    border: 1px solid #ebe3db;
     min-width: 150px;
 }
 
@@ -46,14 +46,14 @@
     cursor: pointer;
     padding: 10px 12px;
     border-radius: 8px;
-    color: #1f3a5f;
+    color: #3a2d28;
     text-decoration: none;
     transition: background-color 0.2s;
 }
 
 .userOption:hover {
-    background-color: #e6eef8;
-    color: #1f3a5f;
+    background-color: #ebe3db;
+    color: #3a2d28;
 }
 
 .loginLink {
@@ -63,7 +63,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #1f3a5f;
+    color: #3a2d28;
     font-weight: 600;
     text-decoration: none;
     transition: background-color 0.2s;
@@ -75,7 +75,7 @@
 }
 
 .loginLink:hover {
-    background-color: #e6eef8;
+    background-color: #ebe3db;
 }
 
 @media(max-width: 475px){
@@ -97,14 +97,14 @@
 }
 
 .userOption.adminLink {
-  color: #1f3a5f;
+  color: #3a2d28;
   font-weight: 800;
-  border-top: 1px solid #e6eef8;
+  border-top: 1px solid #ebe3db;
   margin-top: 4px;
 }
 
 .userOption.adminLink:hover {
-  background-color: #e6eef8;
+  background-color: #ebe3db;
 }
 
 

@@ -1,7 +1,7 @@
 .editor {
   display: flex;
   gap: 16px;
-  color: #1f3a5f; 
+  color: #3a2d28; 
 }
 
 .layers {
@@ -15,12 +15,12 @@
 .layers h3 {
   font-size: 20px;
   font-weight: 600; 
-  color: #1f3a5f;
+  color: #3a2d28;
 }
 
 .layers p {
   font-size: 14px;
-  color: #6e8bca; 
+  color: #a48374; 
   margin-top: 4px;
 }
 
@@ -33,16 +33,16 @@
   cursor: pointer;
   font-weight: 500;
   font-size: 14px;
-  color: #1f3a5f;
+  color: #3a2d28;
   transition: background-color 0.2s;
 }
 
 .layer:hover {
-  background-color: #e6eef8; 
+  background-color: #ebe3db; 
 }
 
 .layer.selected {
-  background-color: #e6eef8; 
+  background-color: #ebe3db; 
   font-weight: 700;
 }
 
@@ -51,7 +51,7 @@
   height: 48px;
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid #e6eef8;
+  border: 1px solid #ebe3db;
 }
 
 .workspace {
@@ -59,7 +59,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #e6eef8; 
+  background-color: #ebe3db; 
   padding: 64px 0px;
   border-radius: 16px; 
 }
@@ -73,14 +73,14 @@
   justify-content: center;
   position: relative;
   background-color: #ffffff; 
-  box-shadow: 0 10px 30px rgba(103, 6, 38, 0.15);
+  box-shadow: 0 10px 30px #3a2d28;
 }
 
 .text {
   position: absolute;
   z-index: 999;
   max-width: 100%;
-  border: 1px dashed #1f3a5f; 
+  border: 1px dashed #3a2d28; 
   padding: 5px;
 }
 
@@ -98,7 +98,7 @@
   position: absolute;
   top: -12px;
   right: -12px;
-  background-color: #fafaf8; 
+  background-color: #f1ede6; 
   width: 28px;
   height: 28px;
   display: flex;
@@ -107,15 +107,15 @@
   padding: 6px;
   border-radius: 50%;
   cursor: pointer;
-  border: 1px solid #1f3a5f;
-  color: #1f3a5f;
+  border: 1px solid #3a2d28;
+  color: #3a2d28;
   font-weight: bold;
-  box-shadow: 0 2px 5px rgba(91, 163, 221, 0.1);
+  box-shadow: 0 2px 5px #3a2d28;
 }
 
 .deleteTextButton:hover {
-  background-color: #1f3a5f;
-  color: #fafaf8;
+  background-color: #3a2d28;
+  color: #f1ede6;
 }
 
 .canvas img {
@@ -136,21 +136,21 @@
 
 .editingOption span {
   font-weight: 600;
-  color: #1f3a5f;
+  color: #3a2d28;
 }
 
 .editingOption input {
-  border: 1px solid #dfe8f6; 
+  border: 1px solid #d1c7bd; 
   border-radius: 8px;
   padding: 16px;
   background-color: #ffffff;
-  color: #1f3a5f;
+  color: #3a2d28;
   outline: none;
 }
 
 .editingOption input:focus {
-  border-color: #1f3a5f;
-  background-color: #e6eef8; 
+  border-color: #3a2d28;
+  background-color: #ebe3db; 
 }
 
 .textColor,
@@ -163,8 +163,8 @@
   height: 36px;
   border-radius: 50%;
   cursor: pointer;
-  border: 2px solid #fafaf8;
-  box-shadow: 0 0 0 2px #e6eef8; 
+  border: 2px solid #f1ede6;
+  box-shadow: 0 0 0 2px #ebe3db; 
 }
 
 .colorPicker {
@@ -178,7 +178,7 @@
 .sizes {
   padding: 4px;
   border-radius: 12px;
-  background-color: #e6eef8;
+  background-color: #ebe3db;
   display: flex;
   font-size: 14px;
   font-weight: 500;
@@ -194,20 +194,20 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: #1f3a5f;
+  color: #3a2d28;
   transition: all 0.2s;
 }
 
 .orientation:hover,
 .size:hover {
-  background-color: rgba(81, 215, 248, 0.4);
+  background-color: #a48374;
 }
 
 .orientation.selected,
 .size.selected {
-  background-color: #fafaf8;
-  color: #1f3a5f;
+  background-color: #f1ede6;
+  color: #3a2d28;
   font-weight: 700;
-  box-shadow: 0 2px 4px rgba(103, 6, 38, 0.1);
+  box-shadow: 0 2px 4px #3a2d28;
 }
 

@@ -20,7 +20,7 @@
 .search {
     flex: 1;
     background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(104, 142, 185, 0.18);
+    border: 1px solid rgba(164, 131, 116, 0.18);
     border-radius: 999px;
     padding: 12px 18px;
     display: flex;
@@ -32,8 +32,8 @@
 
 .search:focus-within {
     background: #fffefc;
-    border-color: rgba(87, 123, 223, 0.6);
-    box-shadow: 0 0 0 4px #93C5FD;
+    border-color: rgba(58, 45, 40, 0.6);
+    box-shadow: 0 0 0 4px #ebe3db;
 }
 
 .search input {
@@ -46,7 +46,7 @@
 }
 
 .search input::placeholder {
-    color: rgba(132, 176, 218, 0.6);
+    color: rgba(203, 173, 141, 0.6);
 }
 
 .topBarRight {
@@ -95,8 +95,8 @@
 }
 
 .notificationIcon:hover {
-    background-color: #DBEAFE;
-    border-color: #DBEAFE;
+    background-color: #d1c7bd;
+    border-color: #d1c7bd;
     transform: translateY(-1px);
 }
 
@@ -120,7 +120,7 @@
     align-items: center;
     justify-content: center;
     border: 2px solid #ffffff;
-    box-shadow: 0 4px 10px #1D4ED8;
+    box-shadow: 0 4px 10px #d1c7bd;
 }
 
 .topBarMenuContainer {
