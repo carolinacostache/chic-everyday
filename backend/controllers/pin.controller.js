@@ -587,38 +587,44 @@ export const clickPinLink = async (req, res) => {
 };
 
 /* ====================== SHOP STATS ====================== */
+/* ====================== SHOP STATS ====================== */
 export const getShopStats = async (req, res) => {
   try {
     const userId = req.userId;
 
+    // 1. Luăm pin-urile
     const pins = await Pin.find({ user: userId }).sort({ createdAt: -1 });
 
+    // 2. Calculăm comentariile pentru fiecare pin și transformăm în obiect simplu
     const pinsWithStats = await Promise.all(
       pins.map(async (pin) => {
         const commentCount = await Comment.countDocuments({ pin: pin._id });
         return {
-          ...pin,
+          ...pin.toObject(), // <--- IMPORTANT: Transformăm în obiect JS curat
           commentCount: commentCount || 0,
         };
       })
     );
 
+    // 3. Calculăm totalurile folosind 'pinsWithStats' (care are datele corecte)
     let totalViews = 0;
     let totalClicks = 0;
     let totalLikes = 0;
     let totalComments = 0;
 
-    pins.forEach((pin) => {
+    pinsWithStats.forEach((pin) => {
       totalViews += pin.views || 0;
-      totalClicks += pin.linkClicks || 0;
+      totalClicks += pin.linkClicks || pin.clicks || 0; // Fallback pentru clicks
       totalLikes += pin.likes ? pin.likes.length : 0;
-      totalComments += pin.commentCout || 0;
+      totalComments += pin.commentCount || 0; // <--- Acum avem commentCount corect
     });
 
+    // 4. Monetizare
     const costPerView = 0.01;
     const costPerClick = 0.5;
     const totalCost = totalViews * costPerView + totalClicks * costPerClick;
 
+    // 5. Trimitem răspunsul
     res.status(200).json({
       totalPins: pins.length,
       totalViews,
@@ -630,14 +636,13 @@ export const getShopStats = async (req, res) => {
         costPerClick,
         totalCost: totalCost.toFixed(2),
       },
-      pins: pinsWithStats, // aici era bug, trimiteam "pins" fara stats
+      pins: pinsWithStats, // Trimitem lista care conține și commentCount
     });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Error fetching stats" });
   }
 };
-
 /* ====================== participateContest (upload) - ImageKit ====================== */
 export const participateContest = async (req, res) => {
   try {
