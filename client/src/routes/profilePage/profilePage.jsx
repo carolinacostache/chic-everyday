@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import { getNextLevelInfo, normalizeGamification } from "../../utils/gamificationRules";
 
 const Profilepage = () => {
-  const [type, setType] = useState("saved");
+  const [type, setType] = useState("created");
   const [modalType, setModalType] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
@@ -37,9 +37,9 @@ const Profilepage = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  if (isPending) return "Loading...";
-  if (error) return "An error has occurred: " + error.message;
-  if (!data) return "User not found!";
+  if (isPending) return <div className="loadingMsg">Se încarcă profilul...</div>;
+  if (error) return <div className="errorMsg">A apărut o eroare: {error.message}</div>;
+  if (!data) return <div className="errorMsg">Utilizatorul nu a fost găsit!</div>;
 
   if (data.role === "BANNED") {
     return (
@@ -60,17 +60,18 @@ const Profilepage = () => {
   }
 
   const isOwnProfile = currentUser?._id === data._id;
-
   const gamification = normalizeGamification(data.gamification);
   const next = getNextLevelInfo(gamification.points);
 
   return (
     <>
       <div className="profilePage pageFadeIn">
+        {/* --- Header Profil --- */}
+        <div className="profileHeaderSection">
         <Image
           className="profileImg"
-          w={100}
-          h={100}
+          w={150}
+          h={150}
           src={data.img || "/general/noAvatar.jpg"}
           alt={data.displayName}
         />
@@ -88,19 +89,42 @@ const Profilepage = () => {
           </span>
         </div>
 
+        {/* --- Butoane & Meniu --- */}
         <div className="profileInteractions">
           <div className="profileButtons">
             {isOwnProfile ? (
               <Link to="/settings">
-                <button className="editProfileButton">Edit Profile</button>
+                <button>Edit Profile</button>
               </Link>
             ) : (
-              <>
-                <FollowButton username={data.username} />
-              </>
+              <FollowButton username={data.username} />
+            )}
+          </div>
+
+          <div className="profileMenuWrap" ref={menuRef}>
+            <button
+              className="profileMenuTrigger"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <img src="/general/more.svg" alt="more" style={{width: 20, height: 20}} />
+            </button>
+
+            {isMenuOpen && (
+              <div className="profileMenu">
+                <button onClick={() => {
+                  navigator.clipboard.writeText(window.location.href);
+                  setIsMenuOpen(false);
+                  alert("Link copiat!");
+                }}>
+                  Copy Profile Link
+                </button>
+                {!isOwnProfile && <button style={{color: "#d9534f"}}>Report User</button>}
+              </div>
             )}
           </div>
         </div>
+
+        {/* --- Gamification Card --- */}
         <div className="gamificationContainer">
           <div className="levelWrapper">
             <div className="levelBadge">
@@ -123,15 +147,15 @@ const Profilepage = () => {
 
           <div className="progressWrapper">
             <div className="progressTop">
-              <span>Progres catre LVL {next.level + 1}</span>
-              <span>{next.remaining} puncte ramase</span>
+              <span>Next: LVL {next.level + 1}</span>
+              <span>{next.remaining} pts to go</span>
             </div>
 
             <div className="progressBar">
               <div className="progressFill" style={{ width: `${next.progress}%` }} />
             </div>
             <Link to="/badges-info" className="gamificationInfoLink">
-              💡 Ce înseamnă fashion points și cum câștig insigne?
+              💡 Ce înseamnă fashion points?
             </Link>
           </div>
 
@@ -143,11 +167,12 @@ const Profilepage = () => {
                 </div>
               ))
             ) : (
-              <span className="noBadgesText">Inca nu ai insigne. Fii activ!</span>
+              <span className="noBadgesText">Fii activ pentru a câștiga insigne!</span>
             )}
           </div>
         </div>
 
+        {/* --- Tabs --- */}
         <div className="profileOptions">
           <span
             onClick={() => setType("created")}
@@ -172,15 +197,17 @@ const Profilepage = () => {
             </span>
           )}
         </div>
-        <div className="profileGalleryWrapper">
+        </div>
 
-        {type === "created" ? (
-          <Gallery userId={data._id} />
-        ) : type === "saved" ? (
-          <Collections userId={data._id} />
-        ) : (
-          <Gallery userId={data._id} type="contest" />
-        )}
+        {/* --- FIXUL ESTE AICI: Container Wrapper --- */}
+        <div className="profileGalleryWrapper">
+          {type === "created" ? (
+            <Gallery userId={data._id} />
+          ) : type === "saved" ? (
+            <Collections userId={data._id} />
+          ) : (
+            <Gallery userId={data._id} type="contest" />
+          )}
         </div>
       </div>
 

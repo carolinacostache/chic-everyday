@@ -202,7 +202,23 @@ const SettingsPage = () => {
         {/* CAZ 4: Nu ești magazin și nici nu aștepți (Poți aplica) */}
         {currentUser.role === "USER" && 
         (!currentUser.shopDetails || currentUser.shopDetails.status === "NONE") && (
-          <div className="shopSection">
+          // AICI AM SCHIMBAT CLASA
+          <div className="promoteShopCard"> 
+            <p>Transformă-ți contul în Magazin Verificat și accesează funcții premium.</p>
+            <ul>
+              <li>Statistici avansate</li>
+              <li>Etichetare produse</li>
+              <li>Insignă pe profil</li>
+            </ul>
+            <button className="upgradeBtn" onClick={() => setOpenShopModal(true)}>
+              Devino Magazin Verificat
+            </button>
+          </div>
+        )}
+
+        {(currentUser.role === "ADMIN" && currentUser.isAdmin) && 
+        (!currentUser.shopDetails || currentUser.shopDetails.status === "NONE") && (
+          <div className="promoteShopCard">
             <p>Transformă-ți contul în Magazin Verificat și accesează funcții premium.</p>
             <ul>
               <li>Statistici avansate</li>

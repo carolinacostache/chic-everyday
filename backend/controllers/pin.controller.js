@@ -355,8 +355,10 @@ export const createPin = async (req, res) => {
         const fontSize = Math.round(parsedText.fontSize * scaleFactor);
 
         const color = parsedText.color.replace("#", "");
+        let safeText = encodeURIComponent(parsedText.text);
+        safeText = safeText.replace(/'/g, "%27");
 
-        transformationString = `l-text,i-${parsedText.text},fs-${fontSize},lx-${textLeft},ly-${textTop},co-${color},l-end`;
+        transformationString = `l-text,i-${safeText},fs-${fontSize},lx-${textLeft},ly-${textTop},co-${color},l-end`;
       }
     }
 

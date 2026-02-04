@@ -2,16 +2,24 @@
 .profilePage {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* FIX: Folosim stretch pentru a permite galeriei să fie lată */
+    align-items: stretch; 
     gap: 12px;
     position: relative;
     z-index: 1;
-    /* Eliminăm padding-ul lateral pentru a permite galeriei să fie full-width */
     padding: 20px 0 60px 0; 
     width: 100%;
     min-height: 100vh;
-    /* Fundalul vine din body, lăsăm transparent aici */
     background: transparent;
+}
+
+/* --- SECȚIUNEA DE SUS (HEADER) --- */
+/* Această clasă nouă se ocupă de centrarea avatarului și a textului */
+.profileHeaderSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrează elementele interne */
+    width: 100%;
 }
 
 /* --- HEADER PROFIL --- */
@@ -20,7 +28,6 @@
     object-fit: cover;
     width: 120px;
     height: 120px;
-    /* Border alb pentru a se distinge de fundal */
     border: 4px solid #ffffff;
     box-shadow: 0 4px 15px rgba(58, 45, 40, 0.1);
 }
@@ -57,7 +64,7 @@
     text-decoration: underline;
 }
 
-/* --- INTERACȚIUNI ȘI BUTOANE --- */
+/* --- INTERACȚIUNI --- */
 .profileInteractions {
     display: flex;
     align-items: center;
@@ -78,7 +85,6 @@
     border-radius: 32px;
     font-weight: 700;
     cursor: pointer;
-    /* Buton secundar: Bej deschis */
     background-color: #ebe3db;
     color: #3a2d28;
     transition: all 0.2s ease;
@@ -89,7 +95,6 @@
     transform: translateY(-1px);
 }
 
-/* Butonul principal (ultimul din listă, de obicei Follow sau Edit) */
 .profileButtons button:last-child {
     background-color: #3a2d28;
     color: #ffffff;
@@ -99,7 +104,7 @@
     background-color: #5d4840;
 }
 
-/* --- MENIU (OPȚIUNI ...) --- */
+/* --- MENIU --- */
 .profileMenuWrap {
     position: relative;
     z-index: 100;
@@ -127,7 +132,7 @@
 .profileMenu {
     position: absolute;
     top: 50px;
-    right: -10px; /* Ajustat să nu iasă din ecran pe mobil */
+    right: -10px;
     background: #3a2d28;
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(58, 45, 40, 0.2);
@@ -142,7 +147,7 @@
     background: none;
     border: none;
     padding: 12px 16px;
-    color: #f1ede6; /* Text deschis pe fundal închis */
+    color: #f1ede6;
     font-weight: 600;
     text-align: left;
     cursor: pointer;
@@ -154,10 +159,10 @@
     background-color: rgba(255, 255, 255, 0.15);
 }
 
-/* --- GAMIFICATION (Lățime Mare) --- */
+/* --- GAMIFICATION --- */
 .gamificationContainer {
     width: 90%;
-    max-width: 1000px; /* Lățime generoasă */
+    max-width: 1000px;
     margin: 24px 0;
     padding: 24px;
     background: #ffffff;
@@ -291,7 +296,7 @@
     font-size: 14px;
 }
 
-/* --- TABS (Created / Saved) --- */
+/* --- TABS --- */
 .profileOptions {
     display: flex;
     justify-content: center;
@@ -322,29 +327,30 @@
     border-bottom: 3px solid #3a2d28;
 }
 
-/* --- FIX PENTRU GALERIE (Masonry Full Width) --- */
+/* =========================================================
+   FIX FINAL PENTRU GALERIE
+   ========================================================= */
 
-/* 1. Wrapper-ul din JSX care ocupă tot spațiul */
+/* 1. Wrapper-ul de Galerie */
 .profileGalleryWrapper {
     width: 100%;
-    display: flex;
-    justify-content: center;
+    display: block; 
     flex-grow: 1;
 }
 
-/* 2. Grid-ul Masonry forțat să se întindă */
+/* 2. Grid-ul Masonry FORȚAT să ocupe lățimea completă */
 .profilePage .my-masonry-grid {
     display: flex !important;
-    width: 100% !important;
-    max-width: 2000px !important; /* Limită foarte largă */
-    margin: 0 auto !important;
-    padding: 0 20px; /* Spațiu lateral */
+    width: 100% !important; 
+    max-width: 100% !important; /* Eliminăm limitele */
+    margin: 0 !important;
+    padding: 0 20px;
     box-sizing: border-box;
 }
 
 /* 3. Coloanele grid-ului */
 .profilePage .my-masonry-grid_column {
-    padding-left: 24px !important; /* Spațiu între poze */
+    padding-left: 24px !important;
     background-clip: padding-box;
 }
 
@@ -354,20 +360,32 @@
     margin-bottom: 24px;
     background: #ffffff;
     border-radius: 16px;
-    /* Opțional: border fin pentru contrast pe fundal alb */
-    border: 1px solid #f1ede6; 
+    border: 1px solid #f1ede6;
+    display: flex;
+    flex-direction: column;
 }
 
 /* 5. Imaginile */
 .profilePage .galleryImageContainer {
     width: 100%;
+    position: relative;
+    min-height: 250px; 
+    height: auto;
+    
+    border-radius: 16px;
+    overflow: hidden;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .profilePage .galleryImageContainer img {
     width: 100%;
     height: auto;
+    min-height: 250px; 
     display: block;
-    border-radius: 16px;
+    object-fit: cover;
 }
 
 /* --- STARE DE BAN (BANNED) --- */
@@ -386,6 +404,9 @@
     text-align: center;
     max-width: 500px;
     box-shadow: 0 10px 30px rgba(58, 45, 40, 0.1);
+    /* Banned card se auto-centrează */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .bannedIcon {
@@ -430,18 +451,20 @@
     transform: scale(1.05);
 }
 
-/* --- RESPONSIVE --- */
+/* Responsive */
 @media (max-width: 768px) {
     .profileOptions {
         gap: 20px;
         font-size: 16px;
     }
-
     .profilePage .my-masonry-grid {
         padding: 0 10px;
     }
-    
     .profilePage .my-masonry-grid_column {
         padding-left: 10px !important;
+    }
+    .profilePage .galleryImageContainer,
+    .profilePage .galleryImageContainer img {
+        min-height: 150px;
     }
 }

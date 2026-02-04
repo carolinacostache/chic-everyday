@@ -36,7 +36,7 @@ const Authpage = () => {
         {isRegister ? (
           <form key="register" onSubmit={handleSubmit}>
             <div className="authLogo">
-              <NImage src="/general/chiceveryday.png" alt="Logo-ul aplicației" />
+              <NImage src="/general/logo1.png" alt="Logo-ul aplicației" />
             </div>
             <div className="formGroup">
               <label htmlFor="username">Username</label>

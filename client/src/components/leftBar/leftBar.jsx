@@ -34,13 +34,13 @@ const LeftBar = () => {
     <div className="leftBar">
       <div className="menuIcons">
         <Link to="/" className="menuIcon">
-        <NImage src="/general/chiceveryday.png" alt="" className="logo"/>
+        <NImage src="/general/logo1.png" alt="" className="logo"/>
         </Link>
         <Link to="/" className="menuIcon">
         <NImage src="/general/home.svg" alt="a" />
         </Link>
         <Link to="/weather" className="menuIcon"> 
-        <NImage src="/general/sun-behind-rain-cloud.svg"  alt="Ținute Vreme" />
+        <NImage src="/general/weather.svg"  alt="Ținute Vreme" />
         </Link>
         <Link to="/contests" className="menuIcon">
         <NImage src="/general/contest.svg" alt="a" />
