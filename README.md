@@ -135,8 +135,8 @@ Follow these steps to set up the project locally.
 
 **Developers:**
 * **Costache Carolina-Andreea**
-* **Ştefan Octavia-Elena** !(https://github.com/octaviastefan)
-* **Brînzea Mălina Alexandra** !(https://github.com/malinaalx)
+* **Ştefan Octavia-Elena** (https://github.com/octaviastefan)
+* **Brînzea Mălina Alexandra** (https://github.com/malinaalx)
 
 **Scrum Masters:**
 * Radulescu Alexia-Bianca
