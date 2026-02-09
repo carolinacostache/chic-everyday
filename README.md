@@ -1,8 +1,6 @@
 # ChicEveryday 👗🌦️
 
-> **Style meets Utility.** A social platform for fashion enthusiasts that combines outfit inspiration with real-time weather recommendations and gamified engagement.
-
-![Project Status](https://img.shields.io/badge/status-active-success.svg)
+**Style meets Utility.** A social platform for fashion enthusiasts that combines outfit inspiration with real-time weather recommendations and gamified engagement.
 
 ## 🎓 Academic Context
 
@@ -113,7 +111,7 @@ Follow these steps to set up the project locally.
 
 3.  **Install Dependencies (Frontend)**
     ```bash
-    cd ../client
+    cd client
     npm install
     ```
 
@@ -137,8 +135,8 @@ Follow these steps to set up the project locally.
 
 **Developers:**
 * **Costache Carolina-Andreea**
-* **Ştefan Octavia-Elena** ![Github](https://github.com/octaviastefan)
-* **Brînzea Mălina Alexandra** ![Github](https://github.com/malinaalx)
+* **Ştefan Octavia-Elena** !(https://github.com/octaviastefan)
+* **Brînzea Mălina Alexandra** !(https://github.com/malinaalx)
 
 **Scrum Masters:**
 * Radulescu Alexia-Bianca
